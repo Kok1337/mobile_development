@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MobileDev" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
+    <style name="Theme.MobileDev" parent="Theme.AppCompat.NoActionBar">
+       <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -12,5 +12,18 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorControlNormal">@color/simple_icon_tint</item>
     </style>
+
+    <style name="ToolbarIcon">
+        <item name="android:layout_height">@dimen/toolbar_icon_size</item>
+        <item name="android:layout_width">@dimen/toolbar_icon_size</item>
+        <item name="android:background">@drawable/vbg_toolbar_item</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:tint">@color/toolbar_icon_tint</item>
+        <item name="android:checkable">true</item>
+    </style>
+
 </resources>

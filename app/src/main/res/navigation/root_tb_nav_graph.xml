@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar_nav_graph"
+    app:startDestination="@id/tb_rootFragment">
+    <fragment
+        android:id="@+id/tb_rootFragment"
+        android:name="com.kok1337.mobiledev.toolbar.fragments.RootFragment"
+        android:label="fragment_tb_root"
+        tools:layout="@layout/fragment_tb_root" />
+    <fragment
+        android:id="@+id/tb_workTypesFragment"
+        android:name="com.kok1337.mobiledev.toolbar.fragments.WorkTypesFragment"
+        android:label="fragment_tb_worktypes"
+        tools:layout="@layout/fragment_tb_worktypes" />
+    <fragment
+        android:id="@+id/tb_cameraFragment"
+        android:name="com.kok1337.mobiledev.toolbar.fragments.CameraFragment"
+        android:label="fragment_tb_camera"
+        tools:layout="@layout/fragment_tb_camera" />
+    <fragment
+        android:id="@+id/tb_mapFragment"
+        android:name="com.kok1337.mobiledev.toolbar.fragments.MapFragment"
+        android:label="fragment_tb_map"
+        tools:layout="@layout/fragment_tb_map" />
+    <fragment
+        android:id="@+id/tb_synchronizationFragment"
+        android:name="com.kok1337.mobiledev.toolbar.fragments.SynchronizationFragment"
+        android:label="fragment_tb_synchronization"
+        tools:layout="@layout/fragment_tb_synchronization" />
+    <fragment
+        android:id="@+id/tb_settingsFragment"
+        android:name="com.kok1337.mobiledev.toolbar.fragments.SettingsFragment"
+        android:label="fragment_tb_settings"
+        tools:layout="@layout/fragment_tb_settings" />
+    <!--
+    <action android:id="@+id/action_global_tb_workTypesFragment" app:destination="@id/tb_workTypesFragment" />
+    <action android:id="@+id/action_global_tb_cameraFragment" app:destination="@id/tb_cameraFragment"/>
+    <action android:id="@+id/action_global_tb_settingsFragment" app:destination="@id/tb_settingsFragment"/>
+    <action android:id="@+id/action_global_tb_mapFragment" app:destination="@id/tb_mapFragment"/>
+    <action android:id="@+id/action_global_tb_synchronizationFragment" app:destination="@id/tb_synchronizationFragment"/>
+    -->
+</navigation>

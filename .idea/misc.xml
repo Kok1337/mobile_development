@@ -3,7 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/activity_main.xml" value="0.2921195652173913" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.193" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/null_item.xml" value="0.313" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/toolbar_icon_background.xml" value="0.313" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_button.xml" value="0.1045" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_circle_imageview.xml" value="0.2265" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_edittext.xml" value="0.2265" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_filepicker_button.xml" value="0.2265" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_imageview.xml" value="0.2265" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_invisible.xml" value="0.313" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_picker.xml" value="0.2265" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_reverse_textview.xml" value="0.2265" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_searchview.xml" value="0.2265" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_spinner.xml" value="0.14" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_textview.xml" value="0.193" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_toolbar_item.xml" value="0.2605" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable/ic_launcher_background.xml" value="0.313" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable/ic_spinner_arrow.xml" value="0.2265" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/activity_main.xml" value="0.5674342105263158" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_camera.xml" value="0.18489583333333334" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_map.xml" value="0.18489583333333334" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_root.xml" value="0.18489583333333334" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_settings.xml" value="0.18489583333333334" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_synchronization.xml" value="0.18489583333333334" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_worktypes.xml" value="0.18489583333333334" />
       </map>
     </option>
   </component>
