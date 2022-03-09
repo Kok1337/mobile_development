@@ -24,7 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.kok1337.mobiledev.toolbar.vievs.ToolbarIcon
+            <com.kok1337.mobiledev.presentation.toolbar.vievs.ToolbarIcon
                 android:id="@+id/toolbar_map"
                 style="@style/ToolbarIcon"
                 android:src="@drawable/ic_map"
@@ -34,7 +34,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.kok1337.mobiledev.toolbar.vievs.ToolbarIcon
+            <com.kok1337.mobiledev.presentation.toolbar.vievs.ToolbarIcon
                 android:id="@+id/toolbar_camera"
                 style="@style/ToolbarIcon"
                 android:src="@drawable/ic_camera"
@@ -44,7 +44,7 @@
                 app:layout_constraintStart_toEndOf="@+id/toolbar_map"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.kok1337.mobiledev.toolbar.vievs.ToolbarIcon
+            <com.kok1337.mobiledev.presentation.toolbar.vievs.ToolbarIcon
                 android:id="@+id/toolbar_work_types"
                 style="@style/ToolbarIcon"
                 android:src="@drawable/ic_work_types"
@@ -54,7 +54,7 @@
                 app:layout_constraintStart_toEndOf="@+id/toolbar_camera"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.kok1337.mobiledev.toolbar.vievs.ToolbarIcon
+            <com.kok1337.mobiledev.presentation.toolbar.vievs.ToolbarIcon
                 android:id="@+id/toolbar_edit"
                 style="@style/ToolbarIcon"
                 android:src="@drawable/ic_edit"
@@ -64,7 +64,7 @@
                 app:layout_constraintStart_toEndOf="@+id/toolbar_work_types"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.kok1337.mobiledev.toolbar.vievs.ToolbarIcon
+            <com.kok1337.mobiledev.presentation.toolbar.vievs.ToolbarIcon
                 android:id="@+id/toolbar_save"
                 style="@style/ToolbarIcon"
                 android:src="@drawable/ic_save"
@@ -74,7 +74,7 @@
                 app:layout_constraintStart_toEndOf="@+id/toolbar_edit"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.kok1337.mobiledev.toolbar.vievs.ToolbarIcon
+            <com.kok1337.mobiledev.presentation.toolbar.vievs.ToolbarIcon
                 android:id="@+id/toolbar_synchronization"
                 style="@style/ToolbarIcon"
                 android:src="@drawable/ic_sync"
@@ -84,7 +84,7 @@
                 app:layout_constraintStart_toEndOf="@+id/toolbar_save"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.kok1337.mobiledev.toolbar.vievs.ToolbarIcon
+            <com.kok1337.mobiledev.presentation.toolbar.vievs.ToolbarIcon
                 android:id="@+id/toolbar_settings"
                 style="@style/ToolbarIcon"
                 android:src="@drawable/ic_settings"

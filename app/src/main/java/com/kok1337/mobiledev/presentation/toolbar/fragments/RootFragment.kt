@@ -1,4 +1,4 @@
-package com.kok1337.mobiledev.toolbar.fragments
+package com.kok1337.mobiledev.presentation.toolbar.fragments
 
 import androidx.fragment.app.Fragment
 import com.kok1337.mobiledev.R
