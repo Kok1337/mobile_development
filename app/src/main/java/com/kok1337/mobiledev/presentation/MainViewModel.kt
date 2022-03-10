@@ -1,9 +1,6 @@
 package com.kok1337.mobiledev.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.navigation.NavDirections
 import com.kok1337.mobiledev.ToolbarNavGraphDirections
 import com.kok1337.mobiledev.domain.model.FederalDistrict
@@ -14,8 +11,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel(
-    private val loadAllFederalDistricts: LoadAllFederalDistricts
+    val loadAllFederalDistricts: LoadAllFederalDistricts
 ) : ViewModel() {
+
     private val _currentTbDirectionLD: MutableLiveData<NavDirections> = MutableLiveData()
     val currentTbDirectionLD: LiveData<NavDirections> = _currentTbDirectionLD
 
@@ -33,6 +31,16 @@ class MainViewModel(
                 _federalDistrictLD.postValue(loadAllFederalDistricts.invoke())
                 // return@withContext
             }
+        }
+    }
+
+    class Factory(
+        val loadAllFederalDistricts: LoadAllFederalDistricts,
+    ) : ViewModelProvider.Factory {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            // require(modelClass == MainViewModel::class)
+            return MainViewModel(loadAllFederalDistricts) as T
         }
     }
 }

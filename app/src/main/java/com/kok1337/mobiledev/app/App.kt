@@ -1,23 +1,20 @@
 package com.kok1337.mobiledev.app
 
 import android.app.Application
-import com.kok1337.mobiledev.di.appModule
-import com.kok1337.mobiledev.di.dataModule
-import com.kok1337.mobiledev.di.domainModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
-import java.util.*
+import com.kok1337.mobiledev.di.AppComponent
+import com.kok1337.mobiledev.di.AppModule
+import com.kok1337.mobiledev.di.DaggerAppComponent
 
 class App : Application() {
+
+    lateinit var appComponent: AppComponent
+
     override fun onCreate() {
         super.onCreate()
-        startKoin {
-            androidContext(this@App)
-            modules(listOf(
-                appModule,
-                domainModule,
-                dataModule
-            ))
-        }
+
+        appComponent = DaggerAppComponent
+            .builder()
+            .appModule(AppModule(this))
+            .build()
     }
 }

@@ -1,25 +1,46 @@
 package com.kok1337.mobiledev.di
 
+import android.content.Context
+import com.j256.ormlite.support.ConnectionSource
 import com.kok1337.mobiledev.data.database.PostgresqlConnectionSource
 import com.kok1337.mobiledev.data.database.dao.FederalDistrictDao
 import com.kok1337.mobiledev.data.database.storages.FederalDistrictStorageDbImpl
 import com.kok1337.mobiledev.data.repository.FederalDistrictRepoImpl
 import com.kok1337.mobiledev.data.repository.FederalDistrictStorage
 import com.kok1337.mobiledev.domain.repository.FederalDistrictRepo
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
 
-val dataModule = module {
-    single<PostgresqlConnectionSource> {
-        PostgresqlConnectionSource(context = get())
+@Module
+class DataModule {
+
+    @Provides
+    fun provideConnectionSource(context: Context): ConnectionSource {
+        return PostgresqlConnectionSource(
+            context = context
+        )
     }
 
-    single<FederalDistrictDao> {
-        FederalDistrictDao(connectionSource = get())
+
+    @Provides
+    fun provideFederalDistrictDao(connectionSource: ConnectionSource): FederalDistrictDao {
+        return FederalDistrictDao(
+            connectionSource = connectionSource
+        )
     }
-    single<FederalDistrictStorage> {
-        FederalDistrictStorageDbImpl(federalDistrictDao = get())
+
+    @Provides
+    fun provideFederalDistrictStorage(federalDistrictDao: FederalDistrictDao): FederalDistrictStorage {
+        return FederalDistrictStorageDbImpl(
+            federalDistrictDao = federalDistrictDao
+        )
     }
-    single<FederalDistrictRepo> {
-        FederalDistrictRepoImpl(federalDistrictStorage = get())
+
+    @Provides
+    fun provideFederalDistrictRepo(federalDistrictStorage: FederalDistrictStorage): FederalDistrictRepo {
+        return FederalDistrictRepoImpl(
+            federalDistrictStorage = federalDistrictStorage
+        )
     }
+
 }

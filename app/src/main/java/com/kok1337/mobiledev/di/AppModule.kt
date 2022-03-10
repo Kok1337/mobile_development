@@ -1,11 +1,24 @@
 package com.kok1337.mobiledev.di
 
+import android.content.Context
+import com.kok1337.mobiledev.domain.usecase.LoadAllFederalDistricts
 import com.kok1337.mobiledev.presentation.MainViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
 
-val appModule = module {
-    viewModel<MainViewModel> {
-        MainViewModel(loadAllFederalDistricts = get())
+@Module
+class AppModule(val context: Context) {
+
+    @Provides
+    fun provideContext(): Context {
+        return context
     }
+
+    @Provides
+    fun provideMainViewModelFactory(loadAllFederalDistricts: LoadAllFederalDistricts): MainViewModel.Factory {
+        return MainViewModel.Factory(
+            loadAllFederalDistricts = loadAllFederalDistricts
+        )
+    }
+
 }
