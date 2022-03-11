@@ -1,4 +1,4 @@
-package com.kok1337.mobiledev.data.database.exception
+package com.kok1337.mobiledev.data.database.entitymapper.exception
 
 import java.lang.reflect.Field
 

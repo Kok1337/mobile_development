@@ -1,4 +1,4 @@
-package com.kok1337.mobiledev.data.database.annotation
+package com.kok1337.mobiledev.data.database.entitymapper.annotation
 
 import java.lang.annotation.Inherited
 

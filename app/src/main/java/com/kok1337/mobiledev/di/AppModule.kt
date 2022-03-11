@@ -1,7 +1,7 @@
 package com.kok1337.mobiledev.di
 
 import android.content.Context
-import com.kok1337.mobiledev.domain.usecase.LoadAllFederalDistricts
+import com.kok1337.mobiledev.domain.usecase.LoadAllFederalDistrictsUseCase
 import com.kok1337.mobiledev.presentation.MainViewModel
 import dagger.Module
 import dagger.Provides
@@ -15,9 +15,9 @@ class AppModule(val context: Context) {
     }
 
     @Provides
-    fun provideMainViewModelFactory(loadAllFederalDistricts: LoadAllFederalDistricts): MainViewModel.Factory {
+    fun provideMainViewModelFactory(loadAllFederalDistrictsUseCase: LoadAllFederalDistrictsUseCase): MainViewModel.Factory {
         return MainViewModel.Factory(
-            loadAllFederalDistricts = loadAllFederalDistricts
+            loadAllFederalDistrictsUseCase = loadAllFederalDistrictsUseCase
         )
     }
 

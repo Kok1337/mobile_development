@@ -1,15 +1,14 @@
-package com.kok1337.mobiledev.data.database.resultsetmapper
+package com.kok1337.mobiledev.data.database.entitymapper
 
-import com.kok1337.mobiledev.data.database.annotation.Column
-import com.kok1337.mobiledev.data.database.annotation.Entity
-import com.kok1337.mobiledev.data.database.exception.ModelWithoutAnnotationError
-import com.kok1337.mobiledev.data.database.exception.NoEmptyConstructorError
-import com.kok1337.mobiledev.data.database.exception.NullColumnError
-import org.springframework.jdbc.core.RowMapper
+import com.kok1337.mobiledev.data.database.entitymapper.annotation.Column
+import com.kok1337.mobiledev.data.database.entitymapper.annotation.Entity
+import com.kok1337.mobiledev.data.database.entitymapper.exception.ModelWithoutAnnotationError
+import com.kok1337.mobiledev.data.database.entitymapper.exception.NoEmptyConstructorError
+import com.kok1337.mobiledev.data.database.entitymapper.exception.NullColumnError
 import java.lang.reflect.Field
 import java.sql.ResultSet
 
-open class AbsAnnotationMapper<T>(private val clazz: Class<T>) : RowMapper<T> {
+open class EntityAnnotationRowMapper<T>(private val clazz: Class<T>) {
     private val allFieldWithColumnAnnotation: Set<Field>
         get() {
             val fieldSet = mutableSetOf<Field>()
@@ -35,16 +34,16 @@ open class AbsAnnotationMapper<T>(private val clazz: Class<T>) : RowMapper<T> {
         field[item] = value
     }
 
-    override fun mapRow(rs: ResultSet, rowNum: Int): T? {
+    fun map(resultSet: ResultSet): T? {
         if (!clazz.isAnnotationPresent(Entity::class.java))
             throw ModelWithoutAnnotationError(clazz)
-        val metaData = rs.metaData
+        val metaData = resultSet.metaData
         val annotatedFieldSet = allFieldWithColumnAnnotation
         return try {
             val item = clazz.newInstance() as T
             for (i in 1..metaData.columnCount) {
                 val mdColumnName = metaData.getColumnName(i)
-                val columnValue = rs.getObject(i)
+                val columnValue = resultSet.getObject(i)
                 annotatedFieldSet.forEach { field ->
                     val column =
                         field.getAnnotation(Column::class.java) ?: throw NullColumnError(field)

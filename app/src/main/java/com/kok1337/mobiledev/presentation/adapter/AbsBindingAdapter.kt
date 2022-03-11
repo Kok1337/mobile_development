@@ -7,11 +7,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BindingAdapter<T, B : ViewDataBinding>(
+abstract class AbsBindingAdapter<T, B : ViewDataBinding>(
     private val layoutId: Int,
     private val variableId: Int,
     onItemClickListener: OnItemClickListener<T>?,
-) : RecyclerView.Adapter<BindingAdapter.BindingViewHolder<B>>() {
+) : RecyclerView.Adapter<AbsBindingAdapter.BindingViewHolder<B>>() {
 
     private var items: List<T> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
