@@ -8,4 +8,5 @@ class LoadAllFederalDistrictsUseCase(
 ) {
 
     suspend fun invoke(): List<FederalDistrict> = federalDistrictRepo.getAllFederalDistricts()
+
 }

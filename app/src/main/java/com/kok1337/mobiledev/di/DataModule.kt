@@ -3,7 +3,7 @@ package com.kok1337.mobiledev.di
 import android.content.Context
 import com.kok1337.mobiledev.data.database.dao.FederalDistrictDao
 import com.kok1337.mobiledev.data.database.dao.FederalDistrictDaoImpl
-import com.kok1337.mobiledev.data.database.storages.FederalDistrictStorageDbImpl
+import com.kok1337.mobiledev.data.database.storages.DbFederalDistrictStorageImpl
 import com.kok1337.mobiledev.data.repository.FederalDistrictRepoImpl
 import com.kok1337.mobiledev.data.repository.FederalDistrictStorage
 import com.kok1337.mobiledev.domain.repository.FederalDistrictRepo
@@ -56,10 +56,11 @@ class DataModule {
 
     @Provides
     fun provideFederalDistrictStorage(federalDistrictDao: FederalDistrictDao): FederalDistrictStorage {
-        return FederalDistrictStorageDbImpl(
+        return DbFederalDistrictStorageImpl(
             federalDistrictDao = federalDistrictDao
         )
     }
+
 
     @Provides
     fun provideFederalDistrictRepo(federalDistrictStorage: FederalDistrictStorage): FederalDistrictRepo {
