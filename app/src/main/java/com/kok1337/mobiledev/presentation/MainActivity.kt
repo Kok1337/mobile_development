@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavDirections
-import androidx.navigation.NavOptions
-import androidx.navigation.findNavController
+import androidx.navigation.*
+import androidx.navigation.fragment.NavHostFragment
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.app.App
 import com.kok1337.mobiledev.databinding.ActivityMainBinding
@@ -26,14 +24,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         (applicationContext as App).appComponent.inject(this)
         mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
 
+
+
         mainViewModel.currentTbDirectionLD.observe(this) { navigateToToolbarFragment(it) }
         mainViewModel.federalDistrictLD.observe(this) { list ->
-            list.forEach({ Log.e("LOL", it.toString()) })
+            list.forEach{ Log.e("LOL", it.toString()) }
+        }
+
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            controller.backQueue.forEach { Log.e("BackStack", it.destination.displayName) }
         }
 
         initToolbarActions()
@@ -58,8 +67,6 @@ class MainActivity : AppCompatActivity() {
             navController.currentBackStackEntry
         }
 
-        navController.backQueue.forEach { Log.e("BackStack", it.destination.displayName) }
-
         val navOptions = NavOptions.Builder()
             .setPopUpTo(_prevBackStackEntry!!.destination.id, inclusive = false, saveState = false)
             .build()
@@ -70,4 +77,5 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         _binding = null
     }
+
 }

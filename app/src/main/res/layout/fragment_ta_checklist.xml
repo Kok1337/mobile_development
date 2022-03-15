@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.fragment.toolbar.SettingsFragment"
-    android:background="#4CAF50">
+    tools:context=".presentation.fragment.trialarea.ChecklistFragment"
+    android:background="#2196F3">
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="SettingsFragment"
+        android:text="ChecklistFragment"
         android:textSize="32sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

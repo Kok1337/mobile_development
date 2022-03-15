@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/ta_address"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:title="Адрес" />
+    <item
+        android:id="@+id/ta_trial"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:title="Проба" />
+    <item
+        android:id="@+id/ta_checklist"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:title="Перечет" />
+    <item
+        android:id="@+id/ta_visual_assessment"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:title="Оценка" />
+</menu>

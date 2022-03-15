@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tax_address"
+    app:startDestination="@id/taxAddressFragment">
+
+    <fragment
+        android:id="@+id/taxAddressFragment"
+        android:name="com.kok1337.mobiledev.presentation.fragment.taxation.AddressFragment"
+        android:label="fragment_tax_address"
+        tools:layout="@layout/fragment_tax_address" />
+</navigation>

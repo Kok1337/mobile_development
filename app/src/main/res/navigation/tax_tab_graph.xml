@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tax_tab_graph"
+    app:startDestination="@id/tax_address">
+
+    <include app:graph="@navigation/tax_address" />
+    <include app:graph="@navigation/tax_characteristic" />
+    <include app:graph="@navigation/tax_layer" />
+</navigation>

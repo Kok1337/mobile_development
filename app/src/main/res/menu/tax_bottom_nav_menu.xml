@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@id/tax_address"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:title="Адрес" />
+    <item
+        android:id="@id/tax_characteristic"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:title="Характеристика" />
+    <item
+        android:id="@id/tax_layer"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:title="Ярусы" />
+</menu>

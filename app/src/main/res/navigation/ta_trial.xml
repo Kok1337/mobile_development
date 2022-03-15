@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ta_trial"
+    app:startDestination="@id/taTrialFragment">
+
+    <fragment
+        android:id="@+id/taTrialFragment"
+        android:name="com.kok1337.mobiledev.presentation.fragment.trialarea.TrialFragment"
+        android:label="fragment_ta_trial"
+        tools:layout="@layout/fragment_ta_trial" />
+</navigation>
