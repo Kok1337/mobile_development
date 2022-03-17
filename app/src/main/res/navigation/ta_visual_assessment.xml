@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ta_visual_assessment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ta_visual_assessment"
+    app:startDestination="@id/visualAssessmentFragment">
 
+    <fragment
+        android:id="@+id/visualAssessmentFragment"
+        android:name="com.kok1337.mobiledev.presentation.fragment.trialarea.VisualAssessmentFragment"
+        android:label="fragment_ta_visual_assessment"
+        tools:layout="@layout/fragment_ta_visual_assessment" />
 </navigation>

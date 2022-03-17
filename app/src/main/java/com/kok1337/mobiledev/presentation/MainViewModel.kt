@@ -4,13 +4,13 @@ import androidx.lifecycle.*
 import androidx.navigation.NavDirections
 import com.kok1337.mobiledev.ToolbarNavGraphDirections
 import com.kok1337.mobiledev.domain.model.FederalDistrict
-import com.kok1337.mobiledev.domain.usecase.LoadAllFederalDistrictsUseCase
+import com.kok1337.mobiledev.domain.usecase.GetAllFederalDistrictsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel(
-    val loadAllFederalDistrictsUseCase: LoadAllFederalDistrictsUseCase
+    private val getAllFederalDistrictsUseCase: GetAllFederalDistrictsUseCase
 ) : ViewModel() {
 
     private val _currentTbDirectionLD: MutableLiveData<NavDirections> = MutableLiveData()
@@ -27,19 +27,21 @@ class MainViewModel(
     fun loadFederalDistricts() {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
-                _federalDistrictLD.postValue(loadAllFederalDistrictsUseCase.invoke())
+                _federalDistrictLD.postValue(getAllFederalDistrictsUseCase.invoke())
                 // return@withContext
             }
         }
     }
 
+
     class Factory(
-        val loadAllFederalDistrictsUseCase: LoadAllFederalDistrictsUseCase,
+        val getAllFederalDistrictsUseCase: GetAllFederalDistrictsUseCase,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            // require(modelClass == MainViewModel::class)
-            return MainViewModel(loadAllFederalDistrictsUseCase) as T
+            return MainViewModel(
+                getAllFederalDistrictsUseCase =  getAllFederalDistrictsUseCase
+            ) as T
         }
     }
 }

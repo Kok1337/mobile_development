@@ -1,19 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.MobileDev" parent="Theme.AppCompat.NoActionBar">
+
        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryVariant">@color/low_blue</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/low_black</item>
+        <item name="colorOnSecondary">@color/blue</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="colorControlNormal">@color/simple_icon_tint</item>
+
     </style>
+
 
     <style name="ToolbarIcon">
         <item name="android:layout_height">@dimen/toolbar_icon_size</item>
@@ -24,6 +27,81 @@
         <item name="android:focusable">true</item>
         <item name="android:tint">@color/toolbar_icon_tint</item>
         <item name="android:checkable">true</item>
+    </style>
+
+
+    <style name="SecondaryTextView">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="MainTextView">
+        <item name="android:background">@drawable/vbg_textview</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/big_text_size</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+    </style>
+
+    <style name="MainButton">
+        <item name="android:background">@drawable/vbg_button</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/big_text_size</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+    </style>
+
+    <style name="MainSpinner">
+        <item name="android:background">@drawable/vbg_spinner</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/big_text_size</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">48dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="Title">
+        <item name="android:background">@drawable/vbg_invisible</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="Separator">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="ItemSpinnerLayout">
+        <item name="android:layout_marginTop">@dimen/item_vertical_half_padding</item>
+        <item name="android:layout_marginBottom">@dimen/item_vertical_half_padding</item>
+    </style>
+
+    <style name="ReverseTextView">
+        <item name="android:background">@drawable/vbg_reverse_textview</item>
+        <item name="android:textColor">@color/view_solid</item>
+        <item name="android:textSize">@dimen/big_text_size</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
     </style>
 
 </resources>

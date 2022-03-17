@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="workType"
+            type="com.kok1337.mobiledev.presentation.item.WorkTypeItem" />
+    </data>
+
+    <RelativeLayout
+        style="@style/ItemSpinnerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/MainTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@{workType.name}"
+            android:textAlignment="textStart"/>
+
+    </RelativeLayout>
+
+</layout>

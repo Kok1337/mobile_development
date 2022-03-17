@@ -1,4 +1,4 @@
-package com.kok1337.mobiledev.presentation.toolbar.vievs
+package com.kok1337.mobiledev.presentation.view
 
 import android.content.Context
 import android.util.AttributeSet

@@ -57,6 +57,7 @@
     <action
         android:id="@+id/action_global_tb_synchronizationFragment"
         app:destination="@id/tb_synchronizationFragment"/>
+
     <fragment
         android:id="@+id/taTabFragment"
         android:name="com.kok1337.mobiledev.presentation.fragment.trialarea.TabFragment"

@@ -1,4 +1,4 @@
-package com.kok1337.mobiledev.data.repository
+package com.kok1337.mobiledev.data.storage
 
 import com.kok1337.mobiledev.data.entity.FederalDistrictEntity
 

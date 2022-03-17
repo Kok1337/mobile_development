@@ -9,10 +9,8 @@
         android:background="#2196F3"
         tools:context=".presentation.fragment.trialarea.TabFragment">
 
-        <!--
-
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/taxTabsContainer"
+            android:id="@+id/taTabsContainer"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -21,7 +19,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navGraph="@navigation/tax_tab_graph" />
+            app:navGraph="@navigation/ta_tab_graph" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
@@ -29,12 +27,11 @@
             android:layout_height="wrap_content"
             app:itemIconTint="@color/simple_icon_tint"
             app:itemTextColor="@color/simple_icon_tint"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/tax_bottom_nav_menu" />
-
-            -->
+            app:menu="@menu/ta_bottom_nav_menu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

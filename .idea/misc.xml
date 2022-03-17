@@ -19,31 +19,21 @@
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_textview.xml" value="0.193" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable-v24/vbg_toolbar_item.xml" value="0.2605" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable/ic_launcher_background.xml" value="0.313" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable/ic_settings.xml" value="0.2135" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable/ic_spinner_arrow.xml" value="0.2265" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable/ic_sync.xml" value="0.2135" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/drawable/ic_work_types.xml" value="0.2135" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/activity_main.xml" value="0.17535070140280562" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/blank_fragment.xml" value="0.29257246376811596" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_ta_address.xml" value="0.21979166666666666" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_ta_checklist.xml" value="0.21979166666666666" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_ta_tab.xml" value="0.33" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_ta_trial.xml" value="0.21979166666666666" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_ta_visual_assessment.xml" value="0.21979166666666666" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tax_address.xml" value="0.21979166666666666" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tax_characteristic.xml" value="0.21979166666666666" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tax_characteristics.xml" value="0.20572916666666666" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tax_layer.xml" value="0.20572916666666666" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tax_tab.xml" value="0.29257246376811596" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tax_tabs.xml" value="0.21979166666666666" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_camera.xml" value="0.18489583333333334" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_map.xml" value="0.18489583333333334" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_root.xml" value="0.18489583333333334" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_settings.xml" value="0.18489583333333334" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_synchronization.xml" value="0.18489583333333334" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_worktypes.xml" value="0.18489583333333334" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/menu/bottom_nav_menu.xml" value="0.21979166666666666" />
-        <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/menu/ta_bottom_nav_menu.xml" value="0.196875" />
+        <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/fragment_ta_tab.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/fragment_tax_tab.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/fragment_tb_worktypes.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/item_dictionary.xml" value="0.67" />
+        <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/item_work_type.xml" value="0.3434343434343434" />
+        <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/menu/tax_bottom_nav_menu.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

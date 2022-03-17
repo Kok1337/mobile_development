@@ -70,7 +70,9 @@ class MainActivity : AppCompatActivity() {
         val navOptions = NavOptions.Builder()
             .setPopUpTo(_prevBackStackEntry!!.destination.id, inclusive = false, saveState = false)
             .build()
-        navController.navigate(direction, navOptions)
+
+        // navController.navigate(direction, navOptions)
+        navController.navigate(direction)
     }
 
     override fun onDestroy() {

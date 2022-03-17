@@ -3,10 +3,12 @@ package com.kok1337.mobiledev.di
 import android.content.Context
 import com.kok1337.mobiledev.data.database.dao.FederalDistrictDao
 import com.kok1337.mobiledev.data.database.dao.FederalDistrictDaoImpl
-import com.kok1337.mobiledev.data.database.storages.DbFederalDistrictStorageImpl
+import com.kok1337.mobiledev.data.storage.DbFederalDistrictStorageImpl
 import com.kok1337.mobiledev.data.repository.FederalDistrictRepoImpl
-import com.kok1337.mobiledev.data.repository.FederalDistrictStorage
+import com.kok1337.mobiledev.data.repository.WorkTypeRepoImpl
+import com.kok1337.mobiledev.data.storage.FederalDistrictStorage
 import com.kok1337.mobiledev.domain.repository.FederalDistrictRepo
+import com.kok1337.mobiledev.domain.repository.WorkTypeRepo
 import dagger.Module
 import dagger.Provides
 import org.springframework.jdbc.core.JdbcTemplate
@@ -67,6 +69,11 @@ class DataModule {
         return FederalDistrictRepoImpl(
             federalDistrictStorage = federalDistrictStorage
         )
+    }
+
+    @Provides
+    fun provideWorkTypeRepo(): WorkTypeRepo {
+        return WorkTypeRepoImpl()
     }
 
 }
