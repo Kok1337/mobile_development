@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
 
 
-
         mainViewModel.currentTbDirectionLD.observe(this) { navigateToToolbarFragment(it) }
         mainViewModel.federalDistrictLD.observe(this) { list ->
             list.forEach{ Log.e("LOL", it.toString()) }
