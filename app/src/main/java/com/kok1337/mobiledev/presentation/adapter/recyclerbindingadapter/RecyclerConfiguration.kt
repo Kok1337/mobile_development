@@ -22,9 +22,11 @@ class RecyclerConfiguration(
         var layoutManager: RecyclerView.LayoutManager? = null
             private set
 
-        fun bindingAdapter(bindingAdapter: BindingAdapter<*, *>) = apply { this.bindingAdapter = bindingAdapter }
+        fun bindingAdapter(bindingAdapter: BindingAdapter<*, *>) =
+            apply { this.bindingAdapter = bindingAdapter }
 
-        fun layoutManager(layoutManager: RecyclerView.LayoutManager) = apply { this.layoutManager = layoutManager }
+        fun layoutManager(layoutManager: RecyclerView.LayoutManager) =
+            apply { this.layoutManager = layoutManager }
 
         fun build() = RecyclerConfiguration(this)
     }

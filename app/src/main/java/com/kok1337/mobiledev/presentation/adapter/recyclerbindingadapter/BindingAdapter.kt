@@ -21,6 +21,16 @@ open class BindingAdapter<T, B : ViewDataBinding>(
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun sort(comparator: Comparator<T>) {
+        items.sortedWith(comparator)
+        notifyDataSetChanged()
+    }
+
+    fun getItemByPosition(position: Int) : T {
+        return items[position]
+    }
+
     fun setOnItemClickListener(listener: (position: Int, item: T) -> Unit) {
         this.onItemClickListener = listener
     }

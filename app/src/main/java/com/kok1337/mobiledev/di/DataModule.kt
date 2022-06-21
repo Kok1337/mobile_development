@@ -3,10 +3,12 @@ package com.kok1337.mobiledev.di
 import android.content.Context
 import com.kok1337.mobiledev.data.database.dao.FederalDistrictDao
 import com.kok1337.mobiledev.data.database.dao.FederalDistrictDaoImpl
-import com.kok1337.mobiledev.data.storage.DbFederalDistrictStorageImpl
+import com.kok1337.mobiledev.data.storage.FederalDistrictStorageDbImpl
 import com.kok1337.mobiledev.data.repository.FederalDistrictRepoImpl
 import com.kok1337.mobiledev.data.repository.WorkTypeRepoImpl
 import com.kok1337.mobiledev.data.storage.FederalDistrictStorage
+import com.kok1337.mobiledev.data.storage.WorkTypeStorage
+import com.kok1337.mobiledev.data.storage.WorkTypeStorageLocalImpl
 import com.kok1337.mobiledev.domain.repository.FederalDistrictRepo
 import com.kok1337.mobiledev.domain.repository.WorkTypeRepo
 import dagger.Module
@@ -58,11 +60,10 @@ class DataModule {
 
     @Provides
     fun provideFederalDistrictStorage(federalDistrictDao: FederalDistrictDao): FederalDistrictStorage {
-        return DbFederalDistrictStorageImpl(
+        return FederalDistrictStorageDbImpl(
             federalDistrictDao = federalDistrictDao
         )
     }
-
 
     @Provides
     fun provideFederalDistrictRepo(federalDistrictStorage: FederalDistrictStorage): FederalDistrictRepo {
@@ -72,8 +73,15 @@ class DataModule {
     }
 
     @Provides
-    fun provideWorkTypeRepo(): WorkTypeRepo {
-        return WorkTypeRepoImpl()
+    fun provideWorkTypeRepo(workTypeStorage: WorkTypeStorage): WorkTypeRepo {
+        return WorkTypeRepoImpl(
+            workTypeStorage = workTypeStorage
+        )
+    }
+
+    @Provides
+    fun provideWorkTypeStorage(): WorkTypeStorage {
+        return WorkTypeStorageLocalImpl()
     }
 
 }

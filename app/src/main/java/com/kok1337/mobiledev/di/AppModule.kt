@@ -4,6 +4,7 @@ import android.content.Context
 import com.kok1337.mobiledev.domain.usecase.GetAllFederalDistrictsUseCase
 import com.kok1337.mobiledev.domain.usecase.GetAllWorkTypesUseCase
 import com.kok1337.mobiledev.presentation.MainViewModel
+import com.kok1337.mobiledev.presentation.fragment.taxation.AddressViewModel
 import com.kok1337.mobiledev.presentation.fragment.toolbar.WorkTypesViewModel
 import dagger.Module
 import dagger.Provides
@@ -27,6 +28,13 @@ class AppModule(val context: Context) {
     fun provideWorkTypesViewModelFactory(getAllWorkTypesUseCase: GetAllWorkTypesUseCase): WorkTypesViewModel.Factory {
         return WorkTypesViewModel.Factory(
             getAllWorkTypesUseCase = getAllWorkTypesUseCase
+        )
+    }
+
+    @Provides
+    fun provideAddressViewModelFactory(getAllFederalDistrictsUseCase: GetAllFederalDistrictsUseCase): AddressViewModel.Factory {
+        return AddressViewModel.Factory(
+            getAllFederalDistrictsUseCase = getAllFederalDistrictsUseCase
         )
     }
 

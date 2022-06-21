@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.app.App
 import com.kok1337.mobiledev.databinding.ActivityMainBinding
+import com.kok1337.mobiledev.presentation.view.searchablespinner.SortType
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             controller.backQueue.forEach { Log.e("BackStack", it.destination.displayName) }
         }
+
 
         initToolbarActions()
     }

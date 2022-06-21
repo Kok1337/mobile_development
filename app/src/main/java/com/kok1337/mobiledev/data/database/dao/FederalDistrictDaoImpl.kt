@@ -11,7 +11,7 @@ class FederalDistrictDaoImpl(
     private val mapper = EntityRowMapper(FederalDistrictEntity::class.java)
 
     override fun findAll(): List<FederalDistrictEntity> {
-        val query = "select * from czl_get_all_fo();";
+        val query = "select * from czl_get_all_fo();"
         return jdbcTemplate.query(query, mapper)
     }
 

@@ -1,10 +1,11 @@
-package com.kok1337.mobiledev.presentation.view
+package com.kok1337.mobiledev.presentation.view.toolbar
 
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.Checkable
+import androidx.appcompat.widget.AppCompatImageView
 
-class ToolbarIcon : androidx.appcompat.widget.AppCompatImageView, Checkable {
+class ToolbarIcon : AppCompatImageView, Checkable {
 
     companion object {
         private val CHECKED_STATE = intArrayOf( android.R.attr.state_checked )

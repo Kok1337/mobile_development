@@ -13,8 +13,8 @@ import com.kok1337.mobiledev.databinding.FragmentTbWorktypesBinding
 import com.kok1337.mobiledev.domain.enum.Work
 import com.kok1337.mobiledev.presentation.adapter.WorkTypeAdapter
 import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.RecyclerConfiguration
-import com.kok1337.mobiledev.presentation.fragment.getAppComponent
 import com.kok1337.mobiledev.presentation.item.WorkTypeItem
+import com.kok1337.mobiledev.presentation.util.getAppComponent
 import javax.inject.Inject
 
 class WorkTypesFragment : Fragment(R.layout.fragment_tb_worktypes) {
