@@ -1,5 +1,6 @@
 package com.kok1337.mobiledev.presentation.fragment.taxation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,12 +26,15 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
     @Inject
     lateinit var viewModelFactory: AddressViewModel.Factory
     private lateinit var addressViewModel: AddressViewModel
+
     private val mainViewModel: MainViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onAttach(context: Context) {
         getAppComponent().inject(this)
+        super.onAttach(context)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         addressViewModel = ViewModelProvider(this, viewModelFactory)[AddressViewModel::class.java]
         _binding = FragmentTaxAddressBinding.inflate(inflater, container, false)
         binding.viewModel = addressViewModel
@@ -46,8 +50,15 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
         }
 
         val federalDistrictAdapter = DictionaryAdapter<FederalDistrictItem>()
-        val federalDistrictConf = SearchableSpinner.SearchableSpinnerConfiguration(federalDistrictAdapter) { item -> showToast(item.toString()) }
-        addressViewModel.federalDistrictsMutableLiveData.observe(viewLifecycleOwner) { federalDistrictConf.setItemsWithAutoSelect(it); }
+        val federalDistrictConf =
+            SearchableSpinner.SearchableSpinnerConfiguration(federalDistrictAdapter) { item ->
+                showToast(item.toString())
+            }
+        addressViewModel.federalDistrictsMutableLiveData.observe(viewLifecycleOwner) {
+            federalDistrictConf.setItemsWithAutoSelect(
+                it
+            );
+        }
         binding.federalDistrictSpinner.searchableSpinnerConfiguration = federalDistrictConf
 
         addressViewModel.getAllFederalDistrict()

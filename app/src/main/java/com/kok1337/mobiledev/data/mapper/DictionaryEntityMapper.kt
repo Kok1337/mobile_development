@@ -1,6 +1,5 @@
 package com.kok1337.mobiledev.data.mapper
 
-import com.kok1337.mobiledev.data.entity.DictionaryEntity
 import com.kok1337.mobiledev.data.entity.FederalDistrictEntity
 import com.kok1337.mobiledev.data.entity.SubjectOfRusFedEntity
 import com.kok1337.mobiledev.domain.model.FederalDistrict

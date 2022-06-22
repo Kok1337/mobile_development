@@ -3,12 +3,14 @@ package com.kok1337.mobiledev.presentation.fragment.taxation
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.*
 import com.kok1337.mobiledev.domain.usecase.GetAllFederalDistrictUseCase
+import com.kok1337.mobiledev.domain.usecase.GetAllSubjectOfRusFedUseCase
 import com.kok1337.mobiledev.presentation.item.FederalDistrictItem
 import com.kok1337.mobiledev.presentation.mapper.toItem
 import com.kok1337.mobiledev.presentation.util.async
 
 class AddressViewModel(
     private val getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,
+    private val getAllSubjectOfRusFedUseCase: GetAllSubjectOfRusFedUseCase,
 ) : ViewModel() {
 
     private val _federalDistrictsMutableLiveData: MutableLiveData<List<FederalDistrictItem>> = MutableLiveData()
@@ -31,11 +33,13 @@ class AddressViewModel(
 
     class Factory(
         private val getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,
+        private val getAllSubjectOfRusFedUseCase: GetAllSubjectOfRusFedUseCase,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return AddressViewModel(
-                getAllFederalDistrictUseCase = getAllFederalDistrictUseCase
+                getAllFederalDistrictUseCase = getAllFederalDistrictUseCase,
+                getAllSubjectOfRusFedUseCase = getAllSubjectOfRusFedUseCase,
             ) as T
         }
     }
