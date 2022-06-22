@@ -3,14 +3,11 @@ package com.kok1337.mobiledev.di
 import android.content.Context
 import com.kok1337.mobiledev.data.database.dao.FederalDistrictDao
 import com.kok1337.mobiledev.data.database.dao.FederalDistrictDaoImpl
-import com.kok1337.mobiledev.data.storage.FederalDistrictStorageDbImpl
-import com.kok1337.mobiledev.data.repository.FederalDistrictRepoImpl
-import com.kok1337.mobiledev.data.repository.WorkTypeRepoImpl
 import com.kok1337.mobiledev.data.storage.FederalDistrictStorage
+import com.kok1337.mobiledev.data.storage.FederalDistrictStorageDbImpl
 import com.kok1337.mobiledev.data.storage.WorkTypeStorage
 import com.kok1337.mobiledev.data.storage.WorkTypeStorageLocalImpl
-import com.kok1337.mobiledev.domain.repository.FederalDistrictRepo
-import com.kok1337.mobiledev.domain.repository.WorkTypeRepo
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import org.springframework.jdbc.core.JdbcTemplate
@@ -18,9 +15,27 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource
 import java.util.*
 import javax.sql.DataSource
 
-@Module
-class DataModule {
+@Module(includes = [DatabaseModule::class, DataBindModule::class])
+class DataModule
 
+@Module
+interface DataBindModule {
+
+    @Binds
+    @Suppress("FunctionName")
+    fun bindFederalDistrictDaoImpl_to_FederalDistrictDao(federalDistrictDaoImpl: FederalDistrictDaoImpl): FederalDistrictDao
+
+    @Binds
+    @Suppress("FunctionName")
+    fun bindFederalDistrictStorageDbImpl_to_FederalDistrictStorage(federalDistrictStorageDbImpl: FederalDistrictStorageDbImpl): FederalDistrictStorage
+
+    @Binds
+    @Suppress("FunctionName")
+    fun bindWorkTypeStorageLocalImpl_to_WorkTypeStorage(workTypeStorageLocalImpl: WorkTypeStorageLocalImpl): WorkTypeStorage
+}
+
+@Module
+class DatabaseModule {
     companion object {
         private const val CONFIG_FILE_NAME = "config.properties"
     }
@@ -50,38 +65,4 @@ class DataModule {
     fun provideJdbcTemplate(dataSource: DataSource): JdbcTemplate {
         return JdbcTemplate(dataSource)
     }
-
-    @Provides
-    fun provideFederalDistrictDao(jdbcTemplate: JdbcTemplate): FederalDistrictDao {
-        return FederalDistrictDaoImpl(
-            jdbcTemplate = jdbcTemplate
-        )
-    }
-
-    @Provides
-    fun provideFederalDistrictStorage(federalDistrictDao: FederalDistrictDao): FederalDistrictStorage {
-        return FederalDistrictStorageDbImpl(
-            federalDistrictDao = federalDistrictDao
-        )
-    }
-
-    @Provides
-    fun provideFederalDistrictRepo(federalDistrictStorage: FederalDistrictStorage): FederalDistrictRepo {
-        return FederalDistrictRepoImpl(
-            federalDistrictStorage = federalDistrictStorage
-        )
-    }
-
-    @Provides
-    fun provideWorkTypeRepo(workTypeStorage: WorkTypeStorage): WorkTypeRepo {
-        return WorkTypeRepoImpl(
-            workTypeStorage = workTypeStorage
-        )
-    }
-
-    @Provides
-    fun provideWorkTypeStorage(): WorkTypeStorage {
-        return WorkTypeStorageLocalImpl()
-    }
-
 }

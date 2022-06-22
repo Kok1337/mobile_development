@@ -1,27 +1,28 @@
 package com.kok1337.mobiledev.di
 
+import com.kok1337.mobiledev.data.repository.FederalDistrictRepoImpl
+import com.kok1337.mobiledev.data.repository.WorkTypeRepoImpl
 import com.kok1337.mobiledev.domain.repository.FederalDistrictRepo
 import com.kok1337.mobiledev.domain.repository.WorkTypeRepo
-import com.kok1337.mobiledev.domain.usecase.GetAllFederalDistrictUseCase
-import com.kok1337.mobiledev.domain.usecase.GetAllWorkTypesUseCase
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
+
+@Module(includes = [DomainBindModule::class])
+class DomainModule
 
 @Module
-class DomainModule {
+interface DomainBindModule {
 
-    @Provides
-    fun provideGetAllFederalDistricts(federalDistrictRepo: FederalDistrictRepo): GetAllFederalDistrictUseCase {
-        return GetAllFederalDistrictUseCase(
-            federalDistrictRepo = federalDistrictRepo
-        )
-    }
+    @Binds
+    @Suppress("FunctionName")
+    fun bindFederalDistrictRepoImpl_to_FederalDistrictRepo(federalDistrictRepoImpl: FederalDistrictRepoImpl): FederalDistrictRepo
 
-    @Provides
-    fun provideGetAll(workTypeRepo: WorkTypeRepo): GetAllWorkTypesUseCase {
-        return GetAllWorkTypesUseCase(
-            workTypeRepo = workTypeRepo
-        )
-    }
+    @Binds
+    @Suppress("FunctionName")
+    fun bindWorkTypeRepoImpl_to_WorkTypeRepo(workTypeRepoImpl: WorkTypeRepoImpl): WorkTypeRepo
 
 }
+
+
+
+
