@@ -7,7 +7,7 @@ import com.kok1337.mobiledev.data.storage.FederalDistrictStorage
 class FederalDistrictStorageDbImpl(
     private val federalDistrictDao: FederalDistrictDao,
 ) : FederalDistrictStorage {
-    override fun getAllFederalDistricts(): List<FederalDistrictEntity> {
+    override fun getAllFederalDistrict(): List<FederalDistrictEntity> {
         return federalDistrictDao.findAll()
     }
 }

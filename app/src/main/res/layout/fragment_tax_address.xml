@@ -5,6 +5,9 @@
     tools:context=".presentation.fragment.taxation.AddressFragment">
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.kok1337.mobiledev.presentation.fragment.taxation.AddressViewModel" />
     </data>
 
     <LinearLayout
@@ -25,7 +28,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:autoSelect="true"
-            app:title="Введите Федеральный округ"/>
+            app:title="Выберите федеральный округ"
+            android:enabled="@{viewModel.federalDistrictsSize != 0}"/>
+
+        <TextView
+            style="@style/SecondaryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Субъект РФ" />
+
+        <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+            android:id="@+id/subjectOfRussianFederationSpinner"
+            style="@style/MainSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:autoSelect="true"
+            app:title="Выберите субъект РФ"/>
+
 
     </LinearLayout>
 

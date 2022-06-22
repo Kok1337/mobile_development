@@ -4,8 +4,15 @@ import android.app.Activity
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kok1337.mobiledev.app.App
 import com.kok1337.mobiledev.di.AppComponent
+import com.kok1337.mobiledev.presentation.mapper.toItem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 fun showToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
@@ -20,3 +27,11 @@ fun Activity.showToast(message: String) {
 }
 
 fun Fragment.getAppComponent(): AppComponent = (activity?.applicationContext as App).appComponent
+
+fun ViewModel.async(block: suspend () -> Unit) {
+    viewModelScope.launch {
+        withContext(Dispatchers.Default) {
+            block.invoke()
+        }
+    }
+}

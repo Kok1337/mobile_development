@@ -1,7 +1,7 @@
 package com.kok1337.mobiledev.di
 
 import android.content.Context
-import com.kok1337.mobiledev.domain.usecase.GetAllFederalDistrictsUseCase
+import com.kok1337.mobiledev.domain.usecase.GetAllFederalDistrictUseCase
 import com.kok1337.mobiledev.domain.usecase.GetAllWorkTypesUseCase
 import com.kok1337.mobiledev.presentation.MainViewModel
 import com.kok1337.mobiledev.presentation.fragment.taxation.AddressViewModel
@@ -18,9 +18,9 @@ class AppModule(val context: Context) {
     }
 
     @Provides
-    fun provideMainViewModelFactory(getAllFederalDistrictsUseCase: GetAllFederalDistrictsUseCase): MainViewModel.Factory {
+    fun provideMainViewModelFactory(getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase): MainViewModel.Factory {
         return MainViewModel.Factory(
-            getAllFederalDistrictsUseCase = getAllFederalDistrictsUseCase
+            getAllFederalDistrictUseCase = getAllFederalDistrictUseCase
         )
     }
 
@@ -32,9 +32,9 @@ class AppModule(val context: Context) {
     }
 
     @Provides
-    fun provideAddressViewModelFactory(getAllFederalDistrictsUseCase: GetAllFederalDistrictsUseCase): AddressViewModel.Factory {
+    fun provideAddressViewModelFactory(getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase): AddressViewModel.Factory {
         return AddressViewModel.Factory(
-            getAllFederalDistrictsUseCase = getAllFederalDistrictsUseCase
+            getAllFederalDistrictUseCase = getAllFederalDistrictUseCase
         )
     }
 

@@ -1,7 +1,6 @@
 package com.kok1337.mobiledev.presentation.fragment.taxation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,27 +32,24 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
     ): View {
         getAppComponent().inject(this)
         addressViewModel = ViewModelProvider(this, viewModelFactory)[AddressViewModel::class.java]
-
         _binding = FragmentTaxAddressBinding.inflate(inflater, container, false)
+        binding.viewModel = addressViewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         mainViewModel.currentTbDirectionLD.observe(viewLifecycleOwner) {
-            showToast("Погодите. Это реально?")
+            // showToast("Погодите. Это реально?")
         }
 
         val federalDistrictAdapter = DictionaryAdapter<FederalDistrictItem>()
-        addressViewModel.federalDistrictsMutableLiveData.observe(viewLifecycleOwner) { federalDistrictAdapter.setItems(it)
-            Log.e("tag", "dfdfhdfhdfhdfhd")
-        }
+        val federalDistrictConf = SearchableSpinner.SearchableSpinnerConfiguration(federalDistrictAdapter) { item -> showToast(item.toString()) }
+        addressViewModel.federalDistrictsMutableLiveData.observe(viewLifecycleOwner) { federalDistrictConf.setItemsWithAutoSelect(it); }
+        binding.federalDistrictSpinner.searchableSpinnerConfiguration = federalDistrictConf
 
-        binding.federalDistrictSpinner.searchableSpinnerConfiguration = SearchableSpinner
-            .SearchableSpinnerConfiguration
-            .Builder(federalDistrictAdapter).itemSelectedListener({ item, position ->  }).build()
-
-        addressViewModel.getAllFederalDistricts()
+        addressViewModel.getAllFederalDistrict()
     }
 }

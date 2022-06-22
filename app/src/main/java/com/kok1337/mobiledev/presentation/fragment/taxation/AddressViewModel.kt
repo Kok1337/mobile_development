@@ -1,36 +1,41 @@
 package com.kok1337.mobiledev.presentation.fragment.taxation
 
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.*
-import com.kok1337.mobiledev.domain.usecase.GetAllFederalDistrictsUseCase
+import com.kok1337.mobiledev.domain.usecase.GetAllFederalDistrictUseCase
 import com.kok1337.mobiledev.presentation.item.FederalDistrictItem
 import com.kok1337.mobiledev.presentation.mapper.toItem
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.kok1337.mobiledev.presentation.util.async
 
 class AddressViewModel(
-    private val getAllFederalDistrictsUseCase: GetAllFederalDistrictsUseCase,
+    private val getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,
 ) : ViewModel() {
+
     private val _federalDistrictsMutableLiveData: MutableLiveData<List<FederalDistrictItem>> = MutableLiveData()
     val federalDistrictsMutableLiveData: LiveData<List<FederalDistrictItem>> = _federalDistrictsMutableLiveData
+    private val federalDistrictsMutableLiveDataObserver = Observer<List<FederalDistrictItem>> { federalDistrictsSize.set(it.size) }
+    val federalDistrictsSize: ObservableInt = ObservableInt(0)
 
-    fun getAllFederalDistricts() {
-        viewModelScope.launch {
-            withContext(Dispatchers.Default) {
-                delay(5000)
-                _federalDistrictsMutableLiveData.postValue(getAllFederalDistrictsUseCase.invoke().map { it.toItem() })
-            }
-        }
+    init {
+        federalDistrictsMutableLiveData.observeForever(federalDistrictsMutableLiveDataObserver)
+    }
+
+    override fun onCleared() {
+        federalDistrictsMutableLiveData.removeObserver(federalDistrictsMutableLiveDataObserver)
+        super.onCleared()
+    }
+
+    fun getAllFederalDistrict() {
+        async { _federalDistrictsMutableLiveData.postValue(getAllFederalDistrictUseCase.invoke().map { it.toItem() }) }
     }
 
     class Factory(
-        private val getAllFederalDistrictsUseCase: GetAllFederalDistrictsUseCase,
+        private val getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return AddressViewModel(
-                getAllFederalDistrictsUseCase = getAllFederalDistrictsUseCase
+                getAllFederalDistrictUseCase = getAllFederalDistrictUseCase
             ) as T
         }
     }
