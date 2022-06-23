@@ -3,8 +3,10 @@ package com.kok1337.mobiledev.di
 import android.content.Context
 import com.kok1337.mobiledev.data.database.dao.FederalDistrictDao
 import com.kok1337.mobiledev.data.database.dao.FederalDistrictDaoImpl
-import com.kok1337.mobiledev.data.database.dao.SubjectOfRusFedDao
-import com.kok1337.mobiledev.data.database.dao.SubjectOfRusFedDaoImpl
+import com.kok1337.mobiledev.data.database.dao.ForestryDao
+import com.kok1337.mobiledev.data.database.dao.ForestryDaoImpl
+import com.kok1337.mobiledev.data.mapper.SubjectOfRusFedDao
+import com.kok1337.mobiledev.data.mapper.SubjectOfRusFedDaoImpl
 import com.kok1337.mobiledev.data.storage.*
 import dagger.Binds
 import dagger.Module
@@ -34,6 +36,12 @@ interface DataBindModule {
 
     @Binds @Suppress("FunctionName")
     fun bindSubjectOfRusFedStorageDbImpl_to_SubjectOfRusFedStorage(subjectOfRusFedStorageDbImpl: SubjectOfRusFedStorageDbImpl): SubjectOfRusFedStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindForestryDaoImpl_to_ForestryDao(forestryDaoImpl: ForestryDaoImpl): ForestryDao
+
+    @Binds @Suppress("FunctionName")
+    fun bindForestryStorageDbImpl_to_ForestryStorage(forestryStorageDbImpl: ForestryStorageDbImpl): ForestryStorage
 
 }
 

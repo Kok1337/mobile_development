@@ -3,17 +3,17 @@ package com.kok1337.mobiledev.presentation.view.searchablespinner
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import com.kok1337.mobiledev.R
-import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.BindingAdapter
+import com.kok1337.mobiledev.presentation.util.recyclerbindingadapter.BindingAdapter
 import com.kok1337.mobiledev.presentation.util.showToast
 
 class SearchableSpinner : AppCompatTextView {
 
     private val nullSelectionString = resources.getString(R.string.nullSelection)
     private val defaultTitle = resources.getString(R.string.title)
+    private val nullItemPosition = -1
 
     private var title: String = defaultTitle
         set(value) {
@@ -24,9 +24,11 @@ class SearchableSpinner : AppCompatTextView {
     private var emptyItem: Boolean = true
 
     var searchableSpinnerConfiguration: SearchableSpinnerConfiguration<*>? = null
-        set(value) { field = value;
-            field?.onItemListUpdated = { if (autoSelect) tryMakeAutoSelect(field) }
+        set(value) {
+            field = value
+            selectedItemPosition = nullItemPosition
         }
+    private var selectedItemPosition = nullItemPosition
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrS: AttributeSet?) : super(context, attrS) {
@@ -69,21 +71,32 @@ class SearchableSpinner : AppCompatTextView {
 
         val dialog = SearchableSpinnerDialog(
             title, configuration!!.bindingAdapter, emptyItem, configuration.sortTypes
-        ) { _, item -> pickItem(item, configuration)}
+        ) { id, item -> pickItem(item, id, configuration)}
 
         dialog.show( (context as AppCompatActivity).supportFragmentManager, SearchableSpinnerDialog.TAG)
     }
 
+    fun getSelectedItem() = getSelectedItem(searchableSpinnerConfiguration)
+
+    private fun <T> getSelectedItem(configuration: SearchableSpinnerConfiguration<T>?): T? {
+        val adapter = configuration?.bindingAdapter
+        return if (adapter?.isCorrectPosition(selectedItemPosition) == true)
+            adapter.getItemByPosition(selectedItemPosition)
+        else null
+    }
+
+    fun tryMakeAutoSelect() = tryMakeAutoSelect(searchableSpinnerConfiguration)
+
     private fun <T> tryMakeAutoSelect(configuration: SearchableSpinnerConfiguration<T>?) {
         val bindingAdapter = configuration?.bindingAdapter
         when (bindingAdapter?.itemCount) {
-            0 -> pickItem(null, searchableSpinnerConfiguration)
-            1 -> pickItem(bindingAdapter.getItemByPosition(0), configuration)
+            0 -> pickItem(null, nullItemPosition, searchableSpinnerConfiguration)
+            1 -> pickItem(bindingAdapter.getItemByPosition(0), 0, configuration)
         }
     }
 
-    private fun <T> pickItem(item: T?, configuration: SearchableSpinnerConfiguration<T>?) {
-        configuration?.setSelectedItem(item)
+    private fun <T> pickItem(item: T?, id: Int, configuration: SearchableSpinnerConfiguration<T>?) {
+        selectedItemPosition = id
         configuration?.itemSelectedListener?.invoke(item)
         text = when(item) {
             null -> nullSelectionString
@@ -93,21 +106,8 @@ class SearchableSpinner : AppCompatTextView {
     }
 
     class SearchableSpinnerConfiguration<T>(
-        var bindingAdapter: BindingAdapter<T, *>,
+        val bindingAdapter: BindingAdapter<T, *>,
         var sortTypes: Array<SortType<T>> = emptyArray(),
         var itemSelectedListener: ((item: T?) -> Unit)?
-    ) {
-
-        private var selectedItem: T? = null
-        var onItemListUpdated: (() -> (Unit))? = null
-
-        fun setItemsWithAutoSelect(items: List<T>) {
-            bindingAdapter.setItems(items)
-            onItemListUpdated?.invoke()
-        }
-
-        fun setSelectedItem(item: T?) {
-            selectedItem = item
-        }
-    }
+    )
 }

@@ -3,7 +3,7 @@ package com.kok1337.mobiledev.presentation.fragment.toolbar
 import androidx.lifecycle.*
 import com.kok1337.mobiledev.domain.usecase.GetAllWorkTypesUseCase
 import com.kok1337.mobiledev.presentation.item.WorkTypeItem
-import com.kok1337.mobiledev.presentation.mapper.toWorkTypeItem
+import com.kok1337.mobiledev.presentation.mapper.toItem
 import kotlinx.coroutines.launch
 
 class WorkTypesViewModel(
@@ -15,7 +15,7 @@ class WorkTypesViewModel(
 
     fun getAllWorkTypes() {
         viewModelScope.launch {
-            _workTypesMutableLiveData.postValue(getAllWorkTypesUseCase.invoke().map { it.toWorkTypeItem() })
+            _workTypesMutableLiveData.postValue(getAllWorkTypesUseCase.invoke().map { it.toItem() })
         }
     }
 

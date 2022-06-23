@@ -1,4 +1,4 @@
-package com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter
+package com.kok1337.mobiledev.presentation.util.recyclerbindingadapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -26,6 +26,8 @@ open class BindingAdapter<T, B : ViewDataBinding>(
         items.sortedWith(comparator)
         notifyDataSetChanged()
     }
+
+    fun isCorrectPosition(position: Int): Boolean = position in 0..itemCount
 
     fun getItemByPosition(position: Int) : T {
         return items[position]

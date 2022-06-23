@@ -8,8 +8,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.databinding.DialogSearchablespinnerBinding
-import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.BindingAdapter
-import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.RecyclerConfiguration
+import com.kok1337.mobiledev.presentation.util.recyclerbindingadapter.BindingAdapter
+import com.kok1337.mobiledev.presentation.util.recyclerbindingadapter.RecyclerConfiguration
 
 class SearchableSpinnerDialog<T>(
     private val title: String,
@@ -37,7 +37,6 @@ class SearchableSpinnerDialog<T>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupRecyclerConfiguration()
         setupViews()
     }

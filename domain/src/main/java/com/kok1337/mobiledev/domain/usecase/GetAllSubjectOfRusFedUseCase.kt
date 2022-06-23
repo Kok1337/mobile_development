@@ -8,5 +8,5 @@ import javax.inject.Inject
 class GetAllSubjectOfRusFedUseCase @Inject constructor(
     private val subjectOfRusFedRepo: SubjectOfRusFedRepo,
 ) {
-    suspend fun invoke(federalDistrict: FederalDistrict): List<SubjectOfRusFed> = subjectOfRusFedRepo.getAllSubjectOfRusFedByFederalDistrict(federalDistrict)
+    suspend fun invoke(federalDistrict: FederalDistrict): List<SubjectOfRusFed> = subjectOfRusFedRepo.getAllSubjectOfRusFedByFederalDistrictId(federalDistrict.id)
 }

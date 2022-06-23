@@ -1,4 +1,4 @@
-package com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter
+package com.kok1337.mobiledev.presentation.util.recyclerbindingadapter
 
 import androidx.recyclerview.widget.RecyclerView
 

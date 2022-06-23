@@ -12,7 +12,7 @@ import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.databinding.FragmentTbWorktypesBinding
 import com.kok1337.mobiledev.domain.enum.Work
 import com.kok1337.mobiledev.presentation.adapter.WorkTypeAdapter
-import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.RecyclerConfiguration
+import com.kok1337.mobiledev.presentation.util.recyclerbindingadapter.RecyclerConfiguration
 import com.kok1337.mobiledev.presentation.item.WorkTypeItem
 import com.kok1337.mobiledev.presentation.util.getAppComponent
 import javax.inject.Inject

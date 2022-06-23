@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.kok1337.mobiledev.presentation.fragment.taxation.AddressViewModel" />
+            name="addressUIModel"
+            type="com.kok1337.mobiledev.presentation.model.AddressUIModel" />
     </data>
 
     <LinearLayout
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             app:autoSelect="true"
             app:title="Выберите федеральный округ"
-            android:enabled="@{viewModel.federalDistrictsSize != 0}"/>
+            android:enabled="@{addressUIModel.federalDistrictListSize != 0}"/>
 
         <TextView
             style="@style/SecondaryTextView"
@@ -39,38 +39,30 @@
             android:text="Субъект РФ" />
 
         <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
-            android:id="@+id/subjectOfRussianFederationSpinner"
+            android:id="@+id/subjectOfRusFedSpinner"
             style="@style/MainSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:autoSelect="true"
-            app:title="Выберите субъект РФ"/>
+            app:title="Выберите субъект РФ"
+            android:enabled="@{addressUIModel.subjectOfRusFedListSize != 0}"/>
 
+        <TextView
+            style="@style/SecondaryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Лесничество" />
+
+        <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+            android:id="@+id/forestrySpinner"
+            style="@style/MainSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:autoSelect="true"
+            app:title="Выберите лесничество"
+            android:enabled="@{addressUIModel.forestryListSize != 0}"/>
 
     </LinearLayout>
 
 </layout>
-
-<!--
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.fragment.taxation.AddressFragment"
-    android:background="@color/teal_700">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="AddressFragment"
-        android:textSize="32sp"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
--->
