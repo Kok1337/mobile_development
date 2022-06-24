@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import com.kok1337.mobiledev.R
-import com.kok1337.mobiledev.presentation.util.recyclerbindingadapter.BindingAdapter
+import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.BindingAdapter
 import com.kok1337.mobiledev.presentation.util.showToast
 
 class SearchableSpinner : AppCompatTextView {
@@ -26,7 +26,7 @@ class SearchableSpinner : AppCompatTextView {
     var searchableSpinnerConfiguration: SearchableSpinnerConfiguration<*>? = null
         set(value) {
             field = value
-            selectedItemPosition = nullItemPosition
+            selectedItemPosition = getItemPosition(searchableSpinnerConfiguration)
         }
     private var selectedItemPosition = nullItemPosition
 
@@ -76,7 +76,8 @@ class SearchableSpinner : AppCompatTextView {
         dialog.show( (context as AppCompatActivity).supportFragmentManager, SearchableSpinnerDialog.TAG)
     }
 
-    fun getSelectedItem() = getSelectedItem(searchableSpinnerConfiguration)
+    @Suppress("UNCHECKED_CAST")
+    fun <T> getSelectedItem(): T? = getSelectedItem(searchableSpinnerConfiguration) as T?
 
     private fun <T> getSelectedItem(configuration: SearchableSpinnerConfiguration<T>?): T? {
         val adapter = configuration?.bindingAdapter
@@ -92,7 +93,17 @@ class SearchableSpinner : AppCompatTextView {
         when (bindingAdapter?.itemCount) {
             0 -> pickItem(null, nullItemPosition, searchableSpinnerConfiguration)
             1 -> pickItem(bindingAdapter.getItemByPosition(0), 0, configuration)
+            else -> if (selectedItemPosition != nullItemPosition) {
+                pickItem(bindingAdapter!!.getItemByPosition(selectedItemPosition), selectedItemPosition, configuration)
+            }
         }
+    }
+
+    private fun <T> getItemPosition(configuration: SearchableSpinnerConfiguration<T>?): Int {
+        val item = configuration?.selectedItem ?: return nullItemPosition
+        if (!configuration.bindingAdapter.containsItem(item)) return nullItemPosition
+        val position = configuration.bindingAdapter.getPositionByItem(item)
+        return if (position == -1) nullItemPosition else position
     }
 
     private fun <T> pickItem(item: T?, id: Int, configuration: SearchableSpinnerConfiguration<T>?) {
@@ -108,6 +119,7 @@ class SearchableSpinner : AppCompatTextView {
     class SearchableSpinnerConfiguration<T>(
         val bindingAdapter: BindingAdapter<T, *>,
         var sortTypes: Array<SortType<T>> = emptyArray(),
+        var selectedItem: T? = null,
         var itemSelectedListener: ((item: T?) -> Unit)?
     )
 }

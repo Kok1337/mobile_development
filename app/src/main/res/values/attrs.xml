@@ -7,4 +7,8 @@
         <attr name="emptyItem" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="HighlighterState">
+        <attr name="state_item_highlighted" format="boolean" />
+    </declare-styleable>
+
 </resources>

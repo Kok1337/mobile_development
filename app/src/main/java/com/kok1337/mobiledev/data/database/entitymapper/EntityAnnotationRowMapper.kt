@@ -29,7 +29,7 @@ open class EntityAnnotationRowMapper<T>(private val clazz: Class<T>) {
     }
 
     @Throws(IllegalAccessException::class)
-    private fun setValueToField(item: T, field: Field, value: Any) {
+    private fun setValueToField(item: T, field: Field, value: Any?) {
         field.isAccessible = true
         field[item] = value
     }

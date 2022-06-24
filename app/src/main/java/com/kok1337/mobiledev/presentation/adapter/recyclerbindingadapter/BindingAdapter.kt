@@ -1,4 +1,4 @@
-package com.kok1337.mobiledev.presentation.util.recyclerbindingadapter
+package com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -14,30 +14,45 @@ open class BindingAdapter<T, B : ViewDataBinding>(
 ) : RecyclerView.Adapter<BindingAdapter.BindingViewHolder<B>>() {
 
     private var items: List<T> = emptyList()
+    private var copyItems: List<T> = emptyList()
+
+    private var lastComparator: Comparator<T>? = null
 
     @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: List<T>) {
         this.items = items
+        copyItems = items.toList()
         notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun sort(comparator: Comparator<T>) {
-        items.sortedWith(comparator)
+        lastComparator = comparator
+        copyItems = copyItems.sortedWith(comparator)
         notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filter(filterCondition: (T) -> Boolean) {
+        copyItems = items.filter(filterCondition)
+        if (lastComparator != null) sort(lastComparator!!) else notifyDataSetChanged()
     }
 
     fun isCorrectPosition(position: Int): Boolean = position in 0..itemCount
 
+    fun containsItem(item: T?): Boolean = copyItems.contains(item)
+
+    fun getPositionByItem(item: T) : Int = copyItems.indexOf(item)
+
     fun getItemByPosition(position: Int) : T {
-        return items[position]
+        return copyItems[position]
     }
 
     fun setOnItemClickListener(listener: (position: Int, item: T) -> Unit) {
         this.onItemClickListener = listener
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = copyItems.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder<B> {
         val inflater = LayoutInflater.from(parent.context)
@@ -46,7 +61,7 @@ open class BindingAdapter<T, B : ViewDataBinding>(
     }
 
     override fun onBindViewHolder(holder: BindingViewHolder<B>, position: Int) {
-        val item: T = items[position]
+        val item: T = copyItems[position]
         val binding: B = holder.binding
         binding.setVariable(variableId, item)
         holder.itemView.setOnClickListener { onItemClickListener?.invoke(position, item) }

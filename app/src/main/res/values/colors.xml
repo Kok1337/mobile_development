@@ -20,4 +20,7 @@
     <color name="black">#1B1B1B</color>
     <color name="low_black">#252525</color>
 
+    <color name="colorItemHighlighted">#30BA8F</color>
+    <color name="colorItemNotHighlighted">#FFDB58</color>#ffffff
+
 </resources>

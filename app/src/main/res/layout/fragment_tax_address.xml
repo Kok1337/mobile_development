@@ -28,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:autoSelect="true"
+            app:emptyItem="false"
             app:title="Выберите федеральный округ"
             android:enabled="@{addressUIModel.federalDistrictListSize != 0}"/>
 
@@ -44,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:autoSelect="true"
+            app:emptyItem="false"
             app:title="Выберите субъект РФ"
             android:enabled="@{addressUIModel.subjectOfRusFedListSize != 0}"/>
 
@@ -60,8 +62,162 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:autoSelect="true"
+            app:emptyItem="false"
             app:title="Выберите лесничество"
             android:enabled="@{addressUIModel.forestryListSize != 0}"/>
+
+        <TextView
+            style="@style/SecondaryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Участковое лесничество" />
+
+        <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+            android:id="@+id/localForestrySpinner"
+            style="@style/MainSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:autoSelect="true"
+            app:emptyItem="false"
+            app:title="Выберите участковое лесничество"
+            android:enabled="@{addressUIModel.localForestryListSize != 0}"/>
+
+        <TextView
+            style="@style/SecondaryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Урочище (участок, дача)" />
+
+        <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+            android:id="@+id/subForestrySpinner"
+            style="@style/MainSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:autoSelect="true"
+            app:emptyItem="false"
+            app:title="Выберите урочище"
+            android:enabled="@{addressUIModel.subForestryListSize != 0}"/>
+
+        <LinearLayout
+            style="@style/ItemSpinnerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SecondaryTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Лесной квартал" />
+
+            <View style="@style/ColumnSeparator"
+                android:layout_width="16dp"/>
+
+            <TextView
+                style="@style/SecondaryTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Лесотаксационный выдел" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ItemSpinnerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                android:id="@+id/areaSpinner"
+                style="@style/MainSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:autoSelect="true"
+                app:emptyItem="false"
+                app:title="Выберите лесной квартал"
+                android:enabled="@{addressUIModel.areaListSize != 0}"/>
+
+            <View style="@style/ColumnSeparator"
+                android:layout_width="16dp"/>
+
+            <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                android:id="@+id/sectionSpinner"
+                style="@style/MainSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:autoSelect="true"
+                app:emptyItem="false"
+                app:title="Выберите урочище"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ItemSpinnerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SecondaryTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Источник данных" />
+
+            <View style="@style/ColumnSeparator"
+                android:layout_width="16dp"/>
+
+            <TextView
+                style="@style/SecondaryTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Год" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ItemSpinnerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                android:id="@+id/sectionTaxSourceSpinner"
+                style="@style/MainSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:autoSelect="true"
+                app:emptyItem="false"
+                app:title="Выберите урочище"/>
+
+            <View style="@style/ColumnSeparator"
+                android:layout_width="16dp"/>
+
+            <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                android:id="@+id/taxYearSpinner"
+                style="@style/MainSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:autoSelect="true"
+                app:emptyItem="false"
+                app:title="Выберите урочище"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

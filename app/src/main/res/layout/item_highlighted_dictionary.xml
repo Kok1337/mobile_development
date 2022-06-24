@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="highlightedDictionary"
+            type="com.kok1337.mobiledev.presentation.adapter.HighlightedDictionaryItem" />
+    </data>
+
+    <com.kok1337.mobiledev.presentation.view.highlighted.HighlightedRelativeLayout
+        android:id="@+id/highlightedRelativeLayout"
+        style="@style/ItemSpinnerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:state_item_highlighted="@{highlightedDictionary.highlighted}"
+        android:background="@drawable/vbg_highlighted">
+
+        <TextView
+            style="@style/MainTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@{highlightedDictionary.name}" />
+
+    </com.kok1337.mobiledev.presentation.view.highlighted.HighlightedRelativeLayout>
+
+</layout>

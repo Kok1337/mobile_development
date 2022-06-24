@@ -1,13 +1,7 @@
 package com.kok1337.mobiledev.di
 
-import com.kok1337.mobiledev.data.repository.FederalDistrictRepoImpl
-import com.kok1337.mobiledev.data.repository.ForestryRepoImpl
-import com.kok1337.mobiledev.data.repository.SubjectOfRusFedRepoImpl
-import com.kok1337.mobiledev.data.repository.WorkTypeRepoImpl
-import com.kok1337.mobiledev.domain.repository.FederalDistrictRepo
-import com.kok1337.mobiledev.domain.repository.ForestryRepo
-import com.kok1337.mobiledev.domain.repository.SubjectOfRusFedRepo
-import com.kok1337.mobiledev.domain.repository.WorkTypeRepo
+import com.kok1337.mobiledev.data.repository.*
+import com.kok1337.mobiledev.domain.repository.*
 import dagger.Binds
 import dagger.Module
 
@@ -28,6 +22,12 @@ interface DomainBindModule {
 
     @Binds @Suppress("FunctionName")
     fun bindForestryRepoImpl_to_ForestryRepo(forestryRepoImpl: ForestryRepoImpl): ForestryRepo
+
+    @Binds @Suppress("FunctionName")
+    fun bindSubForestryRepoImpl_to_SubForestryRepo(subForestryRepoImpl: SubForestryRepoImpl): SubForestryRepo
+
+    @Binds @Suppress("FunctionName")
+    fun bindAreaRepoImpl_to_AreaRepo(areaRepoImpl: AreaRepoImpl): AreaRepo
 
 }
 

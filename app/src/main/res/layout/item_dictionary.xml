@@ -4,7 +4,7 @@
     <data>
         <variable
             name="dictionary"
-            type="com.kok1337.mobiledev.presentation.item.DictionaryItem" />
+            type="com.kok1337.mobiledev.presentation.adapter.DictionaryItem" />
     </data>
 
     <RelativeLayout

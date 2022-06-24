@@ -118,4 +118,14 @@
         <item name="android:queryBackground">@drawable/vbg_invisible</item>
     </style>
 
+    <style name="ColumnSeparator">
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_width">8dp</item>
+    </style>
+
+    <style name="RowSeparator">
+        <item name="android:layout_height">8dp</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+
 </resources>

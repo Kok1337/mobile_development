@@ -1,6 +1,7 @@
 package com.kok1337.mobiledev.presentation.view.searchablespinner
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +9,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.databinding.DialogSearchablespinnerBinding
-import com.kok1337.mobiledev.presentation.util.recyclerbindingadapter.BindingAdapter
-import com.kok1337.mobiledev.presentation.util.recyclerbindingadapter.RecyclerConfiguration
+import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.BindingAdapter
+import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.RecyclerConfiguration
+import com.kok1337.mobiledev.presentation.util.AppSearchViewListener
 
 class SearchableSpinnerDialog<T>(
     private val title: String,
@@ -27,6 +29,11 @@ class SearchableSpinnerDialog<T>(
 
     private var _binding: DialogSearchablespinnerBinding? = null
     private val binding get() = _binding!!
+
+    private val searchViewListener = AppSearchViewListener {
+        val query = it ?: ""
+        bindingAdapter.filter { item -> item is SpinnerItem && item.getSearchableString().contains(query, true) }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -55,6 +62,7 @@ class SearchableSpinnerDialog<T>(
         binding.nullSelection.visibility = if (nullSelection) View.VISIBLE else View.GONE
         binding.nullSelection.setOnClickListener { selectItem(-1, null) }
         binding.sortIcon.visibility = if (sortTypes.isEmpty()) View.GONE else View.VISIBLE
+        binding.searchView.setOnQueryTextListener(searchViewListener)
 
         if (sortTypes.isNotEmpty()) {
             setupSortType()
@@ -66,6 +74,7 @@ class SearchableSpinnerDialog<T>(
     }
 
     private fun setupSortType() {
+        Log.e("DIALOG", currentSortType.toString())
         val sortType = sortTypes[currentSortType]
         binding.sortIcon.setImageResource(sortType.iconResource)
         bindingAdapter.sort(sortType.comparator)
@@ -74,5 +83,10 @@ class SearchableSpinnerDialog<T>(
     private fun selectItem(position: Int, item: T?) {
         onItemSelectedListener.invoke(position, item)
         dismiss()
+    }
+
+    override fun dismiss() {
+        searchViewListener.onSuccess("")
+        super.dismiss()
     }
 }

@@ -3,17 +3,14 @@ package com.kok1337.mobiledev.presentation.util
 import android.app.Activity
 import android.content.Context
 import android.widget.Toast
-import androidx.databinding.adapters.RadioGroupBindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kok1337.mobiledev.app.App
 import com.kok1337.mobiledev.di.AppComponent
-import com.kok1337.mobiledev.presentation.mapper.toItem
-import com.kok1337.mobiledev.presentation.util.recyclerbindingadapter.BindingAdapter
+import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.BindingAdapter
 import com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
