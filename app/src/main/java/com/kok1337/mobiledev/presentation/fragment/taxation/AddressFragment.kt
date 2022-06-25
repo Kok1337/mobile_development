@@ -3,13 +3,16 @@ package com.kok1337.mobiledev.presentation.fragment.taxation
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.databinding.FragmentTaxAddressBinding
+import com.kok1337.mobiledev.databinding.ItemSectionBinding
 import com.kok1337.mobiledev.presentation.adapter.DictionaryAdapter
 import com.kok1337.mobiledev.presentation.adapter.HighlightedDictionaryAdapter
+import com.kok1337.mobiledev.presentation.adapter.SectionAdapter
 import com.kok1337.mobiledev.presentation.item.*
 import com.kok1337.mobiledev.presentation.util.getAppComponent
 import com.kok1337.mobiledev.presentation.util.setItemsAndTryAutoSelect
@@ -85,7 +88,30 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
         SearchableSpinner.SearchableSpinnerConfiguration(areaAdapter, AreaItem.getSortTypes()) {
             if (viewModel.areaSelectedItem.value == it) return@SearchableSpinnerConfiguration
             viewModel.setAreaSelectedItem(it)
+            viewModel.resetSectionList()
+            it?.let { viewModel.getAllSectionByArea(it) }
         }
+
+    private val sectionAdapter = SectionAdapter()
+    private val sectionConf =
+        SearchableSpinner.SearchableSpinnerConfiguration(sectionAdapter, SectionItem.getSortTypes()) {
+            if (viewModel.sectionSelectedItem.value == it) return@SearchableSpinnerConfiguration
+            viewModel.setSectionSelectedItem(it)
+            viewModel.resetTaxSourceList()
+            it?.let {
+                val area: AreaItem = binding.areaSpinner.getSelectedItem()!!
+                viewModel.getAllTaxSource(area, it)
+            }
+        }
+
+    private val taxSourceAdapter = DictionaryAdapter<TaxSourceItem>()
+    private val taxSourceConf =
+        SearchableSpinner.SearchableSpinnerConfiguration(taxSourceAdapter) {
+            if (viewModel.taxSourceSelectedItem.value == it) return@SearchableSpinnerConfiguration
+            viewModel.setTaxSourceSelectedItem(it)
+        }
+
+
 
     override fun onAttach(context: Context) {
         getAppComponent().inject(this)
@@ -96,12 +122,30 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.federalDistrictSelectedItem.observe(viewLifecycleOwner) { federalDistrictConf.selectedItem = it }
-        viewModel.subjectOfRusFedSelectedItem.observe(viewLifecycleOwner) { subjectOfRusConf.selectedItem = it }
-        viewModel.forestrySelectedItem.observe(viewLifecycleOwner) { forestryConf.selectedItem = it }
-        viewModel.localForestrySelectedItem.observe(viewLifecycleOwner) { localForestryConf.selectedItem = it }
-        viewModel.subForestrySelectedItem.observe(viewLifecycleOwner) { subForestryConf.selectedItem = it }
-        viewModel.areaSelectedItem.observe(viewLifecycleOwner) { areaConf.selectedItem = it }
+        viewModel.federalDistrictSelectedItem.observe(viewLifecycleOwner) {
+            federalDistrictConf.selectedItem = it
+        }
+        viewModel.subjectOfRusFedSelectedItem.observe(viewLifecycleOwner) {
+            subjectOfRusConf.selectedItem = it
+        }
+        viewModel.forestrySelectedItem.observe(viewLifecycleOwner) {
+            forestryConf.selectedItem = it
+        }
+        viewModel.localForestrySelectedItem.observe(viewLifecycleOwner) {
+            localForestryConf.selectedItem = it
+        }
+        viewModel.subForestrySelectedItem.observe(viewLifecycleOwner) {
+            subForestryConf.selectedItem = it
+        }
+        viewModel.areaSelectedItem.observe(viewLifecycleOwner) {
+            areaConf.selectedItem = it
+        }
+        viewModel.sectionSelectedItem.observe(viewLifecycleOwner) {
+            sectionConf.selectedItem = it
+        }
+        viewModel.taxSourceSelectedItem.observe(viewLifecycleOwner) {
+            taxSourceConf.selectedItem = it
+        }
 
         with(binding) {
 
@@ -113,6 +157,8 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
             localForestrySpinner.searchableSpinnerConfiguration = localForestryConf
             subForestrySpinner.searchableSpinnerConfiguration = subForestryConf
             areaSpinner.searchableSpinnerConfiguration = areaConf
+            sectionSpinner.searchableSpinnerConfiguration = sectionConf
+            taxSourceSpinner.searchableSpinnerConfiguration = taxSourceConf
 
             viewModel.federalDistrictListLiveData.observe(viewLifecycleOwner) {
                 setItemsAndTryAutoSelect(federalDistrictSpinner, federalDistrictAdapter, it)
@@ -131,6 +177,12 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
             }
             viewModel.areaListLiveData.observe(viewLifecycleOwner) {
                 setItemsAndTryAutoSelect(areaSpinner, areaAdapter, it)
+            }
+            viewModel.sectionListLiveData.observe(viewLifecycleOwner) {
+                setItemsAndTryAutoSelect(sectionSpinner, sectionAdapter, it)
+            }
+            viewModel.taxSourceListLiveData.observe(viewLifecycleOwner) {
+                setItemsAndTryAutoSelect(taxSourceSpinner, taxSourceAdapter, it)
             }
         }
 

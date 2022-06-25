@@ -42,7 +42,7 @@ open class BindingAdapter<T, B : ViewDataBinding>(
 
     fun containsItem(item: T?): Boolean = copyItems.contains(item)
 
-    fun getPositionByItem(item: T) : Int = copyItems.indexOf(item)
+    fun getPositionByItem(item: T) : Int = items.indexOf(item)
 
     fun getItemByPosition(position: Int) : T {
         return copyItems[position]
@@ -64,7 +64,10 @@ open class BindingAdapter<T, B : ViewDataBinding>(
         val item: T = copyItems[position]
         val binding: B = holder.binding
         binding.setVariable(variableId, item)
-        holder.itemView.setOnClickListener { onItemClickListener?.invoke(position, item) }
+        holder.itemView.setOnClickListener {
+            val itemPosition = getPositionByItem(item)
+            onItemClickListener?.invoke(itemPosition, item)
+        }
         viewSetting(binding, item, position)
     }
 

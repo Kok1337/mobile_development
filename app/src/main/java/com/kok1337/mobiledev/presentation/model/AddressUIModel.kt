@@ -12,6 +12,8 @@ class AddressUIModel(
     private var _localForestryListSize: Int = 0,
     private var _subForestryListSize: Int = 0,
     private var _areaListSize: Int = 0,
+    private var _sectionListSize: Int = 0,
+    private var _taxSourceListSize: Int = 0,
     ) : BaseObservable() {
 
     val federalDistrictListObserver: (List<FederalDistrictItem>) -> Unit = { federalDistrictListSize = it.size }
@@ -60,5 +62,21 @@ class AddressUIModel(
         set(value) {
             _areaListSize = value
             notifyPropertyChanged(BR.areaListSize)
+        }
+
+    val sectionListObserver: (List<SectionItem>) -> Unit = { sectionListSize = it.size }
+    var sectionListSize: Int
+        @Bindable get() = _sectionListSize
+        set(value) {
+            _sectionListSize = value
+            notifyPropertyChanged(BR.sectionListSize)
+        }
+
+    val taxSourceListObserver: (List<TaxSourceItem>) -> Unit = { taxSourceListSize = it.size }
+    var taxSourceListSize: Int
+        @Bindable get() = _taxSourceListSize
+        set(value) {
+            _taxSourceListSize = value
+            notifyPropertyChanged(BR.taxSourceListSize)
         }
 }

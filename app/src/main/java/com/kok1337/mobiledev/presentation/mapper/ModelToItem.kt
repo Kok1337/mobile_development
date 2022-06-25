@@ -16,3 +16,7 @@ fun LocalForestry.toItem(): LocalForestryItem = LocalForestryItem(id, value)
 fun SubForestry.toItem(): SubForestryItem = SubForestryItem(id, value)
 
 fun Area.toItem(): AreaItem = AreaItem(id, value, hasSection)
+
+fun Section.toItem(): SectionItem = SectionItem(name, s)
+
+fun TaxSource.toItem(): TaxSourceItem = TaxSourceItem(id, value)

@@ -29,6 +29,12 @@ interface DomainBindModule {
     @Binds @Suppress("FunctionName")
     fun bindAreaRepoImpl_to_AreaRepo(areaRepoImpl: AreaRepoImpl): AreaRepo
 
+    @Binds @Suppress("FunctionName")
+    fun bindSectionRepoImpl_to_SectionRepo(sectionRepoImpl: SectionRepoImpl): SectionRepo
+
+    @Binds @Suppress("FunctionName")
+    fun bindTaxSourceRepoImpl_to_TaxSourceRepo(taxSourceRepoImpl: TaxSourceRepoImpl): TaxSourceRepo
+
 }
 
 

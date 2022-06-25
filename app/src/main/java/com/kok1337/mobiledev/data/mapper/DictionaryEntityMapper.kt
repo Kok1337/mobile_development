@@ -14,3 +14,7 @@ fun LocalForestryEntity.toModel(): LocalForestry = LocalForestry(this.id!!, this
 fun SubForestryEntity.toModel(): SubForestry = SubForestry(this.id ?: 0, this.name ?: "(нет)")
 
 fun AreaEntity.toModel(): Area = Area(this.id!!, this.name!!, this.hasSection!!)
+
+fun SectionEntity.toModel(): Section = Section(this.name!!, this.s!!)
+
+fun TaxSourceEntity.toModel(): TaxSource = TaxSource(this.id!!, this.name!!)

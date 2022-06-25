@@ -11,5 +11,6 @@ class SortType<T>(
         ALPHABET(R.drawable.ic_sort_by_alpha),
         COLOR(R.drawable.ic_sort_by_color),
         NUMBER(R.drawable.ic_sort_by_number),
+        SQUARE(R.drawable.ic_sort_by_square),
     }
 }

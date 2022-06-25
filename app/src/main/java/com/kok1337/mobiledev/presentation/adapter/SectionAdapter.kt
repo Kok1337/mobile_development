@@ -4,7 +4,6 @@ import com.kok1337.mobiledev.BR
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.databinding.ItemDictionaryBinding
 import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.BindingAdapter
+import com.kok1337.mobiledev.presentation.item.SectionItem
 
-class DictionaryAdapter<T> : BindingAdapter<T, ItemDictionaryBinding>(
-    R.layout.item_dictionary, BR.dictionary
-) where T : DictionaryItem
+class SectionAdapter : BindingAdapter<SectionItem, ItemDictionaryBinding>(R.layout.item_section, BR.section)

@@ -22,3 +22,7 @@ fun AreaParamsItem.toModel(): AreaParams = AreaParams(
     localForestryItem.toModel(),
     subForestryItem.toModel()
 )
+
+fun SectionItem.toModel(): Section = Section(name, s)
+
+fun TaxSourceItem.toModel(): TaxSource = TaxSource(id, value)

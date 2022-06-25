@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="section"
+            type="com.kok1337.mobiledev.presentation.item.SectionItem" />
+    </data>
+
+    <RelativeLayout
+        style="@style/ItemSpinnerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SecondaryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:text="№" />
+
+            <TextView
+                style="@style/MainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{section.name}" />
+
+            <View style="@style/ColumnSeparator"
+                android:layout_width="16dp"/>
+
+            <TextView
+                style="@style/SecondaryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:text="S = " />
+
+            <TextView
+                style="@style/MainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{section.sStr}" />
+
+        </LinearLayout>
+
+        <!--
+        <TextView
+            style="@style/MainTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@{dictionary.name}" /> -->
+
+    </RelativeLayout>
+
+</layout>

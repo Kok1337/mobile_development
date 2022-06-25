@@ -156,7 +156,8 @@
                 android:layout_weight="1"
                 app:autoSelect="true"
                 app:emptyItem="false"
-                app:title="Выберите урочище"/>
+                app:title="Выберите лесотаксационный выдел"
+                android:enabled="@{addressUIModel.sectionListSize != 0}"/>
 
         </LinearLayout>
 
@@ -195,14 +196,14 @@
             android:orientation="horizontal">
 
             <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
-                android:id="@+id/sectionTaxSourceSpinner"
+                android:id="@+id/taxSourceSpinner"
                 style="@style/MainSpinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:autoSelect="true"
                 app:emptyItem="false"
-                app:title="Выберите урочище"/>
+                app:title="Выберите источник данных"/>
 
             <View style="@style/ColumnSeparator"
                 android:layout_width="16dp"/>
@@ -215,7 +216,8 @@
                 android:layout_weight="1"
                 app:autoSelect="true"
                 app:emptyItem="false"
-                app:title="Выберите урочище"/>
+                app:title="Выберите год"
+                android:enabled="@{addressUIModel.taxSourceListSize != 0}"/>
 
         </LinearLayout>
 

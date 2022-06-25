@@ -62,6 +62,18 @@ interface DataBindModule {
 
     @Binds @Suppress("FunctionName")
     fun bindAreaStorageDbImpl_to_AreaStorage(areaStorageDbImpl: AreaStorageDbImpl): AreaStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindSectionDaoImpl_to_SectionDao(sectionDaoImpl: SectionDaoImpl): SectionDao
+
+    @Binds @Suppress("FunctionName")
+    fun bindSectionStorageDbImpl_to_SectionStorage(sectionStorageDbImpl: SectionStorageDbImpl): SectionStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindTaxSourceDaoImpl_to_TaxSourceDao(taxSourceDaoImpl: TaxSourceDaoImpl): TaxSourceDao
+
+    @Binds @Suppress("FunctionName")
+    fun bindTaxSourceStorageDbImpl_to_TaxSourceStorage(taxSourceStorageDbImpl: TaxSourceStorageDbImpl): TaxSourceStorage
 }
 
 @Module

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.kok1337.mobiledev.domain.model.AreaParams
 import com.kok1337.mobiledev.domain.usecase.*
 import com.kok1337.mobiledev.presentation.item.*
 import com.kok1337.mobiledev.presentation.mapper.toItem
@@ -20,6 +19,8 @@ class AddressViewModel(
     private val getAllLocalForestryUseCase: GetAllLocalForestryUseCase,
     private val getAllSubForestryUseCase: GetAllSubForestryUseCase,
     private val getAllAreaUseCase: GetAllAreaUseCase,
+    private val getAllSectionUseCase: GetAllSectionUseCase,
+    private val getAllTaxSourceUseCase: GetAllTaxSourceUseCase,
 ) : ViewModel() {
 
     val addressUIModel: LiveData<AddressUIModel>
@@ -128,11 +129,47 @@ class AddressViewModel(
         _areaSelectedItem.value = null
     }
 
-    fun getAllAreaByAreaParams(
-        areaParams: AreaParamsItem
-    ) = async {
-        _areaListLiveData.postValue(getAllAreaUseCase.invoke(areaParams.toModel()).map { it.toItem() })
+    fun getAllAreaByAreaParams(areaParams: AreaParamsItem) = async {
+        _areaListLiveData.postValue(
+            getAllAreaUseCase.invoke(areaParams.toModel()).map { it.toItem() })
     }
+
+    private val _sectionSelectedItem = MutableLiveData<SectionItem?>(null)
+    val sectionSelectedItem: LiveData<SectionItem?> = _sectionSelectedItem
+    fun setSectionSelectedItem(sectionItem: SectionItem?) {
+        _sectionSelectedItem.value = sectionItem
+    }
+
+    private val _sectionListLiveData = MutableLiveData<List<SectionItem>>()
+    val sectionListLiveData: LiveData<List<SectionItem>> = _sectionListLiveData
+    fun resetSectionList() {
+        _sectionListLiveData.value = emptyList()
+        _sectionSelectedItem.value = null
+    }
+
+    fun getAllSectionByArea(area: AreaItem) = async {
+        _sectionListLiveData.postValue(
+            getAllSectionUseCase.invoke(area.toModel()).map { it.toItem() })
+    }
+
+    private val _taxSourceSelectedItem = MutableLiveData<TaxSourceItem?>(null)
+    val taxSourceSelectedItem: LiveData<TaxSourceItem?> = _taxSourceSelectedItem
+    fun setTaxSourceSelectedItem(taxSourceItem: TaxSourceItem?) {
+        _taxSourceSelectedItem.value = taxSourceItem
+    }
+
+    private val _taxSourceListLiveData = MutableLiveData<List<TaxSourceItem>>()
+    val taxSourceListLiveData: LiveData<List<TaxSourceItem>> = _taxSourceListLiveData
+    fun resetTaxSourceList() {
+        _taxSourceListLiveData.value = emptyList()
+        _taxSourceSelectedItem.value = null
+    }
+
+    fun getAllTaxSource(area: AreaItem, section: SectionItem) = async {
+        _taxSourceListLiveData.postValue(
+            getAllTaxSourceUseCase.invoke(area.toModel(), section.toModel()).map { it.toItem() })
+    }
+
 
     init {
         addressUIModel = MutableLiveData(AddressUIModel())
@@ -143,6 +180,8 @@ class AddressViewModel(
             _localForestryListLiveData.observeForever(it.localForestryListObserver)
             _subForestryListLiveData.observeForever(it.subForestryListObserver)
             _areaListLiveData.observeForever(it.areaListObserver)
+            _sectionListLiveData.observeForever(it.sectionListObserver)
+            _taxSourceListLiveData.observeForever(it.taxSourceListObserver)
         }
     }
 
@@ -153,6 +192,8 @@ class AddressViewModel(
         private val getAllLocalForestryUseCase: GetAllLocalForestryUseCase,
         private val getAllSubForestryUseCase: GetAllSubForestryUseCase,
         private val getAllAreaUseCase: GetAllAreaUseCase,
+        private val getAllSectionUseCase: GetAllSectionUseCase,
+        private val getAllTaxSourceUseCase: GetAllTaxSourceUseCase,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -162,7 +203,9 @@ class AddressViewModel(
                 getAllForestryUseCase = getAllForestryUseCase,
                 getAllLocalForestryUseCase = getAllLocalForestryUseCase,
                 getAllSubForestryUseCase = getAllSubForestryUseCase,
-                getAllAreaUseCase = getAllAreaUseCase
+                getAllAreaUseCase = getAllAreaUseCase,
+                getAllSectionUseCase = getAllSectionUseCase,
+                getAllTaxSourceUseCase = getAllTaxSourceUseCase,
             ) as T
         }
     }
@@ -175,6 +218,8 @@ class AddressViewModel(
             _localForestryListLiveData.removeObserver(it.localForestryListObserver)
             _subForestryListLiveData.removeObserver(it.subForestryListObserver)
             _areaListLiveData.removeObserver(it.areaListObserver)
+            _sectionListLiveData.removeObserver(it.sectionListObserver)
+            _taxSourceListLiveData.removeObserver(it.taxSourceListObserver)
         }
     }
 }
