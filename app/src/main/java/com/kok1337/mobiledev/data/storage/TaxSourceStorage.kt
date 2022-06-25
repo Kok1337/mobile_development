@@ -1,7 +1,9 @@
 package com.kok1337.mobiledev.data.storage
 
-import com.kok1337.mobiledev.data.database.dao.TaxSourceDao
+import android.util.Log
+import com.kok1337.mobiledev.data.database.EntityRowMapper
 import com.kok1337.mobiledev.data.entity.TaxSourceEntity
+import org.springframework.jdbc.core.JdbcTemplate
 import java.util.*
 import javax.inject.Inject
 
@@ -10,9 +12,12 @@ interface TaxSourceStorage {
 }
 
 class TaxSourceStorageDbImpl @Inject constructor(
-    private val taxSourceDao: TaxSourceDao,
+    private val jdbcTemplate: JdbcTemplate,
 ) : TaxSourceStorage {
+    private val mapper = EntityRowMapper(TaxSourceEntity::class.java)
     override fun getAllTaxSourceByAreaIdAndSectionName(id: UUID, name: String): List<TaxSourceEntity> {
-        return taxSourceDao.findAllByAreaIdAndSectionName(id, name)
+        val query = "select * from czl_get_section_tax_source(?, ?);"
+        Log.e("TaxSourceStorageDbImpl", "select * from czl_get_section_tax_source($id, $name);")
+        return jdbcTemplate.query(query, mapper, id, name)
     }
 }

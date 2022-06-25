@@ -45,7 +45,7 @@ open class BindingAdapter<T, B : ViewDataBinding>(
     fun getPositionByItem(item: T) : Int = items.indexOf(item)
 
     fun getItemByPosition(position: Int) : T {
-        return copyItems[position]
+        return items[position]
     }
 
     fun setOnItemClickListener(listener: (position: Int, item: T) -> Unit) {

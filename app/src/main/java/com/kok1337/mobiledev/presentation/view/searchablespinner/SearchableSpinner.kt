@@ -3,6 +3,7 @@ package com.kok1337.mobiledev.presentation.view.searchablespinner
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import com.kok1337.mobiledev.R
@@ -80,6 +81,7 @@ class SearchableSpinner : AppCompatTextView {
     fun <T> getSelectedItem(): T? = getSelectedItem(searchableSpinnerConfiguration) as T?
 
     private fun <T> getSelectedItem(configuration: SearchableSpinnerConfiguration<T>?): T? {
+        Log.e("sddsfgsdfgdfgdf", selectedItemPosition.toString())
         val adapter = configuration?.bindingAdapter
         return if (adapter?.isCorrectPosition(selectedItemPosition) == true)
             adapter.getItemByPosition(selectedItemPosition)

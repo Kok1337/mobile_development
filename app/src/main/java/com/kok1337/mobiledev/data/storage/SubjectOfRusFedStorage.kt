@@ -1,7 +1,8 @@
 package com.kok1337.mobiledev.data.storage
 
+import com.kok1337.mobiledev.data.database.EntityRowMapper
 import com.kok1337.mobiledev.data.entity.SubjectOfRusFedEntity
-import com.kok1337.mobiledev.data.mapper.SubjectOfRusFedDao
+import org.springframework.jdbc.core.JdbcTemplate
 import javax.inject.Inject
 
 interface SubjectOfRusFedStorage {
@@ -9,9 +10,11 @@ interface SubjectOfRusFedStorage {
 }
 
 class SubjectOfRusFedStorageDbImpl @Inject constructor(
-    private val subjectOfRusFedDao: SubjectOfRusFedDao,
+    private val jdbcTemplate: JdbcTemplate,
 ) : SubjectOfRusFedStorage {
+    private val mapper = EntityRowMapper(SubjectOfRusFedEntity::class.java)
     override fun getAllSubjectOfRusFedByFederalDistrictId(id: Int): List<SubjectOfRusFedEntity> {
-        return subjectOfRusFedDao.findAllByFederalDistrictId(id)
+        val query = "select * from czl_get_all_regions(?);"
+        return jdbcTemplate.query(query, mapper, id)
     }
 }

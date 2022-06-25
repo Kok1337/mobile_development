@@ -2,14 +2,13 @@ package com.kok1337.mobiledev.presentation.fragment.taxation
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.databinding.FragmentTaxAddressBinding
-import com.kok1337.mobiledev.databinding.ItemSectionBinding
 import com.kok1337.mobiledev.presentation.adapter.DictionaryAdapter
 import com.kok1337.mobiledev.presentation.adapter.HighlightedDictionaryAdapter
 import com.kok1337.mobiledev.presentation.adapter.SectionAdapter
@@ -87,6 +86,7 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
     private val areaConf =
         SearchableSpinner.SearchableSpinnerConfiguration(areaAdapter, AreaItem.getSortTypes()) {
             if (viewModel.areaSelectedItem.value == it) return@SearchableSpinnerConfiguration
+            Log.e("dfgdfg", it.toString())
             viewModel.setAreaSelectedItem(it)
             viewModel.resetSectionList()
             it?.let { viewModel.getAllSectionByArea(it) }
@@ -94,7 +94,10 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
 
     private val sectionAdapter = SectionAdapter()
     private val sectionConf =
-        SearchableSpinner.SearchableSpinnerConfiguration(sectionAdapter, SectionItem.getSortTypes()) {
+        SearchableSpinner.SearchableSpinnerConfiguration(
+            sectionAdapter,
+            SectionItem.getSortTypes()
+        ) {
             if (viewModel.sectionSelectedItem.value == it) return@SearchableSpinnerConfiguration
             viewModel.setSectionSelectedItem(it)
             viewModel.resetTaxSourceList()
@@ -110,7 +113,6 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
             if (viewModel.taxSourceSelectedItem.value == it) return@SearchableSpinnerConfiguration
             viewModel.setTaxSourceSelectedItem(it)
         }
-
 
 
     override fun onAttach(context: Context) {

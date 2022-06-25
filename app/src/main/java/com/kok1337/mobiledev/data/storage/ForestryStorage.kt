@@ -1,7 +1,8 @@
 package com.kok1337.mobiledev.data.storage
 
-import com.kok1337.mobiledev.data.database.dao.ForestryDao
+import com.kok1337.mobiledev.data.database.EntityRowMapper
 import com.kok1337.mobiledev.data.entity.ForestryEntity
+import org.springframework.jdbc.core.JdbcTemplate
 import javax.inject.Inject
 
 interface ForestryStorage {
@@ -9,9 +10,11 @@ interface ForestryStorage {
 }
 
 class ForestryStorageDbImpl @Inject constructor(
-    private val forestryDao: ForestryDao,
+    private val jdbcTemplate: JdbcTemplate,
 ) : ForestryStorage {
+    private val mapper = EntityRowMapper(ForestryEntity::class.java)
     override fun getAllForestryBySubjectOfRusFedId(id: Int): List<ForestryEntity> {
-        return forestryDao.findAllBySubjectOfRusFedId(id)
+        val query = "select * from czl_get_all_forestries(?);"
+        return jdbcTemplate.query(query, mapper, id)
     }
 }
