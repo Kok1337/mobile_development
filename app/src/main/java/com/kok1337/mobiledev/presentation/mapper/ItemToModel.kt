@@ -15,14 +15,6 @@ fun SubForestryItem.toModel(): SubForestry = SubForestry(id, value)
 
 fun AreaItem.toModel(): Area = Area(id, value, hasSection)
 
-fun AreaParamsItem.toModel(): AreaParams = AreaParams(
-    federalDistrictItem.toModel(),
-    subjectOfRusFedItem.toModel(),
-    forestryItem.toModel(),
-    localForestryItem.toModel(),
-    subForestryItem.toModel()
-)
-
 fun SectionItem.toModel(): Section = Section(name, s)
 
 fun TaxSourceItem.toModel(): TaxSource = TaxSource(id, value)

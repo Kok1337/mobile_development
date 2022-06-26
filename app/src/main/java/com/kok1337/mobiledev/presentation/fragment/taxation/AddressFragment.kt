@@ -2,7 +2,6 @@ package com.kok1337.mobiledev.presentation.fragment.taxation
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +12,7 @@ import com.kok1337.mobiledev.presentation.adapter.DictionaryAdapter
 import com.kok1337.mobiledev.presentation.adapter.HighlightedDictionaryAdapter
 import com.kok1337.mobiledev.presentation.adapter.SectionAdapter
 import com.kok1337.mobiledev.presentation.item.*
+import com.kok1337.mobiledev.presentation.model.AddressUIModel
 import com.kok1337.mobiledev.presentation.util.getAppComponent
 import com.kok1337.mobiledev.presentation.util.setItemsAndTryAutoSelect
 import com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
@@ -29,91 +29,60 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
     private val federalDistrictAdapter = DictionaryAdapter<FederalDistrictItem>()
     private val federalDistrictConf =
         SearchableSpinner.SearchableSpinnerConfiguration(federalDistrictAdapter) {
-            if (viewModel.federalDistrictSelectedItem.value == it) return@SearchableSpinnerConfiguration
-            viewModel.setFederalDistrictSelectedItem(it)
-            viewModel.resetSubjectOfRusFedList()
-            it?.let { viewModel.getAllSubjectOfRusFedByFederalDistrict(it) }
+            if (viewModel.federalDistrictSLD.trySetNewItem(it)) {
+                viewModel.getAllSubjectOfRusFedByFederalDistrict()
+            }
         }
 
     private val subjectOfRusFedAdapter = DictionaryAdapter<SubjectOfRusFedItem>()
     private val subjectOfRusConf =
         SearchableSpinner.SearchableSpinnerConfiguration(subjectOfRusFedAdapter) {
-            if (viewModel.subjectOfRusFedSelectedItem.value == it) return@SearchableSpinnerConfiguration
-            viewModel.setSubjectOfRusFedSelectedItem(it)
-            viewModel.resetForestryList()
-            it?.let { viewModel.getAllForestryBySubjectOfRusFed(it) }
+            if (viewModel.subjectOfRusFedSLD.trySetNewItem(it))
+                viewModel.getAllForestryBySubjectOfRusFed()
         }
 
     private val forestryAdapter = DictionaryAdapter<ForestryItem>()
     private val forestryConf =
         SearchableSpinner.SearchableSpinnerConfiguration(forestryAdapter) {
-            if (viewModel.forestrySelectedItem.value == it) return@SearchableSpinnerConfiguration
-            viewModel.setForestrySelectedItem(it)
-            viewModel.resetLocalForestryList()
-            it?.let { viewModel.getAllLocalForestryByForestry(it) }
+            if (viewModel.forestrySLD.trySetNewItem(it))
+                viewModel.getAllLocalForestryByForestry()
         }
 
     private val localForestryAdapter = DictionaryAdapter<LocalForestryItem>()
     private val localForestryConf =
         SearchableSpinner.SearchableSpinnerConfiguration(localForestryAdapter) {
-            if (viewModel.localForestrySelectedItem.value == it) return@SearchableSpinnerConfiguration
-            viewModel.setLocalForestrySelectedItem(it)
-            viewModel.resetSubForestryList()
-            it?.let { viewModel.getAllSubForestryByLocalForestry(it) }
+            if (viewModel.localForestrySLD.trySetNewItem(it))
+                viewModel.getAllSubForestryByLocalForestry()
         }
 
     private val subForestryAdapter = DictionaryAdapter<SubForestryItem>()
     private val subForestryConf =
         SearchableSpinner.SearchableSpinnerConfiguration(subForestryAdapter) {
-            if (viewModel.subForestrySelectedItem.value == it) return@SearchableSpinnerConfiguration
-            viewModel.setSubForestrySelectedItem(it)
-            viewModel.resetAreaList()
-            it?.let {
-                with(binding) {
-                    val areaParamsItem = AreaParamsItem(
-                        federalDistrictSpinner.getSelectedItem()!!,
-                        subjectOfRusFedSpinner.getSelectedItem()!!,
-                        forestrySpinner.getSelectedItem()!!,
-                        localForestrySpinner.getSelectedItem()!!,
-                        it
-                    )
-                    viewModel.getAllAreaByAreaParams(areaParamsItem)
-                }
-            }
+            if (viewModel.subForestrySLD.trySetNewItem(it))
+                viewModel.getAllAreaByAreaParams()
         }
 
     private val areaAdapter = HighlightedDictionaryAdapter<AreaItem>()
     private val areaConf =
         SearchableSpinner.SearchableSpinnerConfiguration(areaAdapter, AreaItem.getSortTypes()) {
-            if (viewModel.areaSelectedItem.value == it) return@SearchableSpinnerConfiguration
-            Log.e("dfgdfg", it.toString())
-            viewModel.setAreaSelectedItem(it)
-            viewModel.resetSectionList()
-            it?.let { viewModel.getAllSectionByArea(it) }
+            if (viewModel.areaSLD.trySetNewItem(it))
+                viewModel.getAllSectionByArea()
         }
 
     private val sectionAdapter = SectionAdapter()
     private val sectionConf =
         SearchableSpinner.SearchableSpinnerConfiguration(
-            sectionAdapter,
-            SectionItem.getSortTypes()
+            sectionAdapter, SectionItem.getSortTypes()
         ) {
-            if (viewModel.sectionSelectedItem.value == it) return@SearchableSpinnerConfiguration
-            viewModel.setSectionSelectedItem(it)
-            viewModel.resetTaxSourceList()
-            it?.let {
-                val area: AreaItem = binding.areaSpinner.getSelectedItem()!!
-                viewModel.getAllTaxSource(area, it)
-            }
+            if (viewModel.sectionSLD.trySetNewItem(it))
+                viewModel.getAllTaxSourceByAreaAndSection()
         }
 
     private val taxSourceAdapter = DictionaryAdapter<TaxSourceItem>()
     private val taxSourceConf =
         SearchableSpinner.SearchableSpinnerConfiguration(taxSourceAdapter) {
-            if (viewModel.taxSourceSelectedItem.value == it) return@SearchableSpinnerConfiguration
-            viewModel.setTaxSourceSelectedItem(it)
+            viewModel.taxSourceSLD.trySetNewItem(it)
         }
-
 
     override fun onAttach(context: Context) {
         getAppComponent().inject(this)
@@ -124,34 +93,61 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.federalDistrictSelectedItem.observe(viewLifecycleOwner) {
-            federalDistrictConf.selectedItem = it
-        }
-        viewModel.subjectOfRusFedSelectedItem.observe(viewLifecycleOwner) {
-            subjectOfRusConf.selectedItem = it
-        }
-        viewModel.forestrySelectedItem.observe(viewLifecycleOwner) {
-            forestryConf.selectedItem = it
-        }
-        viewModel.localForestrySelectedItem.observe(viewLifecycleOwner) {
-            localForestryConf.selectedItem = it
-        }
-        viewModel.subForestrySelectedItem.observe(viewLifecycleOwner) {
-            subForestryConf.selectedItem = it
-        }
-        viewModel.areaSelectedItem.observe(viewLifecycleOwner) {
-            areaConf.selectedItem = it
-        }
-        viewModel.sectionSelectedItem.observe(viewLifecycleOwner) {
-            sectionConf.selectedItem = it
-        }
-        viewModel.taxSourceSelectedItem.observe(viewLifecycleOwner) {
-            taxSourceConf.selectedItem = it
-        }
+        val uiModel = AddressUIModel()
+
+        viewModel.federalDistrictSLD.itemCountLD.observe(viewLifecycleOwner)
+        { uiModel.federalDistrictListSize.set(it) }
+        viewModel.subjectOfRusFedSLD.itemCountLD.observe(viewLifecycleOwner)
+        { uiModel.subjectOfRusFedListSize.set(it) }
+        viewModel.forestrySLD.itemCountLD.observe(viewLifecycleOwner)
+        { uiModel.forestryListSize.set(it) }
+        viewModel.localForestrySLD.itemCountLD.observe(viewLifecycleOwner)
+        { uiModel.localForestryListSize.set(it) }
+        viewModel.subForestrySLD.itemCountLD.observe(viewLifecycleOwner)
+        { uiModel.subForestryListSize.set(it) }
+        viewModel.areaSLD.itemCountLD.observe(viewLifecycleOwner)
+        { uiModel.areaListSize.set(it) }
+        viewModel.sectionSLD.itemCountLD.observe(viewLifecycleOwner)
+        { uiModel.sectionListSize.set(it) }
+        viewModel.taxSourceSLD.itemCountLD.observe(viewLifecycleOwner)
+        { uiModel.taxSourceListSize.set(it) }
+
+        viewModel.federalDistrictSLD.selectedItemLD.observe(viewLifecycleOwner)
+        { federalDistrictConf.selectedItem = it }
+        viewModel.subjectOfRusFedSLD.selectedItemLD.observe(viewLifecycleOwner)
+        { subjectOfRusConf.selectedItem = it }
+        viewModel.forestrySLD.selectedItemLD.observe(viewLifecycleOwner)
+        { forestryConf.selectedItem = it }
+        viewModel.localForestrySLD.selectedItemLD.observe(viewLifecycleOwner)
+        { localForestryConf.selectedItem = it }
+        viewModel.subForestrySLD.selectedItemLD.observe(viewLifecycleOwner)
+        { subForestryConf.selectedItem = it }
+        viewModel.areaSLD.selectedItemLD.observe(viewLifecycleOwner)
+        { areaConf.selectedItem = it }
+        viewModel.sectionSLD.selectedItemLD.observe(viewLifecycleOwner)
+        { sectionConf.selectedItem = it }
+        viewModel.taxSourceSLD.selectedItemLD.observe(viewLifecycleOwner)
+        { taxSourceConf.selectedItem = it }
 
         with(binding) {
+            binding.uim = uiModel
 
-            viewModel.addressUIModel.observe(viewLifecycleOwner) { addressUIModel = it }
+            viewModel.federalDistrictSLD.itemsLD.observe(viewLifecycleOwner)
+            { setItemsAndTryAutoSelect(federalDistrictSpinner, federalDistrictAdapter, it) }
+            viewModel.subjectOfRusFedSLD.itemsLD.observe(viewLifecycleOwner)
+            { setItemsAndTryAutoSelect(subjectOfRusFedSpinner, subjectOfRusFedAdapter, it) }
+            viewModel.forestrySLD.itemsLD.observe(viewLifecycleOwner)
+            { setItemsAndTryAutoSelect(forestrySpinner, forestryAdapter, it) }
+            viewModel.localForestrySLD.itemsLD.observe(viewLifecycleOwner)
+            { setItemsAndTryAutoSelect(localForestrySpinner, localForestryAdapter, it) }
+            viewModel.subForestrySLD.itemsLD.observe(viewLifecycleOwner)
+            { setItemsAndTryAutoSelect(subForestrySpinner, subForestryAdapter, it) }
+            viewModel.areaSLD.itemsLD.observe(viewLifecycleOwner)
+            { setItemsAndTryAutoSelect(areaSpinner, areaAdapter, it) }
+            viewModel.sectionSLD.itemsLD.observe(viewLifecycleOwner)
+            { setItemsAndTryAutoSelect(sectionSpinner, sectionAdapter, it) }
+            viewModel.taxSourceSLD.itemsLD.observe(viewLifecycleOwner)
+            { setItemsAndTryAutoSelect(taxSourceSpinner, taxSourceAdapter, it) }
 
             federalDistrictSpinner.searchableSpinnerConfiguration = federalDistrictConf
             subjectOfRusFedSpinner.searchableSpinnerConfiguration = subjectOfRusConf
@@ -161,34 +157,9 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
             areaSpinner.searchableSpinnerConfiguration = areaConf
             sectionSpinner.searchableSpinnerConfiguration = sectionConf
             taxSourceSpinner.searchableSpinnerConfiguration = taxSourceConf
-
-            viewModel.federalDistrictListLiveData.observe(viewLifecycleOwner) {
-                setItemsAndTryAutoSelect(federalDistrictSpinner, federalDistrictAdapter, it)
-            }
-            viewModel.subjectOfRusFedListLiveData.observe(viewLifecycleOwner) {
-                setItemsAndTryAutoSelect(subjectOfRusFedSpinner, subjectOfRusFedAdapter, it)
-            }
-            viewModel.forestryListLiveData.observe(viewLifecycleOwner) {
-                setItemsAndTryAutoSelect(forestrySpinner, forestryAdapter, it)
-            }
-            viewModel.localForestryListLiveData.observe(viewLifecycleOwner) {
-                setItemsAndTryAutoSelect(localForestrySpinner, localForestryAdapter, it)
-            }
-            viewModel.subForestryListLiveData.observe(viewLifecycleOwner) {
-                setItemsAndTryAutoSelect(subForestrySpinner, subForestryAdapter, it)
-            }
-            viewModel.areaListLiveData.observe(viewLifecycleOwner) {
-                setItemsAndTryAutoSelect(areaSpinner, areaAdapter, it)
-            }
-            viewModel.sectionListLiveData.observe(viewLifecycleOwner) {
-                setItemsAndTryAutoSelect(sectionSpinner, sectionAdapter, it)
-            }
-            viewModel.taxSourceListLiveData.observe(viewLifecycleOwner) {
-                setItemsAndTryAutoSelect(taxSourceSpinner, taxSourceAdapter, it)
-            }
         }
 
-        if (viewModel.federalDistrictSelectedItem.value == null) viewModel.getAllFederalDistrict()
+        if (viewModel.federalDistrictSLD.selectedItem == null) viewModel.getAllFederalDistrict()
     }
 }
 

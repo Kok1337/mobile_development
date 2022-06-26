@@ -6,7 +6,7 @@
 
     <data>
         <variable
-            name="addressUIModel"
+            name="uim"
             type="com.kok1337.mobiledev.presentation.model.AddressUIModel" />
     </data>
 
@@ -30,7 +30,7 @@
             app:autoSelect="true"
             app:emptyItem="false"
             app:title="Выберите федеральный округ"
-            android:enabled="@{addressUIModel.federalDistrictListSize != 0}"/>
+            android:enabled="@{uim.federalDistrictListSize != 0}"/>
 
         <TextView
             style="@style/SecondaryTextView"
@@ -47,7 +47,7 @@
             app:autoSelect="true"
             app:emptyItem="false"
             app:title="Выберите субъект РФ"
-            android:enabled="@{addressUIModel.subjectOfRusFedListSize != 0}"/>
+            android:enabled="@{uim.subjectOfRusFedListSize != 0}"/>
 
         <TextView
             style="@style/SecondaryTextView"
@@ -64,7 +64,7 @@
             app:autoSelect="true"
             app:emptyItem="false"
             app:title="Выберите лесничество"
-            android:enabled="@{addressUIModel.forestryListSize != 0}"/>
+            android:enabled="@{uim.forestryListSize != 0}"/>
 
         <TextView
             style="@style/SecondaryTextView"
@@ -81,7 +81,7 @@
             app:autoSelect="true"
             app:emptyItem="false"
             app:title="Выберите участковое лесничество"
-            android:enabled="@{addressUIModel.localForestryListSize != 0}"/>
+            android:enabled="@{uim.localForestryListSize != 0}"/>
 
         <TextView
             style="@style/SecondaryTextView"
@@ -98,7 +98,7 @@
             app:autoSelect="true"
             app:emptyItem="false"
             app:title="Выберите урочище"
-            android:enabled="@{addressUIModel.subForestryListSize != 0}"/>
+            android:enabled="@{uim.subForestryListSize != 0}"/>
 
         <LinearLayout
             style="@style/ItemSpinnerLayout"
@@ -143,7 +143,7 @@
                 app:autoSelect="true"
                 app:emptyItem="false"
                 app:title="Выберите лесной квартал"
-                android:enabled="@{addressUIModel.areaListSize != 0}"/>
+                android:enabled="@{uim.areaListSize != 0}"/>
 
             <View style="@style/ColumnSeparator"
                 android:layout_width="16dp"/>
@@ -157,7 +157,7 @@
                 app:autoSelect="true"
                 app:emptyItem="false"
                 app:title="Выберите лесотаксационный выдел"
-                android:enabled="@{addressUIModel.sectionListSize != 0}"/>
+                android:enabled="@{uim.sectionListSize != 0}"/>
 
         </LinearLayout>
 
@@ -203,7 +203,8 @@
                 android:layout_weight="1"
                 app:autoSelect="true"
                 app:emptyItem="false"
-                app:title="Выберите источник данных"/>
+                app:title="Выберите источник данных"
+                android:enabled="@{uim.taxSourceListSize != 0}"/>
 
             <View style="@style/ColumnSeparator"
                 android:layout_width="16dp"/>
@@ -217,7 +218,7 @@
                 app:autoSelect="true"
                 app:emptyItem="false"
                 app:title="Выберите год"
-                android:enabled="@{addressUIModel.taxSourceListSize != 0}"/>
+                android:enabled="@{uim.taxSourceListSize != 0}"/>
 
         </LinearLayout>
 
