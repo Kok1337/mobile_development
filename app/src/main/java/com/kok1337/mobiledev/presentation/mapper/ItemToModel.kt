@@ -18,3 +18,5 @@ fun AreaItem.toModel(): Area = Area(id, value, hasSection)
 fun SectionItem.toModel(): Section = Section(name, s)
 
 fun TaxSourceItem.toModel(): TaxSource = TaxSource(id, value)
+
+fun TaxYearItem.toModel(): TaxYear = TaxYear(taxId, year, draft)

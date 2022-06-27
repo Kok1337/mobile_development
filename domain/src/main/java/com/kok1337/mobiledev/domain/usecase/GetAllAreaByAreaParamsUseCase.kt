@@ -5,8 +5,9 @@ import com.kok1337.mobiledev.domain.model.AreaParams
 import com.kok1337.mobiledev.domain.repository.AreaRepo
 import javax.inject.Inject
 
-class GetAllAreaUseCase @Inject constructor(
+class GetAllAreaByAreaParamsUseCase @Inject constructor(
     private val areaRepo: AreaRepo,
 ) {
-    suspend fun invoke(areaParams: AreaParams): List<Area> = areaRepo.getAllAreaByAreaParams(areaParams)
+    suspend fun invoke(areaParams: AreaParams): List<Area> =
+        areaRepo.getAllAreaByAreaParams(areaParams)
 }

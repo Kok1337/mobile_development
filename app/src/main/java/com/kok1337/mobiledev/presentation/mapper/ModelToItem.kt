@@ -20,3 +20,5 @@ fun Area.toItem(): AreaItem = AreaItem(id, value, hasSection)
 fun Section.toItem(): SectionItem = SectionItem(name, s)
 
 fun TaxSource.toItem(): TaxSourceItem = TaxSourceItem(id, value)
+
+fun TaxYear.toItem(): TaxYearItem = TaxYearItem(taxId, year, draft)

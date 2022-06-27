@@ -2,10 +2,8 @@ package com.kok1337.mobiledev.di
 
 import android.content.Context
 import com.kok1337.mobiledev.domain.usecase.GetAllFederalDistrictUseCase
-import com.kok1337.mobiledev.domain.usecase.GetAllSubjectOfRusFedUseCase
 import com.kok1337.mobiledev.domain.usecase.GetAllWorkTypesUseCase
 import com.kok1337.mobiledev.presentation.MainViewModel
-import com.kok1337.mobiledev.presentation.fragment.taxation.AddressViewModel
 import com.kok1337.mobiledev.presentation.fragment.toolbar.WorkTypesViewModel
 import dagger.Module
 import dagger.Provides
@@ -36,16 +34,4 @@ class AppModule(val context: Context) {
         )
     }
 
-    /*
-    @Provides
-    fun provideAddressViewModelFactory(
-        getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,
-        getAllSubjectOfRusFedUseCase: GetAllSubjectOfRusFedUseCase,
-    ): AddressViewModel.Factory {
-        return AddressViewModel.Factory(
-            getAllFederalDistrictUseCase = getAllFederalDistrictUseCase,
-            getAllSubjectOfRusFedUseCase = getAllSubjectOfRusFedUseCase,
-        )
-    }
-     */
 }

@@ -15,15 +15,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 fun showToast(context: Context, message: String) {
-    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
 
 fun Fragment.showToast(message: String) {
-    Toast.makeText(this.context, message, Toast.LENGTH_LONG).show()
+    Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
 }
 
 fun Activity.showToast(message: String) {
-    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
 fun Fragment.getAppComponent(): AppComponent = (activity?.applicationContext as App).appComponent

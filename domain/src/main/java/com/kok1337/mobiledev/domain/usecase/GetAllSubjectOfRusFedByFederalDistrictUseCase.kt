@@ -5,8 +5,9 @@ import com.kok1337.mobiledev.domain.model.SubjectOfRusFed
 import com.kok1337.mobiledev.domain.repository.SubjectOfRusFedRepo
 import javax.inject.Inject
 
-class GetAllSubjectOfRusFedUseCase @Inject constructor(
+class GetAllSubjectOfRusFedByFederalDistrictUseCase @Inject constructor(
     private val subjectOfRusFedRepo: SubjectOfRusFedRepo,
 ) {
-    suspend fun invoke(federalDistrict: FederalDistrict): List<SubjectOfRusFed> = subjectOfRusFedRepo.getAllSubjectOfRusFedByFederalDistrictId(federalDistrict.id)
+    suspend fun invoke(federalDistrict: FederalDistrict): List<SubjectOfRusFed> =
+        subjectOfRusFedRepo.getAllSubjectOfRusFedByFederalDistrictId(federalDistrict.id)
 }

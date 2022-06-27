@@ -3,6 +3,8 @@ package com.kok1337.mobiledev.presentation.fragment.taxation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kok1337.mobiledev.domain.model.AreaParams
+import com.kok1337.mobiledev.domain.model.TaxSourceParams
+import com.kok1337.mobiledev.domain.model.TaxYearParams
 import com.kok1337.mobiledev.domain.usecase.*
 import com.kok1337.mobiledev.presentation.item.*
 import com.kok1337.mobiledev.presentation.mapper.toItem
@@ -13,13 +15,14 @@ import javax.inject.Inject
 
 class AddressViewModel(
     private val getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,
-    private val getAllSubjectOfRusFedUseCase: GetAllSubjectOfRusFedUseCase,
-    private val getAllForestryUseCase: GetAllForestryUseCase,
-    private val getAllLocalForestryUseCase: GetAllLocalForestryUseCase,
-    private val getAllSubForestryUseCase: GetAllSubForestryUseCase,
-    private val getAllAreaUseCase: GetAllAreaUseCase,
-    private val getAllSectionUseCase: GetAllSectionUseCase,
-    private val getAllTaxSourceUseCase: GetAllTaxSourceUseCase,
+    private val getAllSubjectOfRusFedByFederalDistrictUseCase: GetAllSubjectOfRusFedByFederalDistrictUseCase,
+    private val getAllForestryBySubjectOfRusFedUseCase: GetAllForestryBySubjectOfRusFedUseCase,
+    private val getAllLocalForestryByForestryUseCase: GetAllLocalForestryByForestryUseCase,
+    private val getAllSubForestryByLocalForestryUseCase: GetAllSubForestryByLocalForestryUseCase,
+    private val getAllAreaByAreaParamsUseCase: GetAllAreaByAreaParamsUseCase,
+    private val getAllSectionByAreaUseCase: GetAllSectionByAreaUseCase,
+    private val getAllTaxSourceByTaxSourceParamsUseCase: GetAllTaxSourceByTaxSourceParamsUseCase,
+    private val getAllTaxYearByTaxYearParamsUseCase: GetAllTaxYearByTaxYearParamsUseCase,
 ) : ViewModel() {
 
     val federalDistrictSLD = SpinnerLiveData<FederalDistrictItem>()
@@ -35,7 +38,7 @@ class AddressViewModel(
         async {
             federalDistrictSLD.selectedItem?.let { item ->
                 subjectOfRusFedSLD.postItems(
-                    getAllSubjectOfRusFedUseCase.invoke(item.toModel()).map { it.toItem() }
+                    getAllSubjectOfRusFedByFederalDistrictUseCase.invoke(item.toModel()).map { it.toItem() }
                 )
             }
         }
@@ -47,7 +50,7 @@ class AddressViewModel(
         async {
             subjectOfRusFedSLD.selectedItem?.let { item ->
                 forestrySLD.postItems(
-                    getAllForestryUseCase.invoke(item.toModel()).map { it.toItem() }
+                    getAllForestryBySubjectOfRusFedUseCase.invoke(item.toModel()).map { it.toItem() }
                 )
             }
         }
@@ -59,7 +62,7 @@ class AddressViewModel(
         async {
             forestrySLD.selectedItem?.let { item ->
                 localForestrySLD.postItems(
-                    getAllLocalForestryUseCase.invoke(item.toModel()).map { it.toItem() }
+                    getAllLocalForestryByForestryUseCase.invoke(item.toModel()).map { it.toItem() }
                 )
             }
         }
@@ -71,11 +74,10 @@ class AddressViewModel(
         async {
             localForestrySLD.selectedItem?.let { item ->
                 subForestrySLD.postItems(
-                    getAllSubForestryUseCase.invoke(item.toModel()).map { it.toItem() }
+                    getAllSubForestryByLocalForestryUseCase.invoke(item.toModel()).map { it.toItem() }
                 )
             }
         }
-
     }
 
     val areaSLD = SpinnerLiveData<AreaItem>()
@@ -91,7 +93,7 @@ class AddressViewModel(
                     subForestryItem.toModel()
                 )
                 areaSLD.postItems(
-                    getAllAreaUseCase.invoke(areaParams).map { it.toItem() }
+                    getAllAreaByAreaParamsUseCase.invoke(areaParams).map { it.toItem() }
                 )
             }
         }
@@ -103,47 +105,71 @@ class AddressViewModel(
         async {
             areaSLD.selectedItem?.let { item ->
                 sectionSLD.postItems(
-                    getAllSectionUseCase.invoke(item.toModel()).map { it.toItem() }
+                    getAllSectionByAreaUseCase.invoke(item.toModel()).map { it.toItem() }
                 )
             }
         }
     }
 
     val taxSourceSLD = SpinnerLiveData<TaxSourceItem>()
-    fun getAllTaxSourceByAreaAndSection() {
+    fun getAllTaxSourceByTaxSourceParams() {
         taxSourceSLD.setEmptyList()
         async {
             sectionSLD.selectedItem?.let { section ->
-                val area = areaSLD.selectedItem
+                val taxSourceParams = TaxSourceParams(
+                    areaSLD.selectedItem!!.toModel(),
+                    section.toModel()
+                )
                 taxSourceSLD.postItems(
-                    getAllTaxSourceUseCase.invoke(area!!.toModel(), section.toModel())
+                    getAllTaxSourceByTaxSourceParamsUseCase.invoke(taxSourceParams)
                         .map { it.toItem() }
                 )
             }
         }
     }
 
+    val taxYearSLD = SpinnerLiveData<TaxYearItem>()
+
+    fun getAllTaxYearByTaxYearParams() {
+        taxYearSLD.setEmptyList()
+        async {
+            taxSourceSLD.selectedItem?.let { taxSourceItem ->
+                val taxYearParams = TaxYearParams(
+                    areaSLD.selectedItem!!.toModel(),
+                    sectionSLD.selectedItem!!.toModel(),
+                    taxSourceItem.toModel()
+                )
+                taxYearSLD.postItems(
+                    getAllTaxYearByTaxYearParamsUseCase.invoke(taxYearParams).map { it.toItem() }
+                )
+            }
+        }
+    }
+
+
     class Factory @Inject constructor(
         private val getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,
-        private val getAllSubjectOfRusFedUseCase: GetAllSubjectOfRusFedUseCase,
-        private val getAllForestryUseCase: GetAllForestryUseCase,
-        private val getAllLocalForestryUseCase: GetAllLocalForestryUseCase,
-        private val getAllSubForestryUseCase: GetAllSubForestryUseCase,
-        private val getAllAreaUseCase: GetAllAreaUseCase,
-        private val getAllSectionUseCase: GetAllSectionUseCase,
-        private val getAllTaxSourceUseCase: GetAllTaxSourceUseCase,
+        private val getAllSubjectOfRusFedByFederalDistrictUseCase: GetAllSubjectOfRusFedByFederalDistrictUseCase,
+        private val getAllForestryBySubjectOfRusFedUseCase: GetAllForestryBySubjectOfRusFedUseCase,
+        private val getAllLocalForestryByForestryUseCase: GetAllLocalForestryByForestryUseCase,
+        private val getAllSubForestryByLocalForestryUseCase: GetAllSubForestryByLocalForestryUseCase,
+        private val getAllAreaByAreaParamsUseCase: GetAllAreaByAreaParamsUseCase,
+        private val getAllSectionByAreaUseCase: GetAllSectionByAreaUseCase,
+        private val getAllTaxSourceByTaxSourceParamsUseCase: GetAllTaxSourceByTaxSourceParamsUseCase,
+        private val getAllTaxYearByTaxYearParamsUseCase: GetAllTaxYearByTaxYearParamsUseCase,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return AddressViewModel(
                 getAllFederalDistrictUseCase = getAllFederalDistrictUseCase,
-                getAllSubjectOfRusFedUseCase = getAllSubjectOfRusFedUseCase,
-                getAllForestryUseCase = getAllForestryUseCase,
-                getAllLocalForestryUseCase = getAllLocalForestryUseCase,
-                getAllSubForestryUseCase = getAllSubForestryUseCase,
-                getAllAreaUseCase = getAllAreaUseCase,
-                getAllSectionUseCase = getAllSectionUseCase,
-                getAllTaxSourceUseCase = getAllTaxSourceUseCase,
+                getAllSubjectOfRusFedByFederalDistrictUseCase = getAllSubjectOfRusFedByFederalDistrictUseCase,
+                getAllForestryBySubjectOfRusFedUseCase = getAllForestryBySubjectOfRusFedUseCase,
+                getAllLocalForestryByForestryUseCase = getAllLocalForestryByForestryUseCase,
+                getAllSubForestryByLocalForestryUseCase = getAllSubForestryByLocalForestryUseCase,
+                getAllAreaByAreaParamsUseCase = getAllAreaByAreaParamsUseCase,
+                getAllSectionByAreaUseCase = getAllSectionByAreaUseCase,
+                getAllTaxSourceByTaxSourceParamsUseCase = getAllTaxSourceByTaxSourceParamsUseCase,
+                getAllTaxYearByTaxYearParamsUseCase = getAllTaxYearByTaxYearParamsUseCase,
             ) as T
         }
     }

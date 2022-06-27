@@ -1,10 +1,8 @@
 package com.kok1337.mobiledev.domain.repository
 
 import com.kok1337.mobiledev.domain.model.TaxSource
-import java.util.*
+import com.kok1337.mobiledev.domain.model.TaxSourceParams
 
 interface TaxSourceRepo {
-    suspend fun getAllTaxSourceByAreaIdAndSectionName(
-        areaId: UUID, sectionName: String
-    ): List<TaxSource>
+    suspend fun getAllTaxSourceByTaxSourceParams(taxSourceParams: TaxSourceParams): List<TaxSource>
 }

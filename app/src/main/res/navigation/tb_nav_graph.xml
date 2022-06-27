@@ -65,7 +65,7 @@
         tools:layout="@layout/fragment_ta_tab" />
     <fragment
         android:id="@+id/taxTabFragment"
-        android:name="com.kok1337.mobiledev.presentation.fragment.taxation.TabFragment"
+        android:name="com.kok1337.mobiledev.presentation.fragment.taxation.TaxTabFragment"
         android:label="fragment_tax_tab"
         tools:layout="@layout/fragment_tax_tab" />
 

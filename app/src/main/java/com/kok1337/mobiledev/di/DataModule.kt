@@ -47,6 +47,9 @@ interface DataBindModule {
 
     @Binds @Suppress("FunctionName")
     fun bindTaxSourceStorageDbImpl_to_TaxSourceStorage(taxSourceStorageDbImpl: TaxSourceStorageDbImpl): TaxSourceStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindTaxYearStorageDbImpl_to_TaxYearStorage(taxYearStorageDbImpl: TaxYearStorageDbImpl): TaxYearStorage
 }
 
 @Module

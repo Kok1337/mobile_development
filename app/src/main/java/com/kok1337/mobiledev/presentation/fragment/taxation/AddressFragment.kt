@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kok1337.mobiledev.R
@@ -15,16 +16,26 @@ import com.kok1337.mobiledev.presentation.item.*
 import com.kok1337.mobiledev.presentation.model.AddressUIModel
 import com.kok1337.mobiledev.presentation.util.getAppComponent
 import com.kok1337.mobiledev.presentation.util.setItemsAndTryAutoSelect
+import com.kok1337.mobiledev.presentation.util.showToast
 import com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
 import javax.inject.Inject
 
 class AddressFragment : Fragment(R.layout.fragment_tax_address) {
+
+    private val uiModel = AddressUIModel()
 
     private val binding by viewBinding(FragmentTaxAddressBinding::bind)
 
     @Inject
     lateinit var viewModelFactory: AddressViewModel.Factory
     private lateinit var viewModel: AddressViewModel
+    private val tabViewModel : TaxTabViewModel by activityViewModels()
+
+    override fun onAttach(context: Context) {
+        getAppComponent().inject(this)
+        viewModel = ViewModelProvider(this, viewModelFactory)[AddressViewModel::class.java]
+        super.onAttach(context)
+    }
 
     private val federalDistrictAdapter = DictionaryAdapter<FederalDistrictItem>()
     private val federalDistrictConf =
@@ -75,25 +86,26 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
             sectionAdapter, SectionItem.getSortTypes()
         ) {
             if (viewModel.sectionSLD.trySetNewItem(it))
-                viewModel.getAllTaxSourceByAreaAndSection()
+                viewModel.getAllTaxSourceByTaxSourceParams()
         }
 
     private val taxSourceAdapter = DictionaryAdapter<TaxSourceItem>()
     private val taxSourceConf =
         SearchableSpinner.SearchableSpinnerConfiguration(taxSourceAdapter) {
-            viewModel.taxSourceSLD.trySetNewItem(it)
+            if (viewModel.taxSourceSLD.trySetNewItem(it))
+                viewModel.getAllTaxYearByTaxYearParams()
         }
 
-    override fun onAttach(context: Context) {
-        getAppComponent().inject(this)
-        viewModel = ViewModelProvider(this, viewModelFactory)[AddressViewModel::class.java]
-        super.onAttach(context)
-    }
+    private val taxYearAdapter = HighlightedDictionaryAdapter<TaxYearItem>()
+    private val taxYearConf =
+        SearchableSpinner.SearchableSpinnerConfiguration(taxYearAdapter, TaxYearItem.getSortTypes()) {
+            viewModel.taxYearSLD.trySetNewItem(it)
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val uiModel = AddressUIModel()
+        showToast(tabViewModel.taxIdLD.value.toString())
 
         viewModel.federalDistrictSLD.itemCountLD.observe(viewLifecycleOwner)
         { uiModel.federalDistrictListSize.set(it) }
@@ -111,6 +123,10 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
         { uiModel.sectionListSize.set(it) }
         viewModel.taxSourceSLD.itemCountLD.observe(viewLifecycleOwner)
         { uiModel.taxSourceListSize.set(it) }
+        viewModel.taxYearSLD.itemCountLD.observe(viewLifecycleOwner)
+        { uiModel.taxSourceListSize.set(it) }
+        tabViewModel.taxIdLD.observe(viewLifecycleOwner)
+        { uiModel.selectedTaxNotNull.set(it != null) }
 
         viewModel.federalDistrictSLD.selectedItemLD.observe(viewLifecycleOwner)
         { federalDistrictConf.selectedItem = it }
@@ -128,6 +144,8 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
         { sectionConf.selectedItem = it }
         viewModel.taxSourceSLD.selectedItemLD.observe(viewLifecycleOwner)
         { taxSourceConf.selectedItem = it }
+        viewModel.taxYearSLD.selectedItemLD.observe(viewLifecycleOwner)
+        { taxYearConf.selectedItem = it; tabViewModel.setTaxId(it?.taxId) }
 
         with(binding) {
             binding.uim = uiModel
@@ -148,6 +166,8 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
             { setItemsAndTryAutoSelect(sectionSpinner, sectionAdapter, it) }
             viewModel.taxSourceSLD.itemsLD.observe(viewLifecycleOwner)
             { setItemsAndTryAutoSelect(taxSourceSpinner, taxSourceAdapter, it) }
+            viewModel.taxYearSLD.itemsLD.observe(viewLifecycleOwner)
+            { setItemsAndTryAutoSelect(taxYearSpinner, taxYearAdapter, it) }
 
             federalDistrictSpinner.searchableSpinnerConfiguration = federalDistrictConf
             subjectOfRusFedSpinner.searchableSpinnerConfiguration = subjectOfRusConf
@@ -157,6 +177,7 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
             areaSpinner.searchableSpinnerConfiguration = areaConf
             sectionSpinner.searchableSpinnerConfiguration = sectionConf
             taxSourceSpinner.searchableSpinnerConfiguration = taxSourceConf
+            taxYearSpinner.searchableSpinnerConfiguration = taxYearConf
         }
 
         if (viewModel.federalDistrictSLD.selectedItem == null) viewModel.getAllFederalDistrict()
