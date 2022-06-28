@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.BindingAdapter
+import com.kok1337.mobiledev.presentation.util.showDialog
 import com.kok1337.mobiledev.presentation.util.showToast
 
 class SearchableSpinner : AppCompatTextView {
@@ -47,7 +48,7 @@ class SearchableSpinner : AppCompatTextView {
         if (attrS == null) return
 
         val attributeArray: TypedArray = context.obtainStyledAttributes(attrS, R.styleable.SearchableSpinner)
-        title = attributeArray.getText(R.styleable.SearchableSpinner_title) as String
+        title = attributeArray.getString(R.styleable.SearchableSpinner_title) ?: ""
         autoSelect = attributeArray.getBoolean(R.styleable.SearchableSpinner_autoSelect, true)
         emptyItem = attributeArray.getBoolean(R.styleable.SearchableSpinner_emptyItem, true)
         attributeArray.recycle()
@@ -73,7 +74,8 @@ class SearchableSpinner : AppCompatTextView {
             title, configuration!!.bindingAdapter, emptyItem, configuration.sortTypes
         ) { id, item -> pickItem(item, id, configuration)}
 
-        dialog.show( (context as AppCompatActivity).supportFragmentManager, SearchableSpinnerDialog.TAG)
+        showDialog(dialog, context)
+        // dialog.show( (context as AppCompatActivity).supportFragmentManager, SearchableSpinnerDialog.TAG)
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -93,14 +95,18 @@ class SearchableSpinner : AppCompatTextView {
         when (bindingAdapter?.itemCount) {
             0 -> pickItem(null, nullItemPosition, searchableSpinnerConfiguration)
             1 -> pickItem(bindingAdapter.getItemByPosition(0), 0, configuration)
-            else -> {
+            else -> if (configuration?.selectedItem != null) {
+                selectedItemPosition = getItemPosition(searchableSpinnerConfiguration)
+                pickItem(configuration.selectedItem, selectedItemPosition, configuration)
+            }
+            /*else -> {
                 if (selectedItemPosition != nullItemPosition) {
                     pickItem(bindingAdapter!!.getItemByPosition(selectedItemPosition), selectedItemPosition, configuration)
                 } else if (configuration?.selectedItem != null) {
                     selectedItemPosition = getItemPosition(searchableSpinnerConfiguration)
                     pickItem(configuration.selectedItem, selectedItemPosition, configuration)
                 }
-            }
+            }*/
         }
     }
 

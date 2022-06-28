@@ -50,6 +50,12 @@ interface DataBindModule {
 
     @Binds @Suppress("FunctionName")
     fun bindTaxYearStorageDbImpl_to_TaxYearStorage(taxYearStorageDbImpl: TaxYearStorageDbImpl): TaxYearStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindCacheStorageShPrImpl_to_CacheStorage(cacheStorageShPrImpl: CacheStorageShPrImpl): CacheStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindInfoTaxStorageDbImpl_to_InfoTaxStorage(infoTaxStorageDbImpl: InfoTaxStorageDbImpl): InfoTaxStorage
 }
 
 @Module

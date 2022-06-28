@@ -1,6 +1,5 @@
 package com.kok1337.mobiledev.data.repository
 
-import android.util.Log
 import com.kok1337.mobiledev.data.mapper.toModel
 import com.kok1337.mobiledev.data.storage.AreaStorage
 import com.kok1337.mobiledev.domain.model.Area
@@ -13,7 +12,6 @@ class AreaRepoImpl @Inject constructor(
 ) : AreaRepo {
     override suspend fun getAllAreaByAreaParams(areaParams: AreaParams): List<Area> {
         val list = areaStorage.getAllAreaByAreaParams(areaParams)
-        list.forEach{ Log.e("TEST", it.toString()) }
         return list.map { it.toModel() }
     }
 }

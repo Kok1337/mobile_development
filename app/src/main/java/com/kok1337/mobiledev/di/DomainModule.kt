@@ -38,6 +38,11 @@ interface DomainBindModule {
     @Binds @Suppress("FunctionName")
     fun bindTaxYearRepoImpl_to_TaxYearRepo(taxYearRepoImpl: TaxYearRepoImpl): TaxYearRepo
 
+    @Binds @Suppress("FunctionName")
+    fun bindCacheRepoImpl_to_CacheRepo(cacheRepoImpl: CacheRepoImpl): CacheRepo
+
+    @Binds @Suppress("FunctionName")
+    fun bindInfoTaxRepoImpl_to_InfoTaxRepo(infoTaxRepoImpl: InfoTaxRepoImpl): InfoTaxRepo
 }
 
 

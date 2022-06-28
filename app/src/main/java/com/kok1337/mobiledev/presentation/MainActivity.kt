@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.app.App
 import com.kok1337.mobiledev.databinding.ActivityMainBinding
+import com.kok1337.mobiledev.presentation.util.showToast
 import com.kok1337.mobiledev.presentation.view.searchablespinner.SortType
 import javax.inject.Inject
 
@@ -38,6 +39,10 @@ class MainActivity : AppCompatActivity() {
             list.forEach{ Log.e("LOL", it.toString()) }
         }
 
+        mainViewModel.userIdLD.observe(this) {
+            showToast("User id = $it")
+        }
+
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         val navController = navHostFragment.navController
@@ -55,8 +60,12 @@ class MainActivity : AppCompatActivity() {
         binding.toolbarSettings.setOnClickListener { mainViewModel.onOpenSettings() }
         binding.toolbarWorkTypes.setOnClickListener { mainViewModel.onOpenWorkTypes() }
 
-        binding.toolbarSave.setOnClickListener { mainViewModel.loadFederalDistricts() }
-        binding.toolbarEdit.setOnClickListener { binding.toolbarEdit.toggle() }
+        binding.toolbarSave.setOnClickListener { mainViewModel.getUserId() }
+        binding.toolbarEdit.setOnClickListener {
+            binding.toolbarEdit.toggle()
+            mainViewModel.userIdLD.value = 2
+            mainViewModel.saveUserId()
+        }
     }
 
     private fun navigateToToolbarFragment(direction: NavDirections) {

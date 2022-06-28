@@ -13,4 +13,8 @@ class TaxSourceRepoImpl @Inject constructor(
     override suspend fun getAllTaxSourceByTaxSourceParams(taxSourceParams: TaxSourceParams): List<TaxSource> {
         return taxSourceStorage.getAllTaxSourceByTaxSourceParams(taxSourceParams).map { it.toModel() }
     }
+
+    override suspend fun getAllTaxSource(): List<TaxSource> {
+        return taxSourceStorage.getAllTaxSource().map { it.toModel() }
+    }
 }

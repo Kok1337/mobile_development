@@ -8,3 +8,8 @@ class TaxSourceEntity(
     @Column("tax_sousce_id") var id: Int? = null,
     @Column("sname") var name: String? = null,
 )
+
+@Entity
+class TaxSourceAllEntity(id: Int? = null, name: String? = null) : DictionaryEntity(id, name) {
+    fun toTaxSourceEntity(): TaxSourceEntity = TaxSourceEntity(id, name)
+}

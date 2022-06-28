@@ -2,7 +2,10 @@ package com.kok1337.mobiledev.presentation.util
 
 import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -39,4 +42,14 @@ fun ViewModel.async(block: suspend () -> Unit) {
 fun <T> setItemsAndTryAutoSelect(searchableSpinner: SearchableSpinner, bindingAdapter: BindingAdapter<T, *>, items: List<T>) {
     bindingAdapter.setItems(items)
     searchableSpinner.tryMakeAutoSelect()
+}
+
+fun unwrapAppCompatActivity(context: Context): AppCompatActivity {
+    if (context !is Activity && context is ContextWrapper)
+        return unwrapAppCompatActivity(context.baseContext)
+    return context as AppCompatActivity
+}
+
+fun showDialog(dialog: DialogFragment, context: Context) {
+    dialog.show(unwrapAppCompatActivity(context).supportFragmentManager, dialog::class.simpleName ?: "TAG")
 }

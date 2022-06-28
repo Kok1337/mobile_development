@@ -3,16 +3,16 @@
     <item
         android:id="@id/tax_address"
         android:enabled="true"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/ic_address"
         android:title="Адрес" />
     <item
         android:id="@id/tax_characteristic"
         android:enabled="true"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/ic_info"
         android:title="Характеристика" />
     <item
         android:id="@id/tax_layer"
         android:enabled="true"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/ic_layers"
         android:title="Ярусы" />
 </menu>

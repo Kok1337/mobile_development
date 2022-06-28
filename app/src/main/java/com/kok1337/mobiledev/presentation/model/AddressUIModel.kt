@@ -12,5 +12,7 @@ class AddressUIModel {
     val areaListSize = ObservableInt(0)
     val sectionListSize = ObservableInt(0)
     val taxSourceListSize = ObservableInt(0)
+    val taxYearListSize = ObservableInt(0)
     val selectedTaxNotNull = ObservableBoolean(false)
+    val selectedAreaNotNull = ObservableBoolean(false)
 }

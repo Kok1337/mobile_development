@@ -3,6 +3,7 @@ package com.kok1337.mobiledev.presentation.fragment.taxation
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -12,12 +13,14 @@ import com.kok1337.mobiledev.databinding.FragmentTaxAddressBinding
 import com.kok1337.mobiledev.presentation.adapter.DictionaryAdapter
 import com.kok1337.mobiledev.presentation.adapter.HighlightedDictionaryAdapter
 import com.kok1337.mobiledev.presentation.adapter.SectionAdapter
+import com.kok1337.mobiledev.presentation.dialog.SelectTaxParamsDialog
 import com.kok1337.mobiledev.presentation.item.*
 import com.kok1337.mobiledev.presentation.model.AddressUIModel
 import com.kok1337.mobiledev.presentation.util.getAppComponent
 import com.kok1337.mobiledev.presentation.util.setItemsAndTryAutoSelect
-import com.kok1337.mobiledev.presentation.util.showToast
+import com.kok1337.mobiledev.presentation.util.showDialog
 import com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+import com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinnerDialog
 import javax.inject.Inject
 
 class AddressFragment : Fragment(R.layout.fragment_tax_address) {
@@ -105,8 +108,7 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        showToast(tabViewModel.taxIdLD.value.toString())
-
+        // itemCountLD
         viewModel.federalDistrictSLD.itemCountLD.observe(viewLifecycleOwner)
         { uiModel.federalDistrictListSize.set(it) }
         viewModel.subjectOfRusFedSLD.itemCountLD.observe(viewLifecycleOwner)
@@ -124,10 +126,11 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
         viewModel.taxSourceSLD.itemCountLD.observe(viewLifecycleOwner)
         { uiModel.taxSourceListSize.set(it) }
         viewModel.taxYearSLD.itemCountLD.observe(viewLifecycleOwner)
-        { uiModel.taxSourceListSize.set(it) }
+        { uiModel.taxYearListSize.set(it) }
         tabViewModel.taxIdLD.observe(viewLifecycleOwner)
         { uiModel.selectedTaxNotNull.set(it != null) }
 
+        // selectedItemLD
         viewModel.federalDistrictSLD.selectedItemLD.observe(viewLifecycleOwner)
         { federalDistrictConf.selectedItem = it }
         viewModel.subjectOfRusFedSLD.selectedItemLD.observe(viewLifecycleOwner)
@@ -139,7 +142,7 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
         viewModel.subForestrySLD.selectedItemLD.observe(viewLifecycleOwner)
         { subForestryConf.selectedItem = it }
         viewModel.areaSLD.selectedItemLD.observe(viewLifecycleOwner)
-        { areaConf.selectedItem = it }
+        { areaConf.selectedItem = it; uiModel.selectedAreaNotNull.set(it != null) }
         viewModel.sectionSLD.selectedItemLD.observe(viewLifecycleOwner)
         { sectionConf.selectedItem = it }
         viewModel.taxSourceSLD.selectedItemLD.observe(viewLifecycleOwner)
@@ -148,7 +151,19 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
         { taxYearConf.selectedItem = it; tabViewModel.setTaxId(it?.taxId) }
 
         with(binding) {
-            binding.uim = uiModel
+            uim = uiModel
+
+            addTaxButton.setOnClickListener {
+                val dialog = SelectTaxParamsDialog(
+                    viewModel.allTaxSourceLD,
+                    viewModel.sectionSLD.selectedItem,
+                    viewModel.taxSourceSLD.selectedItem,
+                    viewModel.taxYearSLD.selectedItem
+                ) { sectionItem, taxSourceItem, year ->
+                    viewModel.trySaveInfoTax(sectionItem, taxSourceItem, year)
+                }
+                showDialog(dialog, requireContext())
+            }
 
             viewModel.federalDistrictSLD.itemsLD.observe(viewLifecycleOwner)
             { setItemsAndTryAutoSelect(federalDistrictSpinner, federalDistrictAdapter, it) }

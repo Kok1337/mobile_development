@@ -12,7 +12,7 @@ class TaxYearItem(val taxId: UUID?, val year: Int, val draft: Boolean) : Highlig
     companion object : SortTypeItem<TaxYearItem> {
         override fun getSortTypes(): Array<SortType<TaxYearItem>> = arrayOf(
             SortType(SortType.Type.COLOR) { o1, o2 ->
-                var res = o2.draft.compareTo(o1.draft)
+                var res = o1.draft.compareTo(o2.draft)
                 if (res == 0) res = o1.year.compareTo(o2.year)
                 res
             },

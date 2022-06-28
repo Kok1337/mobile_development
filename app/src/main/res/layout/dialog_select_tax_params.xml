@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            style="@style/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:text="Заполните все поля" />
+
+        <View
+            android:id="@+id/titleSeparator"
+            style="@style/Separator"
+            android:layout_below="@id/titleTextView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleSeparator"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true">
+
+            <TableRow android:layout_marginTop="16dp">
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_column="0"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Выдел" />
+
+                <View
+                    android:layout_width="16dp"
+                    android:layout_height="0dp"
+                    android:layout_column="1" />
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_column="2"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Площадь выдела" />
+            </TableRow>
+
+            <TableRow>
+
+                <EditText
+                    android:id="@+id/sectionEditText"
+                    style="@style/MainEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_column="0"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/squareEditText"
+                    style="@style/MainEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_column="2"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:inputType="numberDecimal" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="8dp">
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_column="0"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Источник данных" />
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_column="2"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Год" />
+            </TableRow>
+
+            <TableRow>
+
+                <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                    android:id="@+id/taxSourceSpinner"
+                    style="@style/MainSpinner"
+                    app:emptyItem="false"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_column="0"
+                    android:layout_gravity="center"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/yearEditText"
+                    style="@style/MainEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_column="2"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:inputType="number" />
+            </TableRow>
+
+        </TableLayout>
+
+        <Button
+            android:id="@+id/cancelButton"
+            style="@style/MainButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tableLayout"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"
+            android:text="Отмена" />
+
+        <Button
+            android:id="@+id/acceptButton"
+            style="@style/MainButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tableLayout"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:text="Подтвердить" />
+
+    </RelativeLayout>
+
+</layout>

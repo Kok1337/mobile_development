@@ -1,5 +1,6 @@
 package com.kok1337.mobiledev.data.mapper
 
+import android.util.Log
 import com.kok1337.mobiledev.data.entity.*
 import com.kok1337.mobiledev.domain.model.*
 

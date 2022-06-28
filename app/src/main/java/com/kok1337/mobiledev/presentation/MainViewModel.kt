@@ -5,12 +5,17 @@ import androidx.navigation.NavDirections
 import com.kok1337.mobiledev.ToolbarNavGraphDirections
 import com.kok1337.mobiledev.domain.model.FederalDistrict
 import com.kok1337.mobiledev.domain.usecase.GetAllFederalDistrictUseCase
+import com.kok1337.mobiledev.domain.usecase.GetUserIdUseCase
+import com.kok1337.mobiledev.domain.usecase.SaveUserIdUseCase
+import com.kok1337.mobiledev.presentation.util.async
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel(
-    private val getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase
+    private val getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,
+    private val getUserIdUseCase: GetUserIdUseCase,
+    private val saveUserIdUseCase: SaveUserIdUseCase,
 ) : ViewModel() {
 
     private val _currentTbDirectionLD: MutableLiveData<NavDirections> = MutableLiveData()
@@ -24,6 +29,8 @@ class MainViewModel(
     fun onOpenWorkTypes() { _currentTbDirectionLD.value = ToolbarNavGraphDirections.actionGlobalTbWorkTypesFragment() }
     fun onOpenSettings() { _currentTbDirectionLD.value = ToolbarNavGraphDirections.actionGlobalTbSettingsFragment() }
 
+    val userIdLD = MutableLiveData<Int>()
+
     fun loadFederalDistricts() {
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
@@ -33,14 +40,21 @@ class MainViewModel(
         }
     }
 
+    fun getUserId() = async { userIdLD.postValue(getUserIdUseCase.invoke()) }
+
+    fun saveUserId() = async { userIdLD.value?.let { saveUserIdUseCase.invoke(it) } }
 
     class Factory(
         val getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,
+        private val getUserIdUseCase: GetUserIdUseCase,
+        private val saveUserIdUseCase: SaveUserIdUseCase,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return MainViewModel(
-                getAllFederalDistrictUseCase =  getAllFederalDistrictUseCase
+                getAllFederalDistrictUseCase =  getAllFederalDistrictUseCase,
+                getUserIdUseCase = getUserIdUseCase,
+                saveUserIdUseCase = saveUserIdUseCase,
             ) as T
         }
     }

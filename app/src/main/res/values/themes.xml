@@ -128,4 +128,13 @@
         <item name="android:layout_width">0dp</item>
     </style>
 
+    <style name="MainEditText">
+        <item name="android:background">@drawable/vbg_edittext</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/big_text_size</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
 </resources>
