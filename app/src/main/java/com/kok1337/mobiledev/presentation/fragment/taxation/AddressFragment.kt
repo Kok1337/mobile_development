@@ -218,12 +218,3 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
         binding.taxYearSpinner.searchableSpinnerConfiguration = taxYearConf
     }
 }
-
-
-/*
-    private val mainViewModel: MainViewModel by activityViewModels()
-
-    mainViewModel.currentTbDirectionLD.observe(viewLifecycleOwner) {
-        showToast("Погодите. Это реально?")
-    }
- */
