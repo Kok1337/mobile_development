@@ -17,4 +17,8 @@ class TaxSourceRepoImpl @Inject constructor(
     override suspend fun getAllTaxSource(): List<TaxSource> {
         return taxSourceStorage.getAllTaxSource().map { it.toModel() }
     }
+
+    override suspend fun isDeleted(taxSourceId: Int): Boolean {
+        return taxSourceStorage.isDeleted(taxSourceId)
+    }
 }

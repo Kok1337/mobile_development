@@ -5,7 +5,7 @@ import com.kok1337.mobiledev.presentation.view.searchablespinner.SortType
 import com.kok1337.mobiledev.presentation.view.searchablespinner.SortTypeItem
 import java.util.*
 
-class TaxYearItem(val taxId: UUID?, val year: Int, val draft: Boolean) : HighlightedDictionaryItem {
+class TaxYearItem(val taxId: UUID, val year: Int, val draft: Boolean) : HighlightedDictionaryItem {
     override fun isHighlighted(): Boolean = !draft
     override fun getName(): String = year.toString()
 

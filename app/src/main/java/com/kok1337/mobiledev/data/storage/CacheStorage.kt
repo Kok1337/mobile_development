@@ -4,8 +4,8 @@ import android.content.Context
 import javax.inject.Inject
 
 interface CacheStorage {
-    suspend fun getUserId(): Int
-    suspend fun saveUserId(id: Int)
+    fun getUserId(): Int
+    fun saveUserId(id: Int)
 }
 
 class CacheStorageShPrImpl @Inject constructor(
@@ -21,11 +21,11 @@ class CacheStorageShPrImpl @Inject constructor(
 
     private val sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE)
 
-    override suspend fun getUserId(): Int {
+    override fun getUserId(): Int {
         return sharedPreferences.getInt(KEY_USER_ID, DEFAULT_USER_ID)
     }
 
-    override suspend fun saveUserId(id: Int) {
+    override fun saveUserId(id: Int) {
         sharedPreferences.edit().putInt(KEY_USER_ID, id).apply()
     }
 }

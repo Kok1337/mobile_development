@@ -6,4 +6,5 @@ import com.kok1337.mobiledev.domain.model.TaxSourceParams
 interface TaxSourceRepo {
     suspend fun getAllTaxSourceByTaxSourceParams(taxSourceParams: TaxSourceParams): List<TaxSource>
     suspend fun getAllTaxSource(): List<TaxSource>
+    suspend fun isDeleted(taxSourceId: Int): Boolean
 }

@@ -16,8 +16,8 @@ fun SubForestryEntity.toModel(): SubForestry = SubForestry(this.id ?: 0, this.na
 
 fun AreaEntity.toModel(): Area = Area(this.id!!, this.name!!, this.hasSection!!)
 
-fun SectionEntity.toModel(): Section = Section(this.name!!, this.s!!)
+fun SectionEntity.toModel(): Section = Section(this.name!!, this.s ?: 0.0)
 
 fun TaxSourceEntity.toModel(): TaxSource = TaxSource(this.id!!, this.name!!)
 
-fun TaxYearEntity.toModel(): TaxYear = TaxYear(this.taxId, this.year ?: 0, this.draft ?: true)
+fun TaxYearEntity.toModel(): TaxYear = TaxYear(this.taxId!!, this.year ?: 0, this.draft ?: true)

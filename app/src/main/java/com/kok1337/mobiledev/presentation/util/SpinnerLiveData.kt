@@ -23,6 +23,14 @@ class SpinnerLiveData<T> {
         return false
     }
 
+    fun tryPostNewItem(item: T?): Boolean {
+        if (selectedItem != item) {
+            postSelectedItem(item)
+            return true
+        }
+        return false
+    }
+
     fun setItems(items: List<T>) {
         _itemsLD.value = items
         _itemCountLD.value = items.size

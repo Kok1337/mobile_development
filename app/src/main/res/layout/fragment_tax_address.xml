@@ -235,7 +235,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Удалить"
-                android:enabled="@{uim.selectedTaxNotNull}"/>
+                android:enabled="@{uim.isSelectedTaxNotNull &amp;&amp; uim.isCanBeDeleted()}"/>
 
             <View style="@style/ColumnSeparator"
                 android:layout_width="0dp"
@@ -247,7 +247,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Добавить"
-                android:enabled="@{uim.selectedAreaNotNull}" />
+                android:enabled="@{uim.isSelectedAreaNotNull}" />
 
         </LinearLayout>
 

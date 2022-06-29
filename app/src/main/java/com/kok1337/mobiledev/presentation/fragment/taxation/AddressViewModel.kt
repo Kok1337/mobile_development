@@ -1,6 +1,5 @@
 package com.kok1337.mobiledev.presentation.fragment.taxation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,113 +29,136 @@ class AddressViewModel(
     private val getAllTaxSourceUseCase: GetAllTaxSourceUseCase,
     private val checkInfoTaxUseCase: CheckInfoTaxUseCase,
     private val saveInfoTaxUseCase: SaveInfoTaxUseCase,
+    private val checkIsDeletedInfoTaxUseCase: CheckIsDeletedInfoTaxUseCase,
+    private val deletedInfoTaxUseCase: DeleteInfoTaxUseCase,
 ) : ViewModel() {
 
+    fun startLoad() {
+        if (federalDistrictSLD.selectedItem == null) getAllFederalDistrict()
+    }
+
+
     val federalDistrictSLD = SpinnerLiveData<FederalDistrictItem>()
-    fun getAllFederalDistrict() = async {
+    private fun getAllFederalDistrict() = async {
         federalDistrictSLD.postItems(
             getAllFederalDistrictUseCase.invoke().map { it.toItem() }
         )
     }
 
-    val subjectOfRusFedSLD = SpinnerLiveData<SubjectOfRusFedItem>()
-    fun getAllSubjectOfRusFedByFederalDistrict() {
+    fun onFederalDistrictItemSelected(federalDistrictItem: FederalDistrictItem?) {
+        if (!federalDistrictSLD.trySetNewItem(federalDistrictItem)) return
         subjectOfRusFedSLD.setEmptyList()
-        async {
-            federalDistrictSLD.selectedItem?.let { item ->
-                subjectOfRusFedSLD.postItems(
-                    getAllSubjectOfRusFedByFederalDistrictUseCase.invoke(item.toModel())
-                        .map { it.toItem() }
-                )
-            }
-        }
+        federalDistrictItem?.let { getAllSubjectOfRusFedByFederalDistrict(it) }
     }
+
+
+    val subjectOfRusFedSLD = SpinnerLiveData<SubjectOfRusFedItem>()
+    private fun getAllSubjectOfRusFedByFederalDistrict(federalDistrictItem: FederalDistrictItem) = async {
+        subjectOfRusFedSLD.postItems(
+            getAllSubjectOfRusFedByFederalDistrictUseCase.invoke(federalDistrictItem.toModel())
+                .map { it.toItem() }
+        )
+    }
+
+    fun onSubjectOfRusFedItemSelected(subjectOfRusFedItem: SubjectOfRusFedItem?) {
+        if (!subjectOfRusFedSLD.trySetNewItem(subjectOfRusFedItem)) return
+        forestrySLD.setEmptyList()
+        subjectOfRusFedItem?.let { getAllForestryBySubjectOfRusFed(it) }
+    }
+
 
     val forestrySLD = SpinnerLiveData<ForestryItem>()
-    fun getAllForestryBySubjectOfRusFed() {
-        forestrySLD.setEmptyList()
-        async {
-            subjectOfRusFedSLD.selectedItem?.let { item ->
-                forestrySLD.postItems(
-                    getAllForestryBySubjectOfRusFedUseCase.invoke(item.toModel())
-                        .map { it.toItem() }
-                )
-            }
-        }
+    private fun getAllForestryBySubjectOfRusFed(subjectOfRusFedItem: SubjectOfRusFedItem) = async {
+        forestrySLD.postItems(
+            getAllForestryBySubjectOfRusFedUseCase.invoke(subjectOfRusFedItem.toModel())
+                .map { it.toItem() }
+        )
     }
+
+    fun onForestryItemSelected(forestryItem: ForestryItem?) {
+        if (!forestrySLD.trySetNewItem(forestryItem)) return
+        localForestrySLD.setEmptyList()
+        forestryItem?.let { getAllLocalForestryByForestry(it) }
+    }
+
 
     val localForestrySLD = SpinnerLiveData<LocalForestryItem>()
-    fun getAllLocalForestryByForestry() {
-        localForestrySLD.setEmptyList()
-        async {
-            forestrySLD.selectedItem?.let { item ->
-                localForestrySLD.postItems(
-                    getAllLocalForestryByForestryUseCase.invoke(item.toModel()).map { it.toItem() }
-                )
-            }
-        }
+    private fun getAllLocalForestryByForestry(forestryItem: ForestryItem) = async {
+        localForestrySLD.postItems(
+            getAllLocalForestryByForestryUseCase.invoke(forestryItem.toModel()).map { it.toItem() }
+        )
     }
+
+    fun onLocalForestryItemSelected(localForestryItem: LocalForestryItem?) {
+        if (!localForestrySLD.trySetNewItem(localForestryItem)) return
+        subForestrySLD.setEmptyList()
+        localForestryItem?.let { getAllSubForestryByLocalForestry(it) }
+    }
+
 
     val subForestrySLD = SpinnerLiveData<SubForestryItem>()
-    fun getAllSubForestryByLocalForestry() {
-        subForestrySLD.setEmptyList()
-        async {
-            localForestrySLD.selectedItem?.let { item ->
-                subForestrySLD.postItems(
-                    getAllSubForestryByLocalForestryUseCase.invoke(item.toModel())
-                        .map { it.toItem() }
-                )
-            }
-        }
+    private fun getAllSubForestryByLocalForestry(localForestryItem: LocalForestryItem) = async {
+        subForestrySLD.postItems(
+            getAllSubForestryByLocalForestryUseCase.invoke(localForestryItem.toModel())
+                .map { it.toItem() }
+        )
     }
 
-    val areaSLD = SpinnerLiveData<AreaItem>()
-    fun getAllAreaByAreaParams() {
+    fun onSubForestryItemSelected(subForestryItem: SubForestryItem?) {
+        if (!subForestrySLD.trySetNewItem(subForestryItem)) return
         areaSLD.setEmptyList()
+        subForestryItem?.let { getAllAreaByAreaParams(it) }
+    }
+
+
+    val areaSLD = SpinnerLiveData<AreaItem>()
+    private val _allTaxSourceLD = MutableLiveData<List<TaxSourceItem>>(emptyList())
+    val allTaxSourceLD: LiveData<List<TaxSourceItem>> = _allTaxSourceLD
+    private fun getAllAreaByAreaParams(subForestryItem: SubForestryItem) {
         _allTaxSourceLD.value = emptyList()
+        val areaParams = AreaParams(
+            federalDistrictSLD.selectedItem!!.toModel(),
+            subjectOfRusFedSLD.selectedItem!!.toModel(),
+            forestrySLD.selectedItem!!.toModel(),
+            localForestrySLD.selectedItem!!.toModel(),
+            subForestryItem.toModel()
+        )
         async {
-            subForestrySLD.selectedItem?.let { subForestryItem ->
-                val areaParams = AreaParams(
-                    federalDistrictSLD.selectedItem!!.toModel(),
-                    subjectOfRusFedSLD.selectedItem!!.toModel(),
-                    forestrySLD.selectedItem!!.toModel(),
-                    localForestrySLD.selectedItem!!.toModel(),
-                    subForestryItem.toModel()
-                )
-                areaSLD.postItems(
-                    getAllAreaByAreaParamsUseCase.invoke(areaParams).map { it.toItem() }
-                )
-            }
+            areaSLD.postItems(
+                getAllAreaByAreaParamsUseCase.invoke(areaParams).map { it.toItem() }
+            )
             _allTaxSourceLD.postValue(getAllTaxSourceUseCase.invoke().map { it.toItem() })
         }
     }
 
-    val sectionSLD = SpinnerLiveData<SectionItem>()
-    fun getAllSectionByArea() {
+    fun onAreaItemSelected(areaItem: AreaItem?) {
+        if (!areaSLD.trySetNewItem(areaItem)) return
         sectionSLD.setEmptyList()
-        getAllSectionByAreaWithoutReset()
+        areaItem?.let { getAllSectionByArea(it) }
     }
 
-    private fun getAllSectionByAreaWithoutReset() = async {
-        areaSLD.selectedItem?.let { item ->
-            sectionSLD.postItems(
-                getAllSectionByAreaUseCase.invoke(item.toModel()).map { it.toItem() }
-            )
-        }
+
+    val sectionSLD = SpinnerLiveData<SectionItem>()
+    private fun getAllSectionByArea(areaItem: AreaItem) = async {
+        sectionSLD.postItems(
+            getAllSectionByAreaUseCase.invoke(areaItem.toModel()).map { it.toItem() }
+        )
     }
+
+    fun onSectionItemSelected(sectionItem: SectionItem?) {
+        if (!sectionSLD.trySetNewItem(sectionItem)) return
+        taxSourceSLD.setEmptyList()
+        sectionItem?.let { getAllTaxSourceByTaxSourceParams(it) }
+    }
+
 
     val taxSourceSLD = SpinnerLiveData<TaxSourceItem>()
-    fun getAllTaxSourceByTaxSourceParams() {
-        taxSourceSLD.setEmptyList()
-        getAllTaxSourceByTaxSourceParamsWithoutReset()
-    }
-
-    private fun getAllTaxSourceByTaxSourceParamsWithoutReset() = async {
-        sectionSLD.selectedItem?.let { section ->
-            val taxSourceParams = TaxSourceParams(
-                areaSLD.selectedItem!!.toModel(),
-                section.toModel()
-            )
+    private fun getAllTaxSourceByTaxSourceParams(sectionItem: SectionItem) {
+        val taxSourceParams = TaxSourceParams(
+            areaSLD.selectedItem!!.toModel(),
+            sectionItem.toModel()
+        )
+        async {
             taxSourceSLD.postItems(
                 getAllTaxSourceByTaxSourceParamsUseCase.invoke(taxSourceParams)
                     .map { it.toItem() }
@@ -144,52 +166,80 @@ class AddressViewModel(
         }
     }
 
-    val taxYearSLD = SpinnerLiveData<TaxYearItem>()
-
-    fun getAllTaxYearByTaxYearParams() {
+    fun onTaxSourceItemSelected(taxSourceItem: TaxSourceItem?) {
+        if (!taxSourceSLD.trySetNewItem(taxSourceItem)) return
         taxYearSLD.setEmptyList()
-        async {
-            taxSourceSLD.selectedItem?.let { taxSourceItem ->
-                val taxYearParams = TaxYearParams(
-                    areaSLD.selectedItem!!.toModel(),
-                    sectionSLD.selectedItem!!.toModel(),
-                    taxSourceItem.toModel()
-                )
-                taxYearSLD.postItems(
-                    getAllTaxYearByTaxYearParamsUseCase.invoke(taxYearParams).map { it.toItem() }
-                )
-            }
+        _isDeletedInfoTaxLD.value = false
+        taxSourceItem?.let {
+            getAllTaxYearByTaxYearParams(it)
+            checkIsDeletedInfoTax(it)
         }
     }
+
+
+    private val _isDeletedInfoTaxLD = MutableLiveData(false)
+    val isDeletedInfoTaxLD: LiveData<Boolean> = _isDeletedInfoTaxLD
+    private fun checkIsDeletedInfoTax(taxSourceItem: TaxSourceItem) = async {
+        _isDeletedInfoTaxLD.postValue(
+            checkIsDeletedInfoTaxUseCase.invoke(taxSourceItem.id)
+        )
+    }
+
+
+    val taxYearSLD = SpinnerLiveData<TaxYearItem>()
+    private fun getAllTaxYearByTaxYearParams(taxSourceItem: TaxSourceItem) {
+        val taxYearParams = TaxYearParams(
+            areaSLD.selectedItem!!.toModel(),
+            sectionSLD.selectedItem!!.toModel(),
+            taxSourceItem.toModel()
+        )
+        async {
+            taxYearSLD.postItems(
+                getAllTaxYearByTaxYearParamsUseCase.invoke(taxYearParams).map { it.toItem() }
+            )
+        }
+    }
+
+    fun onTaxYearItemSelected(taxYearItem: TaxYearItem?) {
+        taxYearSLD.trySetNewItem(taxYearItem)
+    }
+
+    fun deletedInfoTaxByTaxYear(taxYearItem: TaxYearItem) {
+        async { deletedInfoTaxUseCase.invoke(taxYearItem.taxId) }
+        onSectionItemSelected(null)
+    }
+
 
     fun trySaveInfoTax(sectionItem: SectionItem, taxSourceItem: TaxSourceItem, year: Int) = async {
         val infoTaxParams = InfoTaxParams(
             sectionItem.toModel(), taxSourceItem.toModel(), year
         )
         if (!checkInfoTaxUseCase.invoke(infoTaxParams)) {
-            val infoTaxSaveParams = infoTaxParams.toInfoTaxSaveParams(areaSLD.selectedItem!!.toModel())
+            val infoTaxSaveParams =
+                infoTaxParams.toInfoTaxSaveParams(areaSLD.selectedItem!!.toModel())
             saveInfoTaxUseCase.invoke(infoTaxSaveParams)
         }
 
-        sectionSLD.postSelectedItem(sectionItem)
-        getAllSectionByAreaWithoutReset()
+        if (sectionSLD.tryPostNewItem(sectionItem)) {
+            val areaItem = areaSLD.selectedItem!!
+            getAllSectionByArea(areaItem)
+        }
 
-        taxSourceSLD.postSelectedItem(taxSourceItem)
-        getAllTaxSourceByTaxSourceParamsWithoutReset()
+        if (taxSourceSLD.tryPostNewItem(taxSourceItem)) {
+            getAllTaxSourceByTaxSourceParams(sectionItem)
+        }
 
         val taxYearParams = TaxYearParams(
             areaSLD.selectedItem!!.toModel(),
             sectionItem.toModel(),
             taxSourceItem.toModel()
         )
-        val taxYearList = getAllTaxYearByTaxYearParamsUseCase.invoke(taxYearParams).map { it.toItem() }
-        val taxYearSelectedItem = taxYearList.first { it.year == year}
+        val taxYearList =
+            getAllTaxYearByTaxYearParamsUseCase.invoke(taxYearParams).map { it.toItem() }
+        val taxYearSelectedItem = taxYearList.first { it.year == year }
         taxYearSLD.postSelectedItem(taxYearSelectedItem)
         taxYearSLD.postItems(taxYearList)
     }
-
-    private val _allTaxSourceLD = MutableLiveData<List<TaxSourceItem>>(emptyList())
-    val allTaxSourceLD: LiveData<List<TaxSourceItem>> = _allTaxSourceLD
 
     class Factory @Inject constructor(
         private val getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,
@@ -204,6 +254,8 @@ class AddressViewModel(
         private val getAllTaxSourceUseCase: GetAllTaxSourceUseCase,
         private val checkInfoTaxUseCase: CheckInfoTaxUseCase,
         private val saveInfoTaxUseCase: SaveInfoTaxUseCase,
+        private val checkIsDeletedInfoTaxUseCase: CheckIsDeletedInfoTaxUseCase,
+        private val deletedInfoTaxUseCase: DeleteInfoTaxUseCase,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -220,6 +272,8 @@ class AddressViewModel(
                 getAllTaxSourceUseCase = getAllTaxSourceUseCase,
                 checkInfoTaxUseCase = checkInfoTaxUseCase,
                 saveInfoTaxUseCase = saveInfoTaxUseCase,
+                checkIsDeletedInfoTaxUseCase = checkIsDeletedInfoTaxUseCase,
+                deletedInfoTaxUseCase = deletedInfoTaxUseCase
             ) as T
         }
     }

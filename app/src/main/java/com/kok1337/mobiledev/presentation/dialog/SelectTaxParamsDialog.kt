@@ -23,10 +23,6 @@ class SelectTaxParamsDialog(
     private val onTaxParamsSelected: (sectionItem: SectionItem, taxSourceItem: TaxSourceItem, year: Int) -> Unit
 ) : DialogFragment(R.layout.dialog_select_tax_params) {
 
-    companion object {
-        const val TAG: String = "CreateTaxDialog"
-    }
-
     private val binding by viewBinding(DialogSelectTaxParamsBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

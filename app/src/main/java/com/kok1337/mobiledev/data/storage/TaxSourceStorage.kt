@@ -1,5 +1,6 @@
 package com.kok1337.mobiledev.data.storage
 
+import com.kok1337.mobiledev.data.database.BooleanRowMapper
 import com.kok1337.mobiledev.data.database.EntityRowMapper
 import com.kok1337.mobiledev.data.entity.TaxSourceAllEntity
 import com.kok1337.mobiledev.data.entity.TaxSourceEntity
@@ -10,6 +11,7 @@ import javax.inject.Inject
 interface TaxSourceStorage {
     fun getAllTaxSourceByTaxSourceParams(taxSourceParams: TaxSourceParams): List<TaxSourceEntity>
     fun getAllTaxSource(): List<TaxSourceEntity>
+    fun isDeleted(id: Int): Boolean
 }
 
 class TaxSourceStorageDbImpl @Inject constructor(
@@ -28,5 +30,11 @@ class TaxSourceStorageDbImpl @Inject constructor(
     override fun getAllTaxSource(): List<TaxSourceEntity> {
         val query = "select * from czl_get_tax_source();"
         return jdbcTemplate.query(query, taxSourceAllEntityMapper).map { it.toTaxSourceEntity() }
+    }
+
+    private val booleanRowMapper = BooleanRowMapper("deleted")
+    override fun isDeleted(id: Int): Boolean {
+        val query = "select id=? as deleted from info_tax_source where id=9"
+        return jdbcTemplate.queryForObject(query, booleanRowMapper, id)!!
     }
 }
