@@ -4,6 +4,8 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
 
 class AddressUIModel {
+    val isEditEnabled = ObservableBoolean(false)
+
     val federalDistrictListSize = ObservableInt(0)
     val subjectOfRusFedListSize = ObservableInt(0)
     val forestryListSize = ObservableInt(0)

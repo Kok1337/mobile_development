@@ -56,6 +56,9 @@ interface DataBindModule {
 
     @Binds @Suppress("FunctionName")
     fun bindInfoTaxStorageDbImpl_to_InfoTaxStorage(infoTaxStorageDbImpl: InfoTaxStorageDbImpl): InfoTaxStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindPlantingCharacteristicStorageDbImpl_to_PlantingCharacteristicStorage(plantingCharacteristicStorageDbImpl: PlantingCharacteristicStorageDbImpl): PlantingCharacteristicStorage
 }
 
 @Module

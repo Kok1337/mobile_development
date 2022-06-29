@@ -8,7 +8,7 @@ import java.util.*
 import javax.inject.Inject
 
 interface InfoTaxStorage {
-    fun checkInfoTax(infoTaxParams: InfoTaxParams): Boolean
+    fun checkIsExistsInfoTax(infoTaxParams: InfoTaxParams): Boolean
     fun saveInfoTax(infoTaxSaveParams: InfoTaxSaveParams, userId: Int)
     fun deleteInfoTax(id: UUID)
 }
@@ -16,7 +16,7 @@ interface InfoTaxStorage {
 class InfoTaxStorageDbImpl @Inject constructor(
     private val jdbcTemplate: JdbcTemplate,
 ) : InfoTaxStorage {
-    override fun checkInfoTax(infoTaxParams: InfoTaxParams): Boolean {
+    override fun checkIsExistsInfoTax(infoTaxParams: InfoTaxParams): Boolean {
         val booleanMapper = BooleanRowMapper("exists")
         val query =
             "select exists(select 1 from info_tax where section=? and data_source_id=? and forest_inventory_year=?)"

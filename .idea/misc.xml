@@ -30,12 +30,15 @@
         <entry key="..\:/Projects/AndroidStudioProject/MobileGlpm/app/src/main/res/layout/dialog_searchablespinner.xml" value="0.18489583333333334" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileGlpm/app/src/main/res/layout/fragment_tax_address.xml" value="0.25" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileGlpm/app/src/main/res/layout/item_section.xml" value="0.25" />
+        <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/drawable-v24/vbg_imageview.xml" value="0.2555" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/drawable-v24/vbg_spinner.xml" value="0.2475" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/drawable/ic_info.xml" value="0.1475" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/drawable/ic_spinner_arrow.xml" value="0.3345" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/dialog_confirm.xml" value="0.21510416666666668" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/dialog_create_tax.xml" value="0.25" />
+        <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/dialog_input.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/dialog_preview.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/dialog_searchablespinner.xml" value="0.22" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/dialog_select_tax_params.xml" value="0.1625" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/fragment_ta_address.xml" value="0.36666666666666664" />
@@ -43,7 +46,7 @@
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/fragment_ta_tab.xml" value="0.358695652173913" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/fragment_ta_trial.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/fragment_tax_address.xml" value="0.22" />
-        <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/fragment_tax_characteristic.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/fragment_tax_characteristic.xml" value="0.2803030303030303" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/fragment_tax_tab.xml" value="0.358695652173913" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/fragment_tb_root.xml" value="0.16875" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/layout/fragment_tb_worktypes.xml" value="0.358695652173913" />

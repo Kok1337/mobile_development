@@ -1,21 +1,471 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.fragment.taxation.CharacteristicFragment"
-    android:background="@color/teal_700">
+    tools:context=".presentation.fragment.taxation.CharacteristicFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="CharacteristicFragment"
-        android:textSize="32sp"/>
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            style="@style/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Категория" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow android:layout_marginTop="8dp">
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Земель РФ" />
+
+                <View style="@style/ColumnSeparator" />
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Целевого назначения" />
+
+                <View style="@style/ColumnSeparator" />
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Защитных лесов" />
+            </TableRow>
+
+            <TableRow
+                android:layout_height="60dp">
+
+                <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                    android:id="@+id/landCategorySpinner"
+                    style="@style/MainSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:autoSelect="false"
+                    app:emptyItem="true"
+                    app:title="Выберите категорию земель РФ"
+                    android:layout_weight="1" />
+
+                <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                    android:id="@+id/targetCategorySpinner"
+                    style="@style/MainSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:autoSelect="false"
+                    app:emptyItem="true"
+                    app:title="Выберите категорию целевого назначения"
+                    android:layout_column="2"
+                    android:layout_weight="1" />
+
+                <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                    android:id="@+id/protectionCategorySpinner"
+                    style="@style/MainSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:autoSelect="false"
+                    app:emptyItem="true"
+                    app:title="Выберите категорию защитных лесов"
+                    android:layout_column="4"
+                    android:layout_weight="1" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SecondaryTextView"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="ООПТ" />
+
+            <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                android:id="@+id/ooptSpinner"
+                style="@style/MainSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="16dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/ooptButton"
+                style="@style/ClickIcon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_info" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SecondaryTextView"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="ОЗУ" />
+
+            <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                android:id="@+id/ozuSpinner"
+                style="@style/MainSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="16dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/ozuButton"
+                style="@style/ClickIcon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_info" />
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow android:layout_marginTop="8dp">
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_column="0"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Бонитет" />
+
+                <View style="@style/ColumnSeparator" />
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="ТЛУ" />
+
+                <View style="@style/ColumnSeparator" />
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Тип леса" />
+            </TableRow>
+
+            <TableRow>
+
+                <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                    android:id="@+id/bonitetSpinner"
+                    style="@style/MainSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_weight="1" />
+
+                <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                    android:id="@+id/tluSpinner"
+                    style="@style/MainSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:layout_gravity="center"
+                    android:layout_weight="1" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_column="4">
+
+                    <ImageView
+                        android:id="@+id/forestTypeTextView"
+                        style="@style/ClickIcon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_info" />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="8dp">
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="90dp"
+                    android:layout_column="0"
+                    android:layout_gravity="center"
+                    android:text="Покрыта лесом" />
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_column="2"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="tut budet text"/>
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_column="4"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Кат. земель" />
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/coveredForestCheckBox"
+                        style="@style/BigCheckBox"
+                        android:gravity="center"
+                        android:layout_margin="0dp"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp" />
+
+                </LinearLayout>
+
+                <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                    android:id="@+id/originAndLandSpinner"
+                    style="@style/MainSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:layout_gravity="center"
+                    android:layout_weight="1" />
+
+                <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
+                    android:id="@+id/forestLandCategorySpinner"
+                    style="@style/MainSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="4"
+                    android:layout_gravity="center"
+                    android:layout_weight="1" />
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
+            style="@style/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:text="Запас" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/choseTextView"
+                style="@style/SecondaryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="Выберите единицу измерения:" />
+
+            <Button
+                android:id="@+id/nextUnitButton"
+                style="@style/MainButton"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginHorizontal="32dp"
+                android:layout_toEndOf="@id/choseTextView"
+                android:maxLines="1" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SecondaryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Сыр. раст." />
+
+            <TextView
+                android:id="@+id/rawGrowingHectareTextView"
+                style="@style/MainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1" />
+            <TextView
+                style="@style/SecondaryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text=", на га." />
+
+            <TextView
+                android:id="@+id/rawGrowingSectionTextView"
+                style="@style/MainTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                style="@style/SecondaryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text=", на выд." />
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TableRow
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Сух." />
+
+                <View style="@style/ColumnSeparator" />
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Ред." />
+
+                <View style="@style/ColumnSeparator" />
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Ед. д." />
+
+                <View style="@style/ColumnSeparator" />
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Зах. общ." />
+
+                <View style="@style/ColumnSeparator" />
+
+                <TextView
+                    style="@style/SecondaryTextView"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="Зах. лик." />
+
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/stockDeadTextView"
+                    style="@style/MainTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/stockOpenStandTextView"
+                    style="@style/MainTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/stockSingleTreeTextView"
+                    style="@style/MainTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="4"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/stockFellingDebrisTextView"
+                    style="@style/MainTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="6"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/stockLiquidDebrisTextView"
+                    style="@style/MainTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="8"
+                    android:layout_weight="1" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+
+</layout>

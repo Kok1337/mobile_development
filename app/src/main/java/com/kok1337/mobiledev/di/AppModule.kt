@@ -19,19 +19,6 @@ class AppModule(val context: Context) {
     }
 
     @Provides
-    fun provideMainViewModelFactory(
-        getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,
-        getUserIdUseCase: GetUserIdUseCase,
-        saveUserIdUseCase: SaveUserIdUseCase,
-    ): MainViewModel.Factory {
-        return MainViewModel.Factory(
-            getAllFederalDistrictUseCase = getAllFederalDistrictUseCase,
-            getUserIdUseCase = getUserIdUseCase,
-            saveUserIdUseCase = saveUserIdUseCase,
-        )
-    }
-
-    @Provides
     fun provideWorkTypesViewModelFactory(
         getAllWorkTypesUseCase: GetAllWorkTypesUseCase
     ): WorkTypesViewModel.Factory {

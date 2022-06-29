@@ -5,6 +5,7 @@
     tools:context=".presentation.fragment.taxation.AddressFragment">
 
     <data>
+        <import type="com.kok1337.mobiledev.presentation.util.DataBindingFunctions"/>
         <variable
             name="uim"
             type="com.kok1337.mobiledev.presentation.model.AddressUIModel" />
@@ -235,7 +236,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Удалить"
-                android:enabled="@{uim.isSelectedTaxNotNull &amp;&amp; uim.isCanBeDeleted()}"/>
+                android:enabled="@{uim.isSelectedTaxNotNull &amp;&amp; uim.isCanBeDeleted &amp;&amp; uim.isEditEnabled}"/>
 
             <View style="@style/ColumnSeparator"
                 android:layout_width="0dp"
@@ -247,7 +248,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Добавить"
-                android:enabled="@{uim.isSelectedAreaNotNull}" />
+                android:enabled="@{uim.isSelectedAreaNotNull &amp;&amp; uim.isEditEnabled}" />
 
         </LinearLayout>
 

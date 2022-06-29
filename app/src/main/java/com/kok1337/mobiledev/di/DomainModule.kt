@@ -43,6 +43,9 @@ interface DomainBindModule {
 
     @Binds @Suppress("FunctionName")
     fun bindInfoTaxRepoImpl_to_InfoTaxRepo(infoTaxRepoImpl: InfoTaxRepoImpl): InfoTaxRepo
+
+    @Binds @Suppress("FunctionName")
+    fun bindPlantingCharacteristicRepoImpl_to_PlantingCharacteristicRepo(plantingCharacteristicRepoImpl: PlantingCharacteristicRepoImpl): PlantingCharacteristicRepo
 }
 
 

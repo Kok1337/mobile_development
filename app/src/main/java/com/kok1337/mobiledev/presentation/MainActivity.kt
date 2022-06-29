@@ -6,41 +6,34 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.*
 import androidx.navigation.fragment.NavHostFragment
+import by.kirich1409.viewbindingdelegate.activityViewBinding
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.app.App
 import com.kok1337.mobiledev.databinding.ActivityMainBinding
 import com.kok1337.mobiledev.presentation.util.showToast
-import com.kok1337.mobiledev.presentation.view.searchablespinner.SortType
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
-    private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(ActivityMainBinding::bind)
 
     @Inject
-    lateinit var mainViewModelFactory: MainViewModel.Factory
-    private lateinit var mainViewModel: MainViewModel
+    lateinit var viewModelFactory: MainViewModel.Factory
+    private lateinit var viewModel: MainViewModel
 
     private var _prevBackStackEntry: NavBackStackEntry? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         (applicationContext as App).appComponent.inject(this)
-        mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
 
 
-        mainViewModel.currentTbDirectionLD.observe(this) { navigateToToolbarFragment(it) }
-        mainViewModel.federalDistrictLD.observe(this) { list ->
+        viewModel.currentTbDirectionLD.observe(this) { navigateToToolbarFragment(it) }
+        viewModel.federalDistrictLD.observe(this) { list ->
             list.forEach{ Log.e("LOL", it.toString()) }
-        }
-
-        mainViewModel.userIdLD.observe(this) {
-            showToast("User id = $it")
         }
 
 
@@ -55,17 +48,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initToolbarActions() {
-        binding.toolbarCamera.setOnClickListener { mainViewModel.onOpenCamera() }
-        binding.toolbarMap.setOnClickListener { mainViewModel.onOpenMap() }
-        binding.toolbarSettings.setOnClickListener { mainViewModel.onOpenSettings() }
-        binding.toolbarWorkTypes.setOnClickListener { mainViewModel.onOpenWorkTypes() }
+        binding.toolbarCamera.setOnClickListener { viewModel.onOpenCamera() }
+        binding.toolbarMap.setOnClickListener { viewModel.onOpenMap() }
+        binding.toolbarSettings.setOnClickListener { viewModel.onOpenSettings() }
+        binding.toolbarWorkTypes.setOnClickListener { viewModel.onOpenWorkTypes() }
 
-        binding.toolbarSave.setOnClickListener { mainViewModel.getUserId() }
-        binding.toolbarEdit.setOnClickListener {
-            binding.toolbarEdit.toggle()
-            mainViewModel.userIdLD.value = 2
-            mainViewModel.saveUserId()
-        }
+        binding.toolbarEdit.setOnClickListener { changeEnabled() }
+    }
+
+    private fun changeEnabled() {
+        val toolbarEdit = binding.toolbarEdit
+        toolbarEdit.toggle()
+        val isChecked = toolbarEdit.isChecked
+        viewModel.setEditEnabled(isChecked)
+        showToast(if (isChecked) "Редактирование включено" else "Редактирование отключено")
     }
 
     private fun navigateToToolbarFragment(direction: NavDirections) {
@@ -83,11 +79,6 @@ class MainActivity : AppCompatActivity() {
 
         // navController.navigate(direction, navOptions)
         navController.navigate(direction)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 
 }

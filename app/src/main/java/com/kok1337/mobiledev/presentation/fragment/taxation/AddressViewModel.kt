@@ -27,7 +27,7 @@ class AddressViewModel(
     private val getAllTaxSourceByTaxSourceParamsUseCase: GetAllTaxSourceByTaxSourceParamsUseCase,
     private val getAllTaxYearByTaxYearParamsUseCase: GetAllTaxYearByTaxYearParamsUseCase,
     private val getAllTaxSourceUseCase: GetAllTaxSourceUseCase,
-    private val checkInfoTaxUseCase: CheckInfoTaxUseCase,
+    private val checkIsExistInfoTaxUseCase: CheckIsExistInfoTaxUseCase,
     private val saveInfoTaxUseCase: SaveInfoTaxUseCase,
     private val checkIsDeletedInfoTaxUseCase: CheckIsDeletedInfoTaxUseCase,
     private val deletedInfoTaxUseCase: DeleteInfoTaxUseCase,
@@ -214,7 +214,7 @@ class AddressViewModel(
         val infoTaxParams = InfoTaxParams(
             sectionItem.toModel(), taxSourceItem.toModel(), year
         )
-        if (!checkInfoTaxUseCase.invoke(infoTaxParams)) {
+        if (!checkIsExistInfoTaxUseCase.invoke(infoTaxParams)) {
             val infoTaxSaveParams =
                 infoTaxParams.toInfoTaxSaveParams(areaSLD.selectedItem!!.toModel())
             saveInfoTaxUseCase.invoke(infoTaxSaveParams)
@@ -252,7 +252,7 @@ class AddressViewModel(
         private val getAllTaxSourceByTaxSourceParamsUseCase: GetAllTaxSourceByTaxSourceParamsUseCase,
         private val getAllTaxYearByTaxYearParamsUseCase: GetAllTaxYearByTaxYearParamsUseCase,
         private val getAllTaxSourceUseCase: GetAllTaxSourceUseCase,
-        private val checkInfoTaxUseCase: CheckInfoTaxUseCase,
+        private val checkIsExistInfoTaxUseCase: CheckIsExistInfoTaxUseCase,
         private val saveInfoTaxUseCase: SaveInfoTaxUseCase,
         private val checkIsDeletedInfoTaxUseCase: CheckIsDeletedInfoTaxUseCase,
         private val deletedInfoTaxUseCase: DeleteInfoTaxUseCase,
@@ -270,7 +270,7 @@ class AddressViewModel(
                 getAllTaxSourceByTaxSourceParamsUseCase = getAllTaxSourceByTaxSourceParamsUseCase,
                 getAllTaxYearByTaxYearParamsUseCase = getAllTaxYearByTaxYearParamsUseCase,
                 getAllTaxSourceUseCase = getAllTaxSourceUseCase,
-                checkInfoTaxUseCase = checkInfoTaxUseCase,
+                checkIsExistInfoTaxUseCase = checkIsExistInfoTaxUseCase,
                 saveInfoTaxUseCase = saveInfoTaxUseCase,
                 checkIsDeletedInfoTaxUseCase = checkIsDeletedInfoTaxUseCase,
                 deletedInfoTaxUseCase = deletedInfoTaxUseCase

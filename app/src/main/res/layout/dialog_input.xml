@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/cancelButton"
+            style="@style/MainButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/editText"
+            android:layout_marginTop="16dp"
+            android:text="Отмена" />
+
+        <Button
+            android:id="@+id/acceptButton"
+            style="@style/MainButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/editText"
+            android:layout_marginTop="16dp"
+            android:text="Подтвердить" />
+
+        <EditText
+            android:id="@+id/editText"
+            style="@style/MainEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/titleSeparator"
+            android:layout_marginTop="16dp"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            style="@style/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Заголовок" />
+
+        <View
+            android:id="@+id/titleSeparator"
+            style="@style/Separator"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/titleTextView" />
+
+    </RelativeLayout>
+
+</layout>

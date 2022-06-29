@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.databinding.FragmentTaxAddressBinding
+import com.kok1337.mobiledev.presentation.MainViewModel
 import com.kok1337.mobiledev.presentation.adapter.DictionaryAdapter
 import com.kok1337.mobiledev.presentation.adapter.HighlightedDictionaryAdapter
 import com.kok1337.mobiledev.presentation.adapter.SectionAdapter
@@ -32,6 +33,7 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
     lateinit var viewModelFactory: AddressViewModel.Factory
     private lateinit var viewModel: AddressViewModel
     private val tabViewModel: TaxTabViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onAttach(context: Context) {
         getAppComponent().inject(this)
@@ -155,6 +157,8 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
 
         tabViewModel.taxIdLD.observe(viewLifecycleOwner)
         { uiModel.isSelectedTaxNotNull.set(it != null) }
+        mainViewModel.editEnabledLD.observe(viewLifecycleOwner)
+        { uiModel.isEditEnabled.set(it) }
     }
 
     private fun initSelectedItemLdObservers() {

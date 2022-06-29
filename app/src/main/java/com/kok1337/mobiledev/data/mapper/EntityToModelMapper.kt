@@ -1,6 +1,5 @@
 package com.kok1337.mobiledev.data.mapper
 
-import android.util.Log
 import com.kok1337.mobiledev.data.entity.*
 import com.kok1337.mobiledev.domain.model.*
 
@@ -21,3 +20,10 @@ fun SectionEntity.toModel(): Section = Section(this.name!!, this.s ?: 0.0)
 fun TaxSourceEntity.toModel(): TaxSource = TaxSource(this.id!!, this.name!!)
 
 fun TaxYearEntity.toModel(): TaxYear = TaxYear(this.taxId!!, this.year ?: 0, this.draft ?: true)
+
+fun PlantingCharacteristicEntity.toModel(): PlantingCharacteristic = PlantingCharacteristic(
+    id!!, s!!, landCatId, forestPurposeId, protectionCategoryId, ooptId, oopt ?: " ",
+    ozuId, ozu ?: "", bonitetId, forestType ?: "", tluId, isNatural,
+    nonForestLandId, unforestedLandId, stockDead, stockOpenStand, stockSingleTree,
+    stockFellingDebris, stockLiquidDebris, stockSection
+)

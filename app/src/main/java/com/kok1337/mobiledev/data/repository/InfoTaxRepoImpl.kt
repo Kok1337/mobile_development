@@ -10,8 +10,8 @@ import javax.inject.Inject
 class InfoTaxRepoImpl @Inject constructor(
     private val infoTaxStorage: InfoTaxStorage,
 ) : InfoTaxRepo {
-    override suspend fun checkInfoTax(infoTaxParams: InfoTaxParams): Boolean {
-        return infoTaxStorage.checkInfoTax(infoTaxParams)
+    override suspend fun checkIsExistInfoTax(infoTaxParams: InfoTaxParams): Boolean {
+        return infoTaxStorage.checkIsExistsInfoTax(infoTaxParams)
     }
 
     override suspend fun saveInfoTax(infoTaxSaveParams: InfoTaxSaveParams, userId: Int) {
