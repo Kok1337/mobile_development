@@ -10,15 +10,19 @@ import javax.inject.Inject
 class InfoTaxRepoImpl @Inject constructor(
     private val infoTaxStorage: InfoTaxStorage,
 ) : InfoTaxRepo {
-    override suspend fun checkIsExistInfoTax(infoTaxParams: InfoTaxParams): Boolean {
-        return infoTaxStorage.checkIsExistsInfoTax(infoTaxParams)
+    override suspend fun checkIsExistsInfoTax(infoTaxParams: InfoTaxParams): Boolean {
+        return infoTaxStorage.isExistsByInfoTaxParams(infoTaxParams)
     }
 
     override suspend fun saveInfoTax(infoTaxSaveParams: InfoTaxSaveParams, userId: Int) {
-        infoTaxStorage.saveInfoTax(infoTaxSaveParams, userId)
+        infoTaxStorage.saveByInfoTaxSaveParams(infoTaxSaveParams, userId)
     }
 
     override suspend fun deleteInfoTax(infoTaxId: UUID) {
-        infoTaxStorage.deleteInfoTax(infoTaxId)
+        infoTaxStorage.deleteById(infoTaxId)
+    }
+
+    override suspend fun checkIsDeletedInfoTaxByTaxSourceId(taxSourceId: Int): Boolean {
+        return infoTaxStorage.isDeletedByTaxSourceId(taxSourceId)
     }
 }

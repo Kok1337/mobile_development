@@ -18,18 +18,18 @@ import javax.inject.Inject
 
 class AddressViewModel(
     private val getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,
-    private val getAllSubjectOfRusFedByFederalDistrictUseCase: GetAllSubjectOfRusFedByFederalDistrictUseCase,
-    private val getAllForestryBySubjectOfRusFedUseCase: GetAllForestryBySubjectOfRusFedUseCase,
-    private val getAllLocalForestryByForestryUseCase: GetAllLocalForestryByForestryUseCase,
-    private val getAllSubForestryByLocalForestryUseCase: GetAllSubForestryByLocalForestryUseCase,
+    private val getAllSubjectOfRusFedByFederalDistrictIdUseCase: GetAllSubjectOfRusFedByFederalDistrictIdUseCase,
+    private val getAllForestryBySubjectOfRusFedIdUseCase: GetAllForestryBySubjectOfRusFedIdUseCase,
+    private val getAllLocalForestryByForestryIdUseCase: GetAllLocalForestryByForestryIdUseCase,
+    private val getAllSubForestryByLocalForestryIdUseCase: GetAllSubForestryByLocalForestryIdUseCase,
     private val getAllAreaByAreaParamsUseCase: GetAllAreaByAreaParamsUseCase,
-    private val getAllSectionByAreaUseCase: GetAllSectionByAreaUseCase,
+    private val getAllSectionByAreaIdUseCase: GetAllSectionByAreaIdUseCase,
     private val getAllTaxSourceByTaxSourceParamsUseCase: GetAllTaxSourceByTaxSourceParamsUseCase,
     private val getAllTaxYearByTaxYearParamsUseCase: GetAllTaxYearByTaxYearParamsUseCase,
     private val getAllTaxSourceUseCase: GetAllTaxSourceUseCase,
     private val checkIsExistInfoTaxUseCase: CheckIsExistInfoTaxUseCase,
     private val saveInfoTaxUseCase: SaveInfoTaxUseCase,
-    private val checkIsDeletedInfoTaxUseCase: CheckIsDeletedInfoTaxUseCase,
+    private val checkIsDeletedInfoTaxByTaxSourceIdUseCase: CheckIsDeletedInfoTaxByTaxSourceIdUseCase,
     private val deletedInfoTaxUseCase: DeleteInfoTaxUseCase,
 ) : ViewModel() {
 
@@ -55,7 +55,7 @@ class AddressViewModel(
     val subjectOfRusFedSLD = SpinnerLiveData<SubjectOfRusFedItem>()
     private fun getAllSubjectOfRusFedByFederalDistrict(federalDistrictItem: FederalDistrictItem) = async {
         subjectOfRusFedSLD.postItems(
-            getAllSubjectOfRusFedByFederalDistrictUseCase.invoke(federalDistrictItem.toModel())
+            getAllSubjectOfRusFedByFederalDistrictIdUseCase.invoke(federalDistrictItem.toModel())
                 .map { it.toItem() }
         )
     }
@@ -70,7 +70,7 @@ class AddressViewModel(
     val forestrySLD = SpinnerLiveData<ForestryItem>()
     private fun getAllForestryBySubjectOfRusFed(subjectOfRusFedItem: SubjectOfRusFedItem) = async {
         forestrySLD.postItems(
-            getAllForestryBySubjectOfRusFedUseCase.invoke(subjectOfRusFedItem.toModel())
+            getAllForestryBySubjectOfRusFedIdUseCase.invoke(subjectOfRusFedItem.toModel())
                 .map { it.toItem() }
         )
     }
@@ -85,7 +85,7 @@ class AddressViewModel(
     val localForestrySLD = SpinnerLiveData<LocalForestryItem>()
     private fun getAllLocalForestryByForestry(forestryItem: ForestryItem) = async {
         localForestrySLD.postItems(
-            getAllLocalForestryByForestryUseCase.invoke(forestryItem.toModel()).map { it.toItem() }
+            getAllLocalForestryByForestryIdUseCase.invoke(forestryItem.toModel()).map { it.toItem() }
         )
     }
 
@@ -99,7 +99,7 @@ class AddressViewModel(
     val subForestrySLD = SpinnerLiveData<SubForestryItem>()
     private fun getAllSubForestryByLocalForestry(localForestryItem: LocalForestryItem) = async {
         subForestrySLD.postItems(
-            getAllSubForestryByLocalForestryUseCase.invoke(localForestryItem.toModel())
+            getAllSubForestryByLocalForestryIdUseCase.invoke(localForestryItem.toModel())
                 .map { it.toItem() }
         )
     }
@@ -141,7 +141,7 @@ class AddressViewModel(
     val sectionSLD = SpinnerLiveData<SectionItem>()
     private fun getAllSectionByArea(areaItem: AreaItem) = async {
         sectionSLD.postItems(
-            getAllSectionByAreaUseCase.invoke(areaItem.toModel()).map { it.toItem() }
+            getAllSectionByAreaIdUseCase.invoke(areaItem.toModel()).map { it.toItem() }
         )
     }
 
@@ -181,7 +181,7 @@ class AddressViewModel(
     val isDeletedInfoTaxLD: LiveData<Boolean> = _isDeletedInfoTaxLD
     private fun checkIsDeletedInfoTax(taxSourceItem: TaxSourceItem) = async {
         _isDeletedInfoTaxLD.postValue(
-            checkIsDeletedInfoTaxUseCase.invoke(taxSourceItem.id)
+            checkIsDeletedInfoTaxByTaxSourceIdUseCase.invoke(taxSourceItem.id)
         )
     }
 
@@ -243,36 +243,36 @@ class AddressViewModel(
 
     class Factory @Inject constructor(
         private val getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,
-        private val getAllSubjectOfRusFedByFederalDistrictUseCase: GetAllSubjectOfRusFedByFederalDistrictUseCase,
-        private val getAllForestryBySubjectOfRusFedUseCase: GetAllForestryBySubjectOfRusFedUseCase,
-        private val getAllLocalForestryByForestryUseCase: GetAllLocalForestryByForestryUseCase,
-        private val getAllSubForestryByLocalForestryUseCase: GetAllSubForestryByLocalForestryUseCase,
+        private val getAllSubjectOfRusFedByFederalDistrictIdUseCase: GetAllSubjectOfRusFedByFederalDistrictIdUseCase,
+        private val getAllForestryBySubjectOfRusFedIdUseCase: GetAllForestryBySubjectOfRusFedIdUseCase,
+        private val getAllLocalForestryByForestryIdUseCase: GetAllLocalForestryByForestryIdUseCase,
+        private val getAllSubForestryByLocalForestryIdUseCase: GetAllSubForestryByLocalForestryIdUseCase,
         private val getAllAreaByAreaParamsUseCase: GetAllAreaByAreaParamsUseCase,
-        private val getAllSectionByAreaUseCase: GetAllSectionByAreaUseCase,
+        private val getAllSectionByAreaIdUseCase: GetAllSectionByAreaIdUseCase,
         private val getAllTaxSourceByTaxSourceParamsUseCase: GetAllTaxSourceByTaxSourceParamsUseCase,
         private val getAllTaxYearByTaxYearParamsUseCase: GetAllTaxYearByTaxYearParamsUseCase,
         private val getAllTaxSourceUseCase: GetAllTaxSourceUseCase,
         private val checkIsExistInfoTaxUseCase: CheckIsExistInfoTaxUseCase,
         private val saveInfoTaxUseCase: SaveInfoTaxUseCase,
-        private val checkIsDeletedInfoTaxUseCase: CheckIsDeletedInfoTaxUseCase,
+        private val checkIsDeletedInfoTaxByTaxSourceIdUseCase: CheckIsDeletedInfoTaxByTaxSourceIdUseCase,
         private val deletedInfoTaxUseCase: DeleteInfoTaxUseCase,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return AddressViewModel(
                 getAllFederalDistrictUseCase = getAllFederalDistrictUseCase,
-                getAllSubjectOfRusFedByFederalDistrictUseCase = getAllSubjectOfRusFedByFederalDistrictUseCase,
-                getAllForestryBySubjectOfRusFedUseCase = getAllForestryBySubjectOfRusFedUseCase,
-                getAllLocalForestryByForestryUseCase = getAllLocalForestryByForestryUseCase,
-                getAllSubForestryByLocalForestryUseCase = getAllSubForestryByLocalForestryUseCase,
+                getAllSubjectOfRusFedByFederalDistrictIdUseCase = getAllSubjectOfRusFedByFederalDistrictIdUseCase,
+                getAllForestryBySubjectOfRusFedIdUseCase = getAllForestryBySubjectOfRusFedIdUseCase,
+                getAllLocalForestryByForestryIdUseCase = getAllLocalForestryByForestryIdUseCase,
+                getAllSubForestryByLocalForestryIdUseCase = getAllSubForestryByLocalForestryIdUseCase,
                 getAllAreaByAreaParamsUseCase = getAllAreaByAreaParamsUseCase,
-                getAllSectionByAreaUseCase = getAllSectionByAreaUseCase,
+                getAllSectionByAreaIdUseCase = getAllSectionByAreaIdUseCase,
                 getAllTaxSourceByTaxSourceParamsUseCase = getAllTaxSourceByTaxSourceParamsUseCase,
                 getAllTaxYearByTaxYearParamsUseCase = getAllTaxYearByTaxYearParamsUseCase,
                 getAllTaxSourceUseCase = getAllTaxSourceUseCase,
                 checkIsExistInfoTaxUseCase = checkIsExistInfoTaxUseCase,
                 saveInfoTaxUseCase = saveInfoTaxUseCase,
-                checkIsDeletedInfoTaxUseCase = checkIsDeletedInfoTaxUseCase,
+                checkIsDeletedInfoTaxByTaxSourceIdUseCase = checkIsDeletedInfoTaxByTaxSourceIdUseCase,
                 deletedInfoTaxUseCase = deletedInfoTaxUseCase
             ) as T
         }

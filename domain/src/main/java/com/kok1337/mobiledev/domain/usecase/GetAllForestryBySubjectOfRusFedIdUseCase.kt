@@ -5,7 +5,7 @@ import com.kok1337.mobiledev.domain.model.SubjectOfRusFed
 import com.kok1337.mobiledev.domain.repository.ForestryRepo
 import javax.inject.Inject
 
-class GetAllForestryBySubjectOfRusFedUseCase @Inject constructor(
+class GetAllForestryBySubjectOfRusFedIdUseCase @Inject constructor(
     private val forestryRepo: ForestryRepo,
 ) {
     suspend fun invoke(subjectOfRusFed: SubjectOfRusFed): List<Forestry> =

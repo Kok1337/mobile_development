@@ -11,6 +11,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.app.App
 import com.kok1337.mobiledev.databinding.ActivityMainBinding
+import com.kok1337.mobiledev.domain.usecase.GetUserIdUseCase
+import com.kok1337.mobiledev.domain.usecase.SaveUserIdUseCase
 import com.kok1337.mobiledev.presentation.util.showToast
 import javax.inject.Inject
 
@@ -22,6 +24,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     lateinit var viewModelFactory: MainViewModel.Factory
     private lateinit var viewModel: MainViewModel
 
+    @Inject
+    lateinit var saveUserIdUseCase: SaveUserIdUseCase
+
     private var _prevBackStackEntry: NavBackStackEntry? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,12 +35,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         (applicationContext as App).appComponent.inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
 
-
         viewModel.currentTbDirectionLD.observe(this) { navigateToToolbarFragment(it) }
         viewModel.federalDistrictLD.observe(this) { list ->
             list.forEach{ Log.e("LOL", it.toString()) }
         }
 
+        //  viewModel.saveUserId(saveUserIdUseCase)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         val navController = navHostFragment.navController

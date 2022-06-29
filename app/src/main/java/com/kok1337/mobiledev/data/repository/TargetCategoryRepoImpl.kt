@@ -10,6 +10,6 @@ class TargetCategoryRepoImpl @Inject constructor(
     private val targetCategoryStorage: TargetCategoryStorage,
 ) : TargetCategoryRepo {
     override suspend fun getAllTargetCategory(): List<TargetCategory> {
-        return targetCategoryStorage.getAllTargetCategory().map { it.toModel() }
+        return targetCategoryStorage.getAll()
     }
 }

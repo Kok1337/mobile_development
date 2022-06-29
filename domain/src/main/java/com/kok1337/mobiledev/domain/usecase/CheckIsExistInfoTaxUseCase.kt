@@ -8,5 +8,5 @@ class CheckIsExistInfoTaxUseCase @Inject constructor(
     private val infoTaxRepo: InfoTaxRepo
 ) {
     suspend fun invoke(infoTaxParams: InfoTaxParams): Boolean =
-        infoTaxRepo.checkIsExistInfoTax(infoTaxParams)
+        infoTaxRepo.checkIsExistsInfoTax(infoTaxParams)
 }

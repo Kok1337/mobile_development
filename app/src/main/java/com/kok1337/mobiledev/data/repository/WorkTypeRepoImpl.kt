@@ -9,6 +9,6 @@ class WorkTypeRepoImpl @Inject constructor(
     private val workTypeStorage: WorkTypeStorage
 ) : WorkTypeRepo {
     override suspend fun getAllWorkType(): List<WorkType> {
-        return workTypeStorage.getAllWorkType()
+        return workTypeStorage.getAll()
     }
 }

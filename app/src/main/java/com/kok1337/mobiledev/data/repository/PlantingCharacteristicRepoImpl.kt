@@ -11,6 +11,6 @@ class PlantingCharacteristicRepoImpl @Inject constructor(
     private val plantingCharacteristicStorage: PlantingCharacteristicStorage
 ) : PlantingCharacteristicRepo {
     override suspend fun getPlantingCharacteristicByTaxId(taxId: UUID): PlantingCharacteristic {
-        return plantingCharacteristicStorage.getPlantingCharacteristicByTaxId(taxId).toModel()
+        return plantingCharacteristicStorage.getByTaxId(taxId)
     }
 }

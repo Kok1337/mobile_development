@@ -5,7 +5,8 @@ import com.kok1337.mobiledev.domain.model.InfoTaxSaveParams
 import java.util.*
 
 interface InfoTaxRepo {
-    suspend fun checkIsExistInfoTax(infoTaxParams: InfoTaxParams): Boolean
+    suspend fun checkIsExistsInfoTax(infoTaxParams: InfoTaxParams): Boolean
     suspend fun saveInfoTax(infoTaxSaveParams: InfoTaxSaveParams, userId: Int)
     suspend fun deleteInfoTax(infoTaxId: UUID)
+    suspend fun checkIsDeletedInfoTaxByTaxSourceId(taxSourceId: Int): Boolean
 }

@@ -17,7 +17,11 @@ class MainViewModel(
 
 ) : ViewModel() {
 
-
+    fun saveUserId(saveUserIdUseCase: SaveUserIdUseCase) {
+        async {
+            saveUserIdUseCase.invoke(2)
+        }
+    }
 
     private val _currentTbDirectionLD: MutableLiveData<NavDirections> = MutableLiveData()
     val currentTbDirectionLD: LiveData<NavDirections> = _currentTbDirectionLD

@@ -10,6 +10,6 @@ class SubjectOfRusFedRepoImpl @Inject constructor(
     private val subjectOfRusFedStorage: SubjectOfRusFedStorage,
 ) : SubjectOfRusFedRepo {
     override suspend fun getAllSubjectOfRusFedByFederalDistrictId(federalDistrictId: Int): List<SubjectOfRusFed> {
-        return subjectOfRusFedStorage.getAllSubjectOfRusFedByFederalDistrictId(federalDistrictId).map { it.toModel() }
+        return subjectOfRusFedStorage.getAllByFederalDistrictId(federalDistrictId)
     }
 }

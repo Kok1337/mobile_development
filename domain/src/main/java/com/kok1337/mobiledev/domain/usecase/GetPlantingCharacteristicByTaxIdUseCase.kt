@@ -5,7 +5,7 @@ import com.kok1337.mobiledev.domain.repository.PlantingCharacteristicRepo
 import java.util.*
 import javax.inject.Inject
 
-class GetPlantingCharacteristicUseCase @Inject constructor(
+class GetPlantingCharacteristicByTaxIdUseCase @Inject constructor(
     private val plantingCharacteristicRepo: PlantingCharacteristicRepo
 ) {
     suspend fun getPlantingCharacteristicByTaxId(taxId: UUID): PlantingCharacteristic =

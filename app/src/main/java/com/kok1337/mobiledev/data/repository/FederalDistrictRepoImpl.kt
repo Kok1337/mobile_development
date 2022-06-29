@@ -10,6 +10,6 @@ class FederalDistrictRepoImpl @Inject constructor(
     private val federalDistrictStorage: FederalDistrictStorage,
 ) : FederalDistrictRepo {
     override suspend fun getAllFederalDistrict(): List<FederalDistrict> {
-        return federalDistrictStorage.getAllFederalDistrict().map { it.toModel() }
+        return federalDistrictStorage.getAll()
     }
 }

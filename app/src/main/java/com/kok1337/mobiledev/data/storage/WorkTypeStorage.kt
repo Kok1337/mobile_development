@@ -5,11 +5,11 @@ import com.kok1337.mobiledev.domain.model.WorkType
 import javax.inject.Inject
 
 interface WorkTypeStorage {
-    fun getAllWorkType(): List<WorkType>
+    fun getAll(): List<WorkType>
 }
 
 class WorkTypeStorageLocalImpl @Inject constructor() : WorkTypeStorage {
-    override fun getAllWorkType(): List<WorkType> {
+    override fun getAll(): List<WorkType> {
         return listOf(
             WorkType(Work.TAXATION, "Тахационное описание"),
             WorkType(Work.TRIAL_AREA, "Временная пробная площадь"),
