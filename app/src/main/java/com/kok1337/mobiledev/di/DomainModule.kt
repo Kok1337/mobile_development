@@ -46,6 +46,16 @@ interface DomainBindModule {
 
     @Binds @Suppress("FunctionName")
     fun bindPlantingCharacteristicRepoImpl_to_PlantingCharacteristicRepo(plantingCharacteristicRepoImpl: PlantingCharacteristicRepoImpl): PlantingCharacteristicRepo
+
+    @Binds @Suppress("FunctionName")
+    fun bindPLandCategoryRepoImpl_to_LandCategoryRepo(landCategoryRepoImpl: LandCategoryRepoImpl): LandCategoryRepo
+
+    @Binds @Suppress("FunctionName")
+    fun bindProtectionCategoryRepoImpl_to_ProtectionCategoryRepo(protectionCategoryRepoImpl: ProtectionCategoryRepoImpl): ProtectionCategoryRepo
+
+    @Binds @Suppress("FunctionName")
+    fun bindTargetCategoryRepoImpl_to_TargetCategoryRepo(targetCategoryRepoImpl: TargetCategoryRepoImpl): TargetCategoryRepo
+
 }
 
 

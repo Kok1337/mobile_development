@@ -133,32 +133,32 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
 
     private fun initUiModelObservers() {
         viewModel.federalDistrictSLD.itemCountLD.observe(viewLifecycleOwner)
-        { uiModel.federalDistrictListSize.set(it) }
+        { uiModel.federalDistrictListSize = it }
         viewModel.subjectOfRusFedSLD.itemCountLD.observe(viewLifecycleOwner)
-        { uiModel.subjectOfRusFedListSize.set(it) }
+        { uiModel.subjectOfRusFedListSize = it }
         viewModel.forestrySLD.itemCountLD.observe(viewLifecycleOwner)
-        { uiModel.forestryListSize.set(it) }
+        { uiModel.forestryListSize = it  }
         viewModel.localForestrySLD.itemCountLD.observe(viewLifecycleOwner)
-        { uiModel.localForestryListSize.set(it) }
+        { uiModel.localForestryListSize = it }
         viewModel.subForestrySLD.itemCountLD.observe(viewLifecycleOwner)
-        { uiModel.subForestryListSize.set(it) }
+        { uiModel.subForestryListSize = it }
         viewModel.areaSLD.itemCountLD.observe(viewLifecycleOwner)
-        { uiModel.areaListSize.set(it) }
+        { uiModel.areaListSize = it }
         viewModel.sectionSLD.itemCountLD.observe(viewLifecycleOwner)
-        { uiModel.sectionListSize.set(it) }
+        { uiModel.sectionListSize = it }
         viewModel.taxSourceSLD.itemCountLD.observe(viewLifecycleOwner)
-        { uiModel.taxSourceListSize.set(it) }
+        { uiModel.taxSourceListSize = it }
         viewModel.taxYearSLD.itemCountLD.observe(viewLifecycleOwner)
-        { uiModel.taxYearListSize.set(it) }
+        { uiModel.taxYearListSize = it }
         viewModel.areaSLD.selectedItemLD.observe(viewLifecycleOwner)
-        { uiModel.isSelectedAreaNotNull.set(it != null) }
+        { uiModel.isSelectedAreaNotNull = it != null }
         viewModel.isDeletedInfoTaxLD.observe(viewLifecycleOwner)
-        { uiModel.isCanBeDeleted.set(!it) }
+        { uiModel.isCanBeDeleted = !it }
 
         tabViewModel.taxIdLD.observe(viewLifecycleOwner)
-        { uiModel.isSelectedTaxNotNull.set(it != null) }
+        { uiModel.isSelectedTaxNotNull = it != null }
         mainViewModel.editEnabledLD.observe(viewLifecycleOwner)
-        { uiModel.isEditEnabled.set(it) }
+        { uiModel.isEdit = it }
     }
 
     private fun initSelectedItemLdObservers() {

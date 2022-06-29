@@ -59,6 +59,16 @@ interface DataBindModule {
 
     @Binds @Suppress("FunctionName")
     fun bindPlantingCharacteristicStorageDbImpl_to_PlantingCharacteristicStorage(plantingCharacteristicStorageDbImpl: PlantingCharacteristicStorageDbImpl): PlantingCharacteristicStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindLandCategoryStorageDbImpl_to_LandCategoryStorage(landCategoryStorageDbImpl: LandCategoryStorageDbImpl): LandCategoryStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindProtectionCategoryStorageDbImpl_to_ProtectionCategoryStorage(protectionCategoryStorageDbImpl: ProtectionCategoryStorageDbImpl): ProtectionCategoryStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindTargetCategoryStorageDbImpl_to_TargetCategoryStorage(targetCategoryStorageDbImpl: TargetCategoryStorageDbImpl): TargetCategoryStorage
+
 }
 
 @Module

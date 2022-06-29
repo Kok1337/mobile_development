@@ -27,3 +27,9 @@ fun PlantingCharacteristicEntity.toModel(): PlantingCharacteristic = PlantingCha
     nonForestLandId, unforestedLandId, stockDead, stockOpenStand, stockSingleTree,
     stockFellingDebris, stockLiquidDebris, stockSection
 )
+
+fun LandCategoryEntity.toModel(): LandCategory = LandCategory(this.id!!, this.name!!)
+
+fun ProtectionCategoryEntity.toModel(): ProtectionCategory = ProtectionCategory(this.id!!, this.name!!)
+
+fun TargetCategoryEntity.toModel(): TargetCategory = TargetCategory(this.id!!, this.name!!)
