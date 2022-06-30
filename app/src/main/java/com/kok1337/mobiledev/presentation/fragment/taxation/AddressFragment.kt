@@ -110,8 +110,6 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
 
         binding.addTaxButton.setOnClickListener { showSelectTaxParamsDialog() }
         binding.delTaxButton.setOnClickListener { showConfirmDeleteInfoTaxDialog() }
-
-        viewModel.startLoad()
     }
 
     private fun showSelectTaxParamsDialog() {
@@ -207,7 +205,7 @@ class AddressFragment : Fragment(R.layout.fragment_tax_address) {
     }
 
     private fun setSpinnerConfigurations() {
-        binding.federalDistrictSpinner.searchableSpinnerConfiguration = federalDistrictConf
+        binding.federalDistrictSpinner.searchableSpinnerConfiguration  = federalDistrictConf
         binding.subjectOfRusFedSpinner.searchableSpinnerConfiguration = subjectOfRusConf
         binding.forestrySpinner.searchableSpinnerConfiguration = forestryConf
         binding.localForestrySpinner.searchableSpinnerConfiguration = localForestryConf

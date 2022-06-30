@@ -24,7 +24,7 @@ class InfoTaxStorageDbImpl @Inject constructor(
         return jdbcTemplate.queryForObject(
             query, mapper,
             infoTaxParams.section.name, infoTaxParams.taxSource.id, infoTaxParams.year
-        )!!
+        ) ?: false
     }
 
     override fun saveByInfoTaxSaveParams(infoTaxSaveParams: InfoTaxSaveParams, userId: Int) {
@@ -50,6 +50,6 @@ class InfoTaxStorageDbImpl @Inject constructor(
     override fun isDeletedByTaxSourceId(id: Int): Boolean {
         val mapper = BooleanRowMapper("deleted")
         val query = "select id=? as deleted from info_tax_source where id=9"
-        return jdbcTemplate.queryForObject(query, mapper, id)!!
+        return jdbcTemplate.queryForObject(query, mapper, id) ?: false
     }
 }

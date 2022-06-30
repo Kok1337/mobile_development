@@ -35,3 +35,13 @@ fun DictionaryEntity.toLandCategoryModel(): LandCategory = LandCategory(this.id!
 fun DictionaryEntity.toProtectionCategoryModel(): ProtectionCategory = ProtectionCategory(this.id!!, this.name!!)
 
 fun DictionaryEntity.toTargetCategoryModel(): TargetCategory = TargetCategory(this.id!!, this.name!!)
+
+fun DictionaryEntity.toOoptModel(): Oopt = Oopt(this.id!!, this.name!!)
+
+fun DictionaryEntity.toOzuModel(): Ozu = Ozu(this.id!!, this.name!!)
+
+fun DictionaryEntity.toBonitetModel(): Bonitet = Bonitet(this.id!!, this.name!!)
+
+fun DictionaryEntity.toTluModel(): Tlu = Tlu(this.id!!, this.name!!)
+
+fun OriginEntity.toModel(): Origin = Origin(this.id!!, this.name!!, this.value)

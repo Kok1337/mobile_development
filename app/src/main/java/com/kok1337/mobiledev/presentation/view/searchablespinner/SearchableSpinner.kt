@@ -3,7 +3,6 @@ package com.kok1337.mobiledev.presentation.view.searchablespinner
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.BindingAdapter
@@ -70,8 +69,13 @@ class SearchableSpinner : AppCompatTextView {
             return
         }
 
+        val searchString = when(val selectedItem = configuration?.selectedItem) {
+            null -> ""
+            is SpinnerItem -> selectedItem.getSearchableString()
+            else -> ""
+        }
         val dialog = SearchableSpinnerDialog(
-            title, configuration!!.bindingAdapter, emptyItem, configuration.sortTypes
+            title, configuration!!.bindingAdapter, emptyItem, configuration.sortTypes, searchString
         ) { id, item -> pickItem(item, id, configuration)}
 
         showDialog(dialog, context)
@@ -99,14 +103,6 @@ class SearchableSpinner : AppCompatTextView {
                 selectedItemPosition = getItemPosition(searchableSpinnerConfiguration)
                 pickItem(configuration.selectedItem, selectedItemPosition, configuration)
             }
-            /*else -> {
-                if (selectedItemPosition != nullItemPosition) {
-                    pickItem(bindingAdapter!!.getItemByPosition(selectedItemPosition), selectedItemPosition, configuration)
-                } else if (configuration?.selectedItem != null) {
-                    selectedItemPosition = getItemPosition(searchableSpinnerConfiguration)
-                    pickItem(configuration.selectedItem, selectedItemPosition, configuration)
-                }
-            }*/
         }
     }
 

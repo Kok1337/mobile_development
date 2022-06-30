@@ -1,6 +1,5 @@
 package com.kok1337.mobiledev.data.repository
 
-import com.kok1337.mobiledev.data.mapper.toModel
 import com.kok1337.mobiledev.data.storage.TargetCategoryStorage
 import com.kok1337.mobiledev.domain.model.TargetCategory
 import com.kok1337.mobiledev.domain.repository.TargetCategoryRepo
@@ -11,5 +10,9 @@ class TargetCategoryRepoImpl @Inject constructor(
 ) : TargetCategoryRepo {
     override suspend fun getAllTargetCategory(): List<TargetCategory> {
         return targetCategoryStorage.getAll()
+    }
+
+    override suspend fun checkIsProtectionTargetCategoryByTargetCategoryId(targetCategoryId: Int): Boolean {
+        return targetCategoryStorage.isProtectionByTargetCategoryId(targetCategoryId)
     }
 }

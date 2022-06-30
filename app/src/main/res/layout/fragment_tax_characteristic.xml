@@ -4,10 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.fragment.taxation.CharacteristicFragment">
 
+    <data>
+        <import type="com.kok1337.mobiledev.presentation.util.DataBindingFunctions"/>
+        <variable
+            name="uim"
+            type="com.kok1337.mobiledev.presentation.model.CharacteristicUIModel" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_marginTop="8dp"
         android:orientation="vertical">
 
         <TextView
@@ -39,13 +46,15 @@
                     android:layout_weight="1"
                     android:text="Целевого назначения" />
 
-                <View style="@style/ColumnSeparator" />
+                <View style="@style/ColumnSeparator"
+                    android:visibility="@{DataBindingFunctions.getVisibility(uim.protectionTargetCategory)}"/>
 
                 <TextView
                     style="@style/SecondaryTextView"
                     android:layout_width="0dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:visibility="@{DataBindingFunctions.getVisibility(uim.protectionTargetCategory)}"
                     android:text="Защитных лесов" />
             </TableRow>
 
@@ -60,7 +69,8 @@
                     app:autoSelect="false"
                     app:emptyItem="true"
                     app:title="Выберите категорию земель РФ"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:enabled="@{uim.landCategorySpinnerEnabled}"/>
 
                 <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
                     android:id="@+id/targetCategorySpinner"
@@ -71,7 +81,8 @@
                     app:emptyItem="true"
                     app:title="Выберите категорию целевого назначения"
                     android:layout_column="2"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:enabled="@{uim.targetCategorySpinnerEnabled}"/>
 
                 <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
                     android:id="@+id/protectionCategorySpinner"
@@ -81,8 +92,10 @@
                     app:autoSelect="false"
                     app:emptyItem="true"
                     app:title="Выберите категорию защитных лесов"
+                    android:visibility="@{DataBindingFunctions.getVisibility(uim.protectionTargetCategory)}"
                     android:layout_column="4"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:enabled="@{uim.protectionCategorySpinnerEnabled}"/>
 
             </TableRow>
 
@@ -108,7 +121,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="16dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:enabled="@{uim.ooptSpinnerEnabled}"/>
 
             <ImageView
                 android:id="@+id/ooptButton"
@@ -140,7 +154,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="16dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:enabled="@{uim.ozuSpinnerEnabled}"/>
 
             <ImageView
                 android:id="@+id/ozuButton"
@@ -192,7 +207,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_column="0"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:enabled="@{uim.bonitetSpinnerEnabled}"/>
 
                 <com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
                     android:id="@+id/tluSpinner"
@@ -201,7 +217,8 @@
                     android:layout_height="wrap_content"
                     android:layout_column="2"
                     android:layout_gravity="center"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:enabled="@{uim.tluSpinnerEnabled}"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

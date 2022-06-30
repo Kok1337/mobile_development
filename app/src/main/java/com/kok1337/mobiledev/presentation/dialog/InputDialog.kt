@@ -19,7 +19,7 @@ sealed class InputDialog<T>(
     private val title: String,
     private val startValue: T? = null,
     private val input: Input = Input.TEXT,
-    private val valueChecker: ((T) -> Boolean)?,
+    private val valueChecker: ((T) -> Boolean)? = null,
     private val onValueIntroduced: (T) -> Unit
 ) : DialogFragment(R.layout.dialog_input) {
 
@@ -29,7 +29,7 @@ sealed class InputDialog<T>(
         super.onViewCreated(view, savedInstanceState)
 
         binding.titleTextView.text = title
-        binding.editText.isEnabled = false
+        binding.acceptButton.isEnabled = false
         binding.editText.inputType = input.inputType
         binding.editText.setText(startValue?.toString() ?: "")
         binding.editText.addTextChangedListener(AppTextWatcher { it?.let { onTextChanged(it) } })
@@ -67,7 +67,7 @@ sealed class InputDialog<T>(
 class InputStringDialog(
     title: String,
     startValue: String? = null,
-    valueChecker: ((String) -> Boolean)?,
+    valueChecker: ((String) -> Boolean)? = null,
     onValueIntroduced: (String) -> Unit
 ) : InputDialog<String>(
     title, startValue, Input.TEXT, valueChecker, onValueIntroduced
@@ -80,7 +80,7 @@ class InputStringDialog(
 class InputIntDialog(
     title: String,
     startValue: Int? = null,
-    valueChecker: ((Int) -> Boolean)?,
+    valueChecker: ((Int) -> Boolean)? = null,
     onValueIntroduced: (Int) -> Unit
 ) : InputDialog<Int>(
     title, startValue, Input.INT, valueChecker, onValueIntroduced
@@ -93,7 +93,7 @@ class InputIntDialog(
 class InputDoubleDialog(
     title: String,
     startValue: Double? = null,
-    valueChecker: ((Double) -> Boolean)?,
+    valueChecker: ((Double) -> Boolean)? = null,
     onValueIntroduced: (Double) -> Unit
 ) : InputDialog<Double>(
     title, startValue, Input.DOUBLE, valueChecker, onValueIntroduced

@@ -22,3 +22,19 @@ fun Section.toItem(): SectionItem = SectionItem(name, s)
 fun TaxSource.toItem(): TaxSourceItem = TaxSourceItem(id, value)
 
 fun TaxYear.toItem(): TaxYearItem = TaxYearItem(taxId, year, draft)
+
+fun LandCategory.toItem(): LandCategoryItem = LandCategoryItem(id, value)
+
+fun TargetCategory.toItem(): TargetCategoryItem = TargetCategoryItem(id, value)
+
+fun ProtectionCategory.toItem(): ProtectionCategoryItem = ProtectionCategoryItem(id, value)
+
+fun Oopt.toItem(): OoptItem = OoptItem(id, value)
+
+fun Ozu.toItem(): OzuItem = OzuItem(id, value)
+
+fun Bonitet.toItem(): BonitetItem = BonitetItem(id, value)
+
+fun Tlu.toItem(): TluItem = TluItem(id, value)
+
+fun Origin.toItem(): OriginItem = OriginItem(id, name, value)

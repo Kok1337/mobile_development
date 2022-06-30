@@ -20,3 +20,19 @@ fun SectionItem.toModel(): Section = Section(name, s)
 fun TaxSourceItem.toModel(): TaxSource = TaxSource(id, value)
 
 fun TaxYearItem.toModel(): TaxYear = TaxYear(taxId, year, draft)
+
+fun LandCategoryItem.toModel(): LandCategory = LandCategory(id, value)
+
+fun TargetCategoryItem.toModel(): TargetCategory = TargetCategory(id, value)
+
+fun ProtectionCategoryItem.toModel(): ProtectionCategory = ProtectionCategory(id, value)
+
+fun OoptItem.toModel(): Oopt = Oopt(id, value)
+
+fun OzuItem.toModel(): Ozu = Ozu(id, value)
+
+fun BonitetItem.toModel(): Bonitet = Bonitet(id, value)
+
+fun TluItem.toModel(): Tlu = Tlu(id, value)
+
+fun OriginItem.toModel(): Origin = Origin(id, n, value)

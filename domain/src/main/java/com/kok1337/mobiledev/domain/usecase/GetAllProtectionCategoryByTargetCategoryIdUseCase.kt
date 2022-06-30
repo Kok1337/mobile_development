@@ -8,6 +8,6 @@ import javax.inject.Inject
 class GetAllProtectionCategoryByTargetCategoryIdUseCase @Inject constructor(
     private val protectionCategoryRepo: ProtectionCategoryRepo,
 ) {
-    suspend fun invoke(targetCategory: TargetCategory): List<ProtectionCategory> =
-        protectionCategoryRepo.getAllProtectionCategoryByTargetCategoryId(targetCategory.id)
+    suspend fun invoke(targetCategoryId: Int): List<ProtectionCategory> =
+        protectionCategoryRepo.getAllProtectionCategoryByTargetCategoryId(targetCategoryId)
 }

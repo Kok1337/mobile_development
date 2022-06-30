@@ -56,6 +56,20 @@ interface DomainBindModule {
     @Binds @Suppress("FunctionName")
     fun bindTargetCategoryRepoImpl_to_TargetCategoryRepo(targetCategoryRepoImpl: TargetCategoryRepoImpl): TargetCategoryRepo
 
+    @Binds @Suppress("FunctionName")
+    fun bindOoptRepoImpl_to_OoptRepo(ooptRepoImpl: OoptRepoImpl): OoptRepo
+
+    @Binds @Suppress("FunctionName")
+    fun bindOzuRepoImpl_to_OzuRepo(ozuRepoImpl: OzuRepoImpl): OzuRepo
+
+    @Binds @Suppress("FunctionName")
+    fun bindBonitetRepoImpl_to_BonitetRepo(bonitetRepoImpl: BonitetRepoImpl): BonitetRepo
+
+    @Binds @Suppress("FunctionName")
+    fun bindTluRepoImpl_to_TluRepo(tluRepoImpl: TluRepoImpl): TluRepo
+
+    @Binds @Suppress("FunctionName")
+    fun bindOriginRepoImpl_to_OriginRepo(originRepoImpl: OriginRepoImpl): OriginRepo
 }
 
 

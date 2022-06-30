@@ -33,12 +33,26 @@ class AddressViewModel(
     private val deletedInfoTaxUseCase: DeleteInfoTaxUseCase,
 ) : ViewModel() {
 
-    fun startLoad() {
-        if (federalDistrictSLD.selectedItem == null) getAllFederalDistrict()
+    val federalDistrictSLD = SpinnerLiveData<FederalDistrictItem>()
+    val subjectOfRusFedSLD = SpinnerLiveData<SubjectOfRusFedItem>()
+    val forestrySLD = SpinnerLiveData<ForestryItem>()
+    val localForestrySLD = SpinnerLiveData<LocalForestryItem>()
+    val subForestrySLD = SpinnerLiveData<SubForestryItem>()
+    val areaSLD = SpinnerLiveData<AreaItem>()
+    val sectionSLD = SpinnerLiveData<SectionItem>()
+    val taxSourceSLD = SpinnerLiveData<TaxSourceItem>()
+    val taxYearSLD = SpinnerLiveData<TaxYearItem>()
+
+    private val _allTaxSourceLD = MutableLiveData<List<TaxSourceItem>>(emptyList())
+    val allTaxSourceLD: LiveData<List<TaxSourceItem>> = _allTaxSourceLD
+    private val _isDeletedInfoTaxLD = MutableLiveData(false)
+    val isDeletedInfoTaxLD: LiveData<Boolean> = _isDeletedInfoTaxLD
+
+    init {
+        getAllFederalDistrict()
     }
 
 
-    val federalDistrictSLD = SpinnerLiveData<FederalDistrictItem>()
     private fun getAllFederalDistrict() = async {
         federalDistrictSLD.postItems(
             getAllFederalDistrictUseCase.invoke().map { it.toItem() }
@@ -52,13 +66,13 @@ class AddressViewModel(
     }
 
 
-    val subjectOfRusFedSLD = SpinnerLiveData<SubjectOfRusFedItem>()
-    private fun getAllSubjectOfRusFedByFederalDistrict(federalDistrictItem: FederalDistrictItem) = async {
-        subjectOfRusFedSLD.postItems(
-            getAllSubjectOfRusFedByFederalDistrictIdUseCase.invoke(federalDistrictItem.toModel())
-                .map { it.toItem() }
-        )
-    }
+    private fun getAllSubjectOfRusFedByFederalDistrict(federalDistrictItem: FederalDistrictItem) =
+        async {
+            subjectOfRusFedSLD.postItems(
+                getAllSubjectOfRusFedByFederalDistrictIdUseCase.invoke(federalDistrictItem.toModel())
+                    .map { it.toItem() }
+            )
+        }
 
     fun onSubjectOfRusFedItemSelected(subjectOfRusFedItem: SubjectOfRusFedItem?) {
         if (!subjectOfRusFedSLD.trySetNewItem(subjectOfRusFedItem)) return
@@ -67,7 +81,6 @@ class AddressViewModel(
     }
 
 
-    val forestrySLD = SpinnerLiveData<ForestryItem>()
     private fun getAllForestryBySubjectOfRusFed(subjectOfRusFedItem: SubjectOfRusFedItem) = async {
         forestrySLD.postItems(
             getAllForestryBySubjectOfRusFedIdUseCase.invoke(subjectOfRusFedItem.toModel())
@@ -82,10 +95,10 @@ class AddressViewModel(
     }
 
 
-    val localForestrySLD = SpinnerLiveData<LocalForestryItem>()
     private fun getAllLocalForestryByForestry(forestryItem: ForestryItem) = async {
         localForestrySLD.postItems(
-            getAllLocalForestryByForestryIdUseCase.invoke(forestryItem.toModel()).map { it.toItem() }
+            getAllLocalForestryByForestryIdUseCase.invoke(forestryItem.toModel())
+                .map { it.toItem() }
         )
     }
 
@@ -96,7 +109,6 @@ class AddressViewModel(
     }
 
 
-    val subForestrySLD = SpinnerLiveData<SubForestryItem>()
     private fun getAllSubForestryByLocalForestry(localForestryItem: LocalForestryItem) = async {
         subForestrySLD.postItems(
             getAllSubForestryByLocalForestryIdUseCase.invoke(localForestryItem.toModel())
@@ -111,9 +123,6 @@ class AddressViewModel(
     }
 
 
-    val areaSLD = SpinnerLiveData<AreaItem>()
-    private val _allTaxSourceLD = MutableLiveData<List<TaxSourceItem>>(emptyList())
-    val allTaxSourceLD: LiveData<List<TaxSourceItem>> = _allTaxSourceLD
     private fun getAllAreaByAreaParams(subForestryItem: SubForestryItem) {
         _allTaxSourceLD.value = emptyList()
         val areaParams = AreaParams(
@@ -138,7 +147,6 @@ class AddressViewModel(
     }
 
 
-    val sectionSLD = SpinnerLiveData<SectionItem>()
     private fun getAllSectionByArea(areaItem: AreaItem) = async {
         sectionSLD.postItems(
             getAllSectionByAreaIdUseCase.invoke(areaItem.toModel()).map { it.toItem() }
@@ -152,7 +160,6 @@ class AddressViewModel(
     }
 
 
-    val taxSourceSLD = SpinnerLiveData<TaxSourceItem>()
     private fun getAllTaxSourceByTaxSourceParams(sectionItem: SectionItem) {
         val taxSourceParams = TaxSourceParams(
             areaSLD.selectedItem!!.toModel(),
@@ -176,9 +183,6 @@ class AddressViewModel(
         }
     }
 
-
-    private val _isDeletedInfoTaxLD = MutableLiveData(false)
-    val isDeletedInfoTaxLD: LiveData<Boolean> = _isDeletedInfoTaxLD
     private fun checkIsDeletedInfoTax(taxSourceItem: TaxSourceItem) = async {
         _isDeletedInfoTaxLD.postValue(
             checkIsDeletedInfoTaxByTaxSourceIdUseCase.invoke(taxSourceItem.id)
@@ -186,7 +190,6 @@ class AddressViewModel(
     }
 
 
-    val taxYearSLD = SpinnerLiveData<TaxYearItem>()
     private fun getAllTaxYearByTaxYearParams(taxSourceItem: TaxSourceItem) {
         val taxYearParams = TaxYearParams(
             areaSLD.selectedItem!!.toModel(),
@@ -240,6 +243,7 @@ class AddressViewModel(
         taxYearSLD.postSelectedItem(taxYearSelectedItem)
         taxYearSLD.postItems(taxYearList)
     }
+
 
     class Factory @Inject constructor(
         private val getAllFederalDistrictUseCase: GetAllFederalDistrictUseCase,

@@ -69,6 +69,20 @@ interface DataBindModule {
     @Binds @Suppress("FunctionName")
     fun bindTargetCategoryStorageDbImpl_to_TargetCategoryStorage(targetCategoryStorageDbImpl: TargetCategoryStorageDbImpl): TargetCategoryStorage
 
+    @Binds @Suppress("FunctionName")
+    fun bindOoptStorageDbImpl_to_OoptStorage(ooptStorageDbImpl: OoptStorageDbImpl): OoptStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindOzuStorageDbImpl_to_OzuStorage(ozuStorageDbImpl: OzuStorageDbImpl): OzuStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindBonitetStorageDbImpl_to_BonitetStorage(bonitetStorageDbImpl: BonitetStorageDbImpl): BonitetStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindTluStorageDbImpl_to_TluStorage(tluStorageDbImpl: TluStorageDbImpl): TluStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindOriginStorageDbImpl_to_OriginStorage(originStorageDbImpl: OriginStorageDbImpl): OriginStorage
 }
 
 @Module

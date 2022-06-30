@@ -1,7 +1,9 @@
 package com.kok1337.mobiledev.presentation.view.searchablespinner
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +20,7 @@ class SearchableSpinnerDialog<T>(
     private val bindingAdapter: BindingAdapter<T, *>,
     private val nullSelection: Boolean = true,
     private val sortTypes: Array<SortType<T>>,
+    private val searchString: String? = null,
     private var onItemSelectedListener: (position: Int, item: T?) -> Unit
 ) : DialogFragment(R.layout.dialog_searchablespinner) {
 
@@ -32,7 +35,9 @@ class SearchableSpinnerDialog<T>(
 
     private val searchViewListener = AppSearchViewListener {
         val query = it ?: ""
-        bindingAdapter.filter { item -> item is SpinnerItem && item.getSearchableString().contains(query, true) }
+        bindingAdapter.filter { item ->
+            item is SpinnerItem && item.getSearchableString().contains(query, true)
+        }
     }
 
     override fun onCreateView(
@@ -57,6 +62,13 @@ class SearchableSpinnerDialog<T>(
     }
 
     private fun setupViews() {
+
+        if (searchString != null && searchString.isNotEmpty()) {
+            binding.searchView.setQuery(searchString, true)
+            bindingAdapter.filter { item ->
+                item is SpinnerItem && item.getSearchableString() == searchString
+            }
+        }
 
         binding.titleTextView.text = title
         binding.nullSelection.visibility = if (nullSelection) View.VISIBLE else View.GONE
@@ -86,7 +98,28 @@ class SearchableSpinnerDialog<T>(
     }
 
     override fun dismiss() {
-        searchViewListener.onSuccess("")
+        resetSearchView()
         super.dismiss()
+    }
+
+    private fun searchViewIsEmpty(): Boolean {
+        return binding.searchView.query.isEmpty()
+    }
+
+    private fun resetSearchView() {
+        binding.searchView.setQuery("", true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        dialog?.setOnKeyListener(DialogInterface.OnKeyListener { _, keyCode, keyEvent ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.action != KeyEvent.ACTION_DOWN) {
+                if (!searchViewIsEmpty()) {
+                    resetSearchView()
+                    return@OnKeyListener true
+                }
+                return@OnKeyListener false
+            } else return@OnKeyListener false
+        })
     }
 }

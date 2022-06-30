@@ -1,5 +1,6 @@
 package com.kok1337.mobiledev.data.storage
 
+import com.kok1337.mobiledev.data.database.BooleanRowMapper
 import com.kok1337.mobiledev.data.database.EntityRowMapper
 import com.kok1337.mobiledev.data.entity.DictionaryEntity
 import com.kok1337.mobiledev.data.mapper.toTargetCategoryModel
@@ -9,6 +10,7 @@ import javax.inject.Inject
 
 interface TargetCategoryStorage {
     fun getAll(): List<TargetCategory>
+    fun isProtectionByTargetCategoryId(id: Int): Boolean
 }
 
 class TargetCategoryStorageDbImpl @Inject constructor(
@@ -19,5 +21,11 @@ class TargetCategoryStorageDbImpl @Inject constructor(
         val query = "select * from czl_get_forest_purpose();"
         val list = jdbcTemplate.query(query, mapper)
         return list.map { it.toTargetCategoryModel() }
+    }
+
+    override fun isProtectionByTargetCategoryId(id: Int): Boolean {
+        val mapper = BooleanRowMapper("protection")
+        val query = "select ?=1 as protection"
+        return jdbcTemplate.queryForObject(query, mapper, id) ?: false
     }
 }

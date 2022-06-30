@@ -40,6 +40,12 @@ class AddressUIModel : BaseObservable() {
         @Bindable get() = isSelectedAreaNotNull && isEdit
 
 
+    var isEdit: Boolean = false
+        set(value) {
+            field = value
+            notifyChange()
+        }
+
     var federalDistrictListSize: Int = 0
         set(value) {
             field = value
@@ -95,12 +101,6 @@ class AddressUIModel : BaseObservable() {
         }
 
     var isSelectedTaxNotNull: Boolean = false
-        set(value) {
-            field = value
-            notifyChange()
-        }
-
-    var isEdit: Boolean = false
         set(value) {
             field = value
             notifyChange()
