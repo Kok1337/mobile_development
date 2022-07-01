@@ -2,17 +2,18 @@ package com.kok1337.mobiledev.presentation
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.*
-import androidx.navigation.fragment.NavHostFragment
-import by.kirich1409.viewbindingdelegate.activityViewBinding
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.app.App
 import com.kok1337.mobiledev.databinding.ActivityMainBinding
-import com.kok1337.mobiledev.domain.usecase.GetUserIdUseCase
 import com.kok1337.mobiledev.domain.usecase.SaveUserIdUseCase
+import com.kok1337.mobiledev.presentation.fragment.toolbar.RootFragment
+import com.kok1337.mobiledev.presentation.navigation.AppToolbarNavigator
 import com.kok1337.mobiledev.presentation.util.showToast
 import javax.inject.Inject
 
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     @Inject
     lateinit var saveUserIdUseCase: SaveUserIdUseCase
 
-    private var _prevBackStackEntry: NavBackStackEntry? = null
+    private val toolbarNavigator = AppToolbarNavigator(supportFragmentManager)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,30 +36,45 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         (applicationContext as App).appComponent.inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
 
-        viewModel.currentTbDirectionLD.observe(this) { navigateToToolbarFragment(it) }
-        viewModel.federalDistrictLD.observe(this) { list ->
-            list.forEach{ Log.e("LOL", it.toString()) }
-        }
+        viewModel.saveUserId(saveUserIdUseCase)
 
-        //  viewModel.saveUserId(saveUserIdUseCase)
+        toolbarNavigator.initStartFragment(savedInstanceState, RootFragment())
+        supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, false)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
-        val navController = navHostFragment.navController
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            controller.backQueue.forEach { Log.e("BackStack", it.destination.displayName) }
-        }
-
+        Log.e("MainActivity", "onCreate")
 
         initToolbarActions()
     }
 
     private fun initToolbarActions() {
-        binding.toolbarCamera.setOnClickListener { viewModel.onOpenCamera() }
-        binding.toolbarMap.setOnClickListener { viewModel.onOpenMap() }
-        binding.toolbarSettings.setOnClickListener { viewModel.onOpenSettings() }
-        binding.toolbarWorkTypes.setOnClickListener { viewModel.onOpenWorkTypes() }
+        binding.toolbarCamera.setOnClickListener { toolbarNavigator.showCameraScreen() }
+        binding.toolbarMap.setOnClickListener { toolbarNavigator.showMapScreen() }
+        binding.toolbarSettings.setOnClickListener { toolbarNavigator.showSettingScreen() }
+        binding.toolbarWorkTypes.setOnClickListener { toolbarNavigator.showWorkTypesScreen() }
+        binding.toolbarSynchronization.setOnClickListener { toolbarNavigator.showSynchronizationScreen() }
 
         binding.toolbarEdit.setOnClickListener { changeEnabled() }
+    }
+
+    private fun resetSelectToolbarItem() {
+        with(toolbarNavigator) {
+            val name = upperToolbarFragmentName
+            binding.toolbarCamera.isSelected = isCameraFragment(name)
+            binding.toolbarMap.isSelected = isMapFragment(name)
+            binding.toolbarSettings.isSelected = isSettingsFragment(name)
+            binding.toolbarWorkTypes.isSelected = isWorkTypesFragment(name)
+            binding.toolbarSynchronization.isSelected = isSynchronizationFragment(name)
+        }
+    }
+
+    private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
+        override fun onFragmentViewCreated(
+            fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?
+        ) {
+            super.onFragmentViewCreated(fm, f, v, savedInstanceState)
+            resetSelectToolbarItem()
+            printBackStack()
+        }
     }
 
     private fun changeEnabled() {
@@ -69,21 +85,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         showToast(if (isChecked) "Редактирование включено" else "Редактирование отключено")
     }
 
-    private fun navigateToToolbarFragment(direction: NavDirections) {
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        _prevBackStackEntry = if (_prevBackStackEntry == null)
-            navController.currentBackStackEntry
-        else {
-            navController.navigateUp()
-            navController.currentBackStackEntry
+    private fun printBackStack() {
+        val backStackSize = supportFragmentManager.backStackEntryCount - 1
+        for (index: Int in 0..backStackSize) {
+            val fragmentName = supportFragmentManager.getBackStackEntryAt(index).name!!
+            Log.e("ToolbarNavigator", "$index   $backStackSize   $fragmentName")
         }
-
-        val navOptions = NavOptions.Builder()
-            .setPopUpTo(_prevBackStackEntry!!.destination.id, inclusive = false, saveState = false)
-            .build()
-
-        // navController.navigate(direction, navOptions)
-        navController.navigate(direction)
     }
-
 }

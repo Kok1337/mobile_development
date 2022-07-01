@@ -1,5 +1,6 @@
 package com.kok1337.mobiledev.presentation.fragment.toolbar
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,13 +25,19 @@ class WorkTypesFragment : Fragment(R.layout.fragment_tb_worktypes) {
 
     @Inject
     lateinit var viewModelFactory: WorkTypesViewModel.Factory
-    private lateinit var workTypesViewModel: WorkTypesViewModel
+    private lateinit var viewModel: WorkTypesViewModel
+
+    override fun onAttach(context: Context) {
+        getAppComponent().inject(this)
+        viewModel = ViewModelProvider(this, viewModelFactory)[WorkTypesViewModel::class.java]
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         getAppComponent().inject(this)
-        workTypesViewModel =
+        viewModel =
             ViewModelProvider(this, viewModelFactory)[WorkTypesViewModel::class.java]
         _binding = FragmentTbWorktypesBinding.inflate(inflater, container, false)
         return binding.root
@@ -40,13 +47,13 @@ class WorkTypesFragment : Fragment(R.layout.fragment_tb_worktypes) {
         super.onViewCreated(view, savedInstanceState)
 
         val workTypeAdapter = WorkTypeAdapter { _, item -> openSelectedWorkType(item) }
-        workTypesViewModel.workTypesLiveData.observe(viewLifecycleOwner) { workTypeAdapter.setItems(it) }
+        viewModel.workTypesLiveData.observe(viewLifecycleOwner) { workTypeAdapter.setItems(it) }
         RecyclerConfiguration.Builder()
             .bindingAdapter(workTypeAdapter)
             .layoutManager(LinearLayoutManager(context))
             .build().configure(binding.workTypeRecyclerView)
 
-        workTypesViewModel.getAllWorkTypes()
+        viewModel.getAllWorkTypes()
     }
 
     private fun openSelectedWorkType(workTypeItem: WorkTypeItem) {

@@ -1,9 +1,11 @@
 package com.kok1337.mobiledev.presentation.fragment.toolbar
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.kok1337.mobiledev.domain.usecase.GetAllWorkTypesUseCase
 import com.kok1337.mobiledev.presentation.item.WorkTypeItem
 import com.kok1337.mobiledev.presentation.mapper.toItem
+import com.kok1337.mobiledev.presentation.util.async
 import kotlinx.coroutines.launch
 
 class WorkTypesViewModel(
@@ -13,10 +15,17 @@ class WorkTypesViewModel(
     private val _workTypesMutableLiveData: MutableLiveData<List<WorkTypeItem>> = MutableLiveData()
     val workTypesLiveData: LiveData<List<WorkTypeItem>> = _workTypesMutableLiveData
 
-    fun getAllWorkTypes() {
-        viewModelScope.launch {
-            _workTypesMutableLiveData.postValue(getAllWorkTypesUseCase.invoke().map { it.toItem() })
-        }
+    init {
+        Log.e("WorkTypesViewModel", "init")
+    }
+
+    fun getAllWorkTypes() = async {
+        _workTypesMutableLiveData.postValue(getAllWorkTypesUseCase.invoke().map { it.toItem() })
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.e("WorkTypesViewModel", "onCleared")
     }
 
     class Factory(
