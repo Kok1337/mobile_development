@@ -70,6 +70,9 @@ interface DomainBindModule {
 
     @Binds @Suppress("FunctionName")
     fun bindOriginRepoImpl_to_OriginRepo(originRepoImpl: OriginRepoImpl): OriginRepo
+
+    @Binds @Suppress("FunctionName")
+    fun bindLandRepoImpl_to_LandRepo(landRepoImpl: LandRepoImpl): LandRepo
 }
 
 

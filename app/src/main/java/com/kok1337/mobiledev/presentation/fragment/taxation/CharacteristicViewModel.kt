@@ -1,5 +1,7 @@
 package com.kok1337.mobiledev.presentation.fragment.taxation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kok1337.mobiledev.domain.usecase.*
@@ -18,6 +20,7 @@ class CharacteristicViewModel(
     private val getAllBonitetUseCase: GetAllBonitetUseCase,
     private val getAllTluUseCase: GetAllTluUseCase,
     private val getAllOriginUseCase: GetAllOriginUseCase,
+    private val getAllLandUseCase: GetAllLandUseCase,
 ) : ViewModel() {
 
     val landCategorySLD = SpinnerLiveData<LandCategoryItem>()
@@ -28,6 +31,10 @@ class CharacteristicViewModel(
     val bonitetSLD = SpinnerLiveData<BonitetItem>()
     val tluSLD = SpinnerLiveData<TluItem>()
     val originSLD = SpinnerLiveData<OriginItem>()
+    val landSLD = SpinnerLiveData<LandItem>()
+
+    private val _isCoveredForestLD = MutableLiveData<Boolean>(false)
+    val isCoveredForestLD: LiveData<Boolean> = _isCoveredForestLD
 
     init {
         getAllLandCategory()
@@ -37,6 +44,7 @@ class CharacteristicViewModel(
         getAllBonitet()
         getAllTlu()
         getAllOrigin()
+        getAllLand()
     }
 
 
@@ -120,6 +128,18 @@ class CharacteristicViewModel(
     }
 
 
+    private fun getAllLand() = async {
+        landSLD.postItems(getAllLandUseCase.invoke().map { it.toItem() })
+    }
+
+    fun onLandItemSelected(landItem: LandItem?) {
+        landSLD.trySetNewItem(landItem)
+    }
+
+
+    fun setCoveredForest(value: Boolean) { _isCoveredForestLD.value = value }
+
+
     class Factory @Inject constructor(
         private val getAllLandCategoryUseCase: GetAllLandCategoryUseCase,
         private val getAllTargetCategoryUseCase: GetAllTargetCategoryUseCase,
@@ -129,6 +149,7 @@ class CharacteristicViewModel(
         private val getAllBonitetUseCase: GetAllBonitetUseCase,
         private val getAllTluUseCase: GetAllTluUseCase,
         private val getAllOriginUseCase: GetAllOriginUseCase,
+        private val getAllLandUseCase: GetAllLandUseCase,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -141,6 +162,7 @@ class CharacteristicViewModel(
                 getAllBonitetUseCase = getAllBonitetUseCase,
                 getAllTluUseCase = getAllTluUseCase,
                 getAllOriginUseCase = getAllOriginUseCase,
+                getAllLandUseCase = getAllLandUseCase,
             ) as T
         }
     }

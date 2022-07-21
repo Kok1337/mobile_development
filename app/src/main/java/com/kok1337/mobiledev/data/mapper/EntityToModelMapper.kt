@@ -21,7 +21,9 @@ fun TaxSourceEntity.toModel(): TaxSource = TaxSource(this.id!!, this.name!!)
 
 fun DictionaryEntity.toTaxSourceModel(): TaxSource = TaxSource(this.id!!, this.name!!)
 
-fun TaxYearEntity.toModel(): TaxYear = TaxYear(this.taxId!!, this.year ?: 0, this.draft ?: true)
+// fun TaxYearEntity.toModel(): TaxYear = TaxYear(this.taxId!!, this.year ?: 0, this.draft ?: true)
+
+fun TaxYearEntity.toModel(): TaxYear = TaxYear(this.taxId!!, this.year!!, this.draft!!)
 
 fun PlantingCharacteristicEntity.toModel(): PlantingCharacteristic = PlantingCharacteristic(
     id!!, s!!, landCatId, forestPurposeId, protectionCategoryId, ooptId, oopt ?: " ",
@@ -45,3 +47,5 @@ fun DictionaryEntity.toBonitetModel(): Bonitet = Bonitet(this.id!!, this.name!!)
 fun DictionaryEntity.toTluModel(): Tlu = Tlu(this.id!!, this.name!!)
 
 fun OriginEntity.toModel(): Origin = Origin(this.id!!, this.name!!, this.value)
+
+fun DictionaryEntity.toNonForestLandCategoryModel(): NonForestLandCategory = NonForestLandCategory(this.id!!, this.name!!)

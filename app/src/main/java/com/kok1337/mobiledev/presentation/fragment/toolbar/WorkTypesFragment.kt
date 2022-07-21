@@ -2,26 +2,26 @@ package com.kok1337.mobiledev.presentation.fragment.toolbar
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kok1337.mobiledev.R
 import com.kok1337.mobiledev.databinding.FragmentTbWorktypesBinding
 import com.kok1337.mobiledev.domain.enum.Work
 import com.kok1337.mobiledev.presentation.adapter.WorkTypeAdapter
 import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.RecyclerConfiguration
+import com.kok1337.mobiledev.presentation.fragment.taxation.TaxTabFragment
+import com.kok1337.mobiledev.presentation.fragment.trialarea.TaTabFragment
 import com.kok1337.mobiledev.presentation.item.WorkTypeItem
 import com.kok1337.mobiledev.presentation.util.getAppComponent
+import com.kok1337.mobiledev.presentation.util.navigator
 import javax.inject.Inject
 
 class WorkTypesFragment : Fragment(R.layout.fragment_tb_worktypes) {
 
-    private var _binding: FragmentTbWorktypesBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentTbWorktypesBinding::bind)
 
     @Inject
     lateinit var viewModelFactory: WorkTypesViewModel.Factory
@@ -31,16 +31,6 @@ class WorkTypesFragment : Fragment(R.layout.fragment_tb_worktypes) {
         getAppComponent().inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory)[WorkTypesViewModel::class.java]
         super.onAttach(context)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        getAppComponent().inject(this)
-        viewModel =
-            ViewModelProvider(this, viewModelFactory)[WorkTypesViewModel::class.java]
-        _binding = FragmentTbWorktypesBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,10 +47,9 @@ class WorkTypesFragment : Fragment(R.layout.fragment_tb_worktypes) {
     }
 
     private fun openSelectedWorkType(workTypeItem: WorkTypeItem) {
-        val navController = findNavController()
         when (workTypeItem.work) {
-            Work.TRIAL_AREA -> navController.navigate(WorkTypesFragmentDirections.actionTbWorkTypesFragmentToTaTabFragment())
-            Work.TAXATION -> navController.navigate(WorkTypesFragmentDirections.actionTbWorkTypesFragmentToTaxTabFragment())
+            Work.TRIAL_AREA -> navigator().showFragment(TaTabFragment())
+            Work.TAXATION -> navigator().showFragment(TaxTabFragment())
         }
     }
 }

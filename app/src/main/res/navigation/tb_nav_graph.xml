@@ -60,7 +60,7 @@
 
     <fragment
         android:id="@+id/taTabFragment"
-        android:name="com.kok1337.mobiledev.presentation.fragment.trialarea.TabFragment"
+        android:name="com.kok1337.mobiledev.presentation.fragment.trialarea.TaTabFragment"
         android:label="fragment_ta_tab"
         tools:layout="@layout/fragment_ta_tab" />
     <fragment

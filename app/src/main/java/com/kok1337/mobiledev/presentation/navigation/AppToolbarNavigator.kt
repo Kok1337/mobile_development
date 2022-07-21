@@ -85,7 +85,7 @@ class AppToolbarNavigator(
         // Если нет WorkType
         if (index == NO_FRAGMENT_INDEX) {
             clearBackStack() // Убираем все 
-            launchFragment(workTypesFragment) // Добавляем 
+            launchFragment(workTypesFragment) // Добавляем
             return
         }
         // Если имеется 
@@ -107,7 +107,12 @@ class AppToolbarNavigator(
         goBackAction?.invoke()
     }
 
-    override fun openTabFragment(tabFragment: Fragment) {}
+    override fun launchFragment(fragment: Fragment) {
+        fragmentManager.commit {
+            addToBackStack(getFragmentName(fragment))
+            replace(R.id.nav_host_fragment_activity_main, fragment)
+        }
+    }
 
 
     private fun replaceToolbarFragment(fragment: Fragment) {
@@ -122,16 +127,9 @@ class AppToolbarNavigator(
         }
         // Если открыт какой то другой фрагмент НЕ WorkTypes
         if (!isTopOfStack(workTypesFragment)) clearBackStackToUpOfWorkTypes() // Чистим до верхнего WorkTypes
-        launchFragment(fragment) // Вставляем наш фрагмент 
+        launchFragment(fragment) // Вставляем наш фрагмент
     }
 
-    // Заменить фрагмент
-    private fun launchFragment(fragment: Fragment) {
-        fragmentManager.commit {
-            addToBackStack(getFragmentName(fragment))
-            replace(R.id.nav_host_fragment_activity_main, fragment)
-        }
-    }
 
     private fun getFragmentIndex(fragment: Fragment): Int {
         val backStackSize = fragmentManager.backStackEntryCount - 1
@@ -183,7 +181,7 @@ class AppToolbarNavigator(
                 return index
             }
         }
-        return NO_FRAGMENT_INDEX
+        return fragmentManager.backStackEntryCount // Возвращаем верхушку стека
     }
 
     private fun getFragmentName(fragment: Fragment): String = fragment::class.java.simpleName

@@ -36,3 +36,5 @@ fun BonitetItem.toModel(): Bonitet = Bonitet(id, value)
 fun TluItem.toModel(): Tlu = Tlu(id, value)
 
 fun OriginItem.toModel(): Origin = Origin(id, n, value)
+
+fun LandItem.toModel(): Land = Land(id, value, isForestLand)

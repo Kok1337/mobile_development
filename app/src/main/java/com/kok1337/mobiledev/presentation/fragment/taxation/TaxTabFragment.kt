@@ -18,16 +18,23 @@ class TaxTabFragment : Fragment(R.layout.fragment_tax_tab) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initNavigation()
+
+        viewModel.taxIdLD.observe(viewLifecycleOwner) {
+            val taxIdNotNull = it != null
+            val characteristic = binding.bottomNavigationView.menu.findItem(R.id.tax_characteristic)
+            val layer = binding.bottomNavigationView.menu.findItem(R.id.tax_layer)
+            characteristic.isEnabled = taxIdNotNull
+            layer.isEnabled = taxIdNotNull
+        }
+    }
+
+    private fun initNavigation() {
         val navHost =
             childFragmentManager.findFragmentById(R.id.taxTabsContainer) as NavHostFragment
         val navController = navHost.navController
         val navView: BottomNavigationView = binding.bottomNavigationView
         navView.setupWithNavController(navController)
-
-        viewModel.taxIdLD.observe(viewLifecycleOwner) {
-            val taxIdNotNull = it != null
-            navView.menu.findItem(R.id.tax_characteristic).isEnabled = taxIdNotNull
-            navView.menu.findItem(R.id.tax_layer).isEnabled = taxIdNotNull
-        }
     }
 }

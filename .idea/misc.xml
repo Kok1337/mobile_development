@@ -27,8 +27,12 @@
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_settings.xml" value="0.18489583333333334" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_synchronization.xml" value="0.18489583333333334" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileDev/app/src/main/res/layout/fragment_tb_worktypes.xml" value="0.18489583333333334" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileGlpm/app/src/main/res/layout/activity_main.xml" value="0.18072916666666666" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileGlpm/app/src/main/res/layout/dialog_searchablespinner.xml" value="0.18489583333333334" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileGlpm/app/src/main/res/layout/fragment_ta_tab.xml" value="0.18072916666666666" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileGlpm/app/src/main/res/layout/fragment_tax_address.xml" value="0.1" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileGlpm/app/src/main/res/layout/fragment_tax_characteristic.xml" value="0.359375" />
+        <entry key="..\:/Projects/AndroidStudioProject/MobileGlpm/app/src/main/res/layout/fragment_tax_tab.xml" value="0.18072916666666666" />
         <entry key="..\:/Projects/AndroidStudioProject/MobileGlpm/app/src/main/res/layout/item_section.xml" value="0.25" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/drawable-v24/vbg_imageview.xml" value="0.2555" />
         <entry key="..\:/Users/bas/AndroidStudioProjects/MobileDev/app/src/main/res/drawable-v24/vbg_spinner.xml" value="0.2475" />
@@ -62,7 +66,7 @@
       <item index="0" class="java.lang.String" itemvalue="dagger.Binds" />
     </list>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

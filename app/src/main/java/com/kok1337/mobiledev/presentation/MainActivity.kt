@@ -14,10 +14,11 @@ import com.kok1337.mobiledev.databinding.ActivityMainBinding
 import com.kok1337.mobiledev.domain.usecase.SaveUserIdUseCase
 import com.kok1337.mobiledev.presentation.fragment.toolbar.RootFragment
 import com.kok1337.mobiledev.presentation.navigation.AppToolbarNavigator
+import com.kok1337.mobiledev.presentation.navigation.Navigator
 import com.kok1337.mobiledev.presentation.util.showToast
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+class MainActivity : AppCompatActivity(R.layout.activity_main), Navigator {
 
     private val binding by viewBinding(ActivityMainBinding::bind)
 
@@ -92,4 +93,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             Log.e("ToolbarNavigator", "$index   $backStackSize   $fragmentName")
         }
     }
+
+    override fun showFragment(fragment: Fragment) = toolbarNavigator.launchFragment(fragment)
 }

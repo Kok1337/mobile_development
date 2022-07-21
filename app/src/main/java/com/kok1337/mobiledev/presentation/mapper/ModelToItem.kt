@@ -38,3 +38,5 @@ fun Bonitet.toItem(): BonitetItem = BonitetItem(id, value)
 fun Tlu.toItem(): TluItem = TluItem(id, value)
 
 fun Origin.toItem(): OriginItem = OriginItem(id, name, value)
+
+fun Land.toItem(): LandItem = LandItem(id, name, isForestLand)

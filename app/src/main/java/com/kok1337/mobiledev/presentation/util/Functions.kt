@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.kok1337.mobiledev.app.App
 import com.kok1337.mobiledev.di.AppComponent
 import com.kok1337.mobiledev.presentation.adapter.recyclerbindingadapter.BindingAdapter
+import com.kok1337.mobiledev.presentation.navigation.Navigator
 import com.kok1337.mobiledev.presentation.view.searchablespinner.SearchableSpinner
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -52,4 +53,8 @@ fun unwrapAppCompatActivity(context: Context): AppCompatActivity {
 
 fun showDialog(dialog: DialogFragment, context: Context) {
     dialog.show(unwrapAppCompatActivity(context).supportFragmentManager, dialog::class.simpleName ?: "TAG")
+}
+
+fun Fragment.navigator(): Navigator {
+    return requireActivity() as Navigator
 }

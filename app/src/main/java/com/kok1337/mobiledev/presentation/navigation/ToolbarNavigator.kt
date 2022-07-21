@@ -14,7 +14,7 @@ interface ToolbarNavigator {
 
     fun showSettingScreen()
 
-    fun openTabFragment(tabFragment: Fragment)
+    fun launchFragment(fragment: Fragment)
 
     fun goBack()
 

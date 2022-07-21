@@ -83,6 +83,9 @@ interface DataBindModule {
 
     @Binds @Suppress("FunctionName")
     fun bindOriginStorageDbImpl_to_OriginStorage(originStorageDbImpl: OriginStorageDbImpl): OriginStorage
+
+    @Binds @Suppress("FunctionName")
+    fun bindLandStorageLocalImpl_to_LandStorage(landStorageLocalImpl: LandStorageLocalImpl): LandStorage
 }
 
 @Module

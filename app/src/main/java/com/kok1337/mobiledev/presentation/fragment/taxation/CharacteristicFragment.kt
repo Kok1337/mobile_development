@@ -91,6 +91,12 @@ class CharacteristicFragment : Fragment(R.layout.fragment_tax_characteristic) {
             viewModel.onOriginItemSelected(it)
         }
 
+    private val landAdapter = DictionaryAdapter<LandItem>()
+    private val landConf =
+        SearchableSpinner.SearchableSpinnerConfiguration(landAdapter) {
+            viewModel.onLandItemSelected(it)
+        }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -101,6 +107,11 @@ class CharacteristicFragment : Fragment(R.layout.fragment_tax_characteristic) {
         initItemsLdObservers()
         setSpinnerConfigurations()
 
+
+        binding.coveredForestCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.setCoveredForest(isChecked)
+        }
+        binding.coveredForestCheckBox.isChecked = true
         // binding.ooptButton.setOnClickListener { openOoptInfoDialog() }
     }
 
@@ -131,6 +142,11 @@ class CharacteristicFragment : Fragment(R.layout.fragment_tax_characteristic) {
         { uiModel.tluListSize = it }
         viewModel.originSLD.itemCountLD.observe(viewLifecycleOwner)
         { uiModel.originListSize = it }
+        viewModel.isCoveredForestLD.observe(viewLifecycleOwner)
+        { uiModel.isCoveredForest = it }
+        viewModel.landSLD.itemCountLD.observe(viewLifecycleOwner)
+        { uiModel.landListSize = it }
+
 
         mainViewModel.editEnabledLD.observe(viewLifecycleOwner)
         { uiModel.isEdit = it }
@@ -153,6 +169,8 @@ class CharacteristicFragment : Fragment(R.layout.fragment_tax_characteristic) {
         { tluConf.selectedItem = it }
         viewModel.originSLD.selectedItemLD.observe(viewLifecycleOwner)
         { originConf.selectedItem = it }
+        viewModel.landSLD.selectedItemLD.observe(viewLifecycleOwner)
+        { landConf.selectedItem = it }
     }
 
     private fun initItemsLdObservers() {
@@ -174,7 +192,9 @@ class CharacteristicFragment : Fragment(R.layout.fragment_tax_characteristic) {
         viewModel.tluSLD.itemsLD.observe(viewLifecycleOwner)
         { setItemsAndTryAutoSelect(binding.tluSpinner, tluAdapter, it) }
         viewModel.originSLD.itemsLD.observe(viewLifecycleOwner)
-        { setItemsAndTryAutoSelect(binding.originAndLandSpinner, originAdapter, it) }
+        { setItemsAndTryAutoSelect(binding.originSpinner, originAdapter, it) }
+        viewModel.landSLD.itemsLD.observe(viewLifecycleOwner)
+        { setItemsAndTryAutoSelect(binding.landSpinner, landAdapter, it) }
     }
 
     private fun setSpinnerConfigurations() {
@@ -185,6 +205,7 @@ class CharacteristicFragment : Fragment(R.layout.fragment_tax_characteristic) {
         binding.ozuSpinner.searchableSpinnerConfiguration = ozuConf
         binding.bonitetSpinner.searchableSpinnerConfiguration = bonitetConf
         binding.tluSpinner.searchableSpinnerConfiguration = tluConf
-        binding.originAndLandSpinner.searchableSpinnerConfiguration = originConf
+        binding.originSpinner.searchableSpinnerConfiguration = originConf
+        binding.landSpinner.searchableSpinnerConfiguration = landConf
     }
 }

@@ -30,8 +30,22 @@ class CharacteristicUIModel : BaseObservable() {
     val isTluSpinnerEnabled: Boolean
         @Bindable get() = tluListSize != 0 && isEdit
 
-    val isOriginAndLandSpinnerEnabled: Boolean
+    val isOriginSpinnerEnabled: Boolean
         @Bindable get() = originListSize != 0 && isEdit
+
+    val isCoveredForestCheckBoxEnabled: Boolean
+        @Bindable get() = isEdit
+
+    val isLandSpinnerEnabled: Boolean
+        @Bindable get() = landListSize != 0 && isEdit
+
+
+    var isCoveredForest: Boolean = true
+        @Bindable get
+        set(value) {
+            field = value
+            notifyChange()
+        }
 
 
     var isEdit: Boolean = false
@@ -40,6 +54,10 @@ class CharacteristicUIModel : BaseObservable() {
             field = value
             notifyChange()
         }
+
+    val title: String
+        @Bindable get() = if (isCoveredForest) "Происхождение" else "Земля"
+
 
     var landCategoryListSize: Int = 0
         set(value) {
@@ -86,6 +104,12 @@ class CharacteristicUIModel : BaseObservable() {
     var originListSize: Int = 0
         set(value) {
             field = value
-            notifyPropertyChanged(BR.originAndLandSpinnerEnabled)
+            notifyPropertyChanged(BR.originSpinnerEnabled)
+        }
+
+    var landListSize: Int = 0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.landSpinnerEnabled)
         }
 }
